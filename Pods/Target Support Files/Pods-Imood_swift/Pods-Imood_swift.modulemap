@@ -1,0 +1,6 @@
+framework module Pods_Imood_swift {
+  umbrella header "Pods-Imood_swift-umbrella.h"
+
+  export *
+  module * { export * }
+}

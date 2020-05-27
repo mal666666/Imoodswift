@@ -11,8 +11,12 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    let window: UIWindow? = UIWindow()
+    let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateInitialViewController()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        window?.rootViewController = vc
+        window?.makeKeyAndVisible()
         return true
     }
 

@@ -33,9 +33,48 @@ class ViewController: UIViewController {
             make?.top.equalTo()(backgroundIV.mas_bottom)
             make?.left.right()?.offset()(0)
         }
+        //选音乐风格
+        let selectBtn = UIButton()
+        self.view.addSubview(selectBtn)
+        selectBtn.setImage(UIImage.init(named: "music_add"), for: .normal)
+        selectBtn.addTarget(self, action: #selector(btnClick), for: .touchUpInside)
+        selectBtn.mas_makeConstraints { (make) in
+            make?.width.height()?.offset()(35)
+            make?.left.offset()(10)
+            make?.top.equalTo()(scroll.mas_bottom)?.offset()(20)
+        }
+        //设置视频时间滑竿
+        let slider = UISlider()
+        self.view.addSubview(slider)
+        slider.setThumbImage(UIImage.init(named: "faderKey"), for: .normal)
+        slider.mas_makeConstraints { (make) in
+            make?.left.equalTo()(selectBtn.mas_right)?.offset()(20)
+            make?.right.offset()(-20)
+            make?.centerY.equalTo()(selectBtn)
+        }
+    
+    }
+    @objc func btnClick(){
+        let ac = UIAlertController.init(title: "提示", message: "请选择音乐风格", preferredStyle: .actionSheet)
+        let cancelAC = UIAlertAction.init(title: "取消", style: .cancel) { (action) in
+            
+        }
+        let itemS = ["流行","金属","思念","电子"]
+        ac.addAction(cancelAC)
+        for item in itemS {
+            let action = UIAlertAction.init(title: item, style: .default) { (action) in
+                let composerVC = ComposerViewController()
+                composerVC.modalPresentationStyle = .fullScreen
+                self.present(composerVC, animated: true) {
+                }
+            }
+            ac.addAction(action)
+        }
+        
+        self.present(ac, animated: true) {
+            
+        }
         
     }
-
-
 }
 

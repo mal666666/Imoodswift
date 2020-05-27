@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		248B7622A493F98FEEDDCDE7 /* Pods_Imood_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F185DBE30A5B5B41FE188746 /* Pods_Imood_swift.framework */; };
+		2F40E0EA247E6A8400A0C76F /* ComposerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F40E0E9247E6A8400A0C76F /* ComposerViewController.swift */; };
 		2F87DC58247BBEDA009C2ED4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F87DC57247BBEDA009C2ED4 /* AppDelegate.swift */; };
 		2F87DC5A247BBEDA009C2ED4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F87DC59247BBEDA009C2ED4 /* SceneDelegate.swift */; };
 		2F87DC5C247BBEDA009C2ED4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F87DC5B247BBEDA009C2ED4 /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F40E0E9247E6A8400A0C76F /* ComposerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposerViewController.swift; sourceTree = "<group>"; };
 		2F87DC54247BBEDA009C2ED4 /* Imood_swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Imood_swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F87DC57247BBEDA009C2ED4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2F87DC59247BBEDA009C2ED4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,7 +50,6 @@
 				87136052D60CA11E60C36E15 /* Pods-Imood_swift.debug.xcconfig */,
 				5CCC3A2E3E35C5F251E0C831 /* Pods-Imood_swift.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -76,6 +77,7 @@
 				2F87DC57247BBEDA009C2ED4 /* AppDelegate.swift */,
 				2F87DC59247BBEDA009C2ED4 /* SceneDelegate.swift */,
 				2F87DC5B247BBEDA009C2ED4 /* ViewController.swift */,
+				2F40E0E9247E6A8400A0C76F /* ComposerViewController.swift */,
 				2F87DC5D247BBEDA009C2ED4 /* Main.storyboard */,
 				2F87DC60247BBEDC009C2ED4 /* Assets.xcassets */,
 				2F87DC62247BBEDC009C2ED4 /* LaunchScreen.storyboard */,
@@ -209,6 +211,7 @@
 			files = (
 				2F87DC5C247BBEDA009C2ED4 /* ViewController.swift in Sources */,
 				2F87DC58247BBEDA009C2ED4 /* AppDelegate.swift in Sources */,
+				2F40E0EA247E6A8400A0C76F /* ComposerViewController.swift in Sources */,
 				2F87DC5A247BBEDA009C2ED4 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

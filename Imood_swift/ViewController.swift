@@ -18,9 +18,8 @@ class ViewController: UIViewController {
         //背景
         let backgroundIV :UIImageView = UIImageView.init(image: UIImage.init(named: "background"))
         self.view.addSubview(backgroundIV)
-        //backgroundIV.frame = CGRect(x: 0,y: 0,width: 330,height: 330)
         backgroundIV.mas_makeConstraints { (make) in
-            make?.height.equalTo()(self.view.mas_width)
+            make?.height.offset()(MGBase.screen_width())
             make?.topMargin.equalTo()(self.view)
             make?.left.right()?.offset()(0)
         }
@@ -41,7 +40,7 @@ class ViewController: UIViewController {
         selectBtn.mas_makeConstraints { (make) in
             make?.width.height()?.offset()(35)
             make?.left.offset()(10)
-            make?.top.equalTo()(scroll.mas_bottom)?.offset()(20)
+            make?.top.equalTo()(scroll.mas_bottom)?.offset()(40)
         }
         //设置视频时间滑竿
         let slider = UISlider()

@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         let backgroundIV :UIImageView = UIImageView.init(image: UIImage.init(named: "background"))
         self.view.addSubview(backgroundIV)
         backgroundIV.mas_makeConstraints { (make) in
-            make?.height.offset()(MGBase.screen_width())
+            make?.height.offset()(MGBase.screenWidth)
             make?.topMargin.equalTo()(self.view)
             make?.left.right()?.offset()(0)
         }
@@ -64,6 +64,7 @@ class ViewController: UIViewController {
             let action = UIAlertAction.init(title: item, style: .default) { (action) in
                 let composerVC = ComposerViewController()
                 composerVC.modalPresentationStyle = .fullScreen
+                composerVC.type = item
                 self.present(composerVC, animated: true) {
                 }
             }

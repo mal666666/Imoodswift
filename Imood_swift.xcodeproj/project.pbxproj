@@ -8,6 +8,86 @@
 
 /* Begin PBXBuildFile section */
 		248B7622A493F98FEEDDCDE7 /* Pods_Imood_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F185DBE30A5B5B41FE188746 /* Pods_Imood_swift.framework */; };
+		2F1CF92E2484D9800092BE4D /* SN-贝斯2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8B32484D9800092BE4D /* SN-贝斯2.mp3 */; };
+		2F1CF92F2484D9800092BE4D /* SN-贝斯3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8B42484D9800092BE4D /* SN-贝斯3.mp3 */; };
+		2F1CF9302484D9800092BE4D /* SN-贝斯1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8B52484D9800092BE4D /* SN-贝斯1.mp3 */; };
+		2F1CF9312484D9800092BE4D /* SN-贝斯4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8B62484D9800092BE4D /* SN-贝斯4.mp3 */; };
+		2F1CF9322484D9800092BE4D /* SN-贝斯5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8B72484D9800092BE4D /* SN-贝斯5.mp3 */; };
+		2F1CF9332484D9800092BE4D /* SN-键盘5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8B82484D9800092BE4D /* SN-键盘5.mp3 */; };
+		2F1CF9342484D9800092BE4D /* SN-键盘4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8B92484D9800092BE4D /* SN-键盘4.mp3 */; };
+		2F1CF9352484D9800092BE4D /* SN-键盘1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8BA2484D9800092BE4D /* SN-键盘1.mp3 */; };
+		2F1CF9362484D9800092BE4D /* SN-键盘3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8BB2484D9800092BE4D /* SN-键盘3.mp3 */; };
+		2F1CF9372484D9800092BE4D /* SN-键盘2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8BC2484D9800092BE4D /* SN-键盘2.mp3 */; };
+		2F1CF9382484D9800092BE4D /* SN-吉他5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8BD2484D9800092BE4D /* SN-吉他5.mp3 */; };
+		2F1CF9392484D9800092BE4D /* SN-吉他4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8BE2484D9800092BE4D /* SN-吉他4.mp3 */; };
+		2F1CF93A2484D9800092BE4D /* SN-吉他1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8BF2484D9800092BE4D /* SN-吉他1.mp3 */; };
+		2F1CF93B2484D9800092BE4D /* SN-吉他3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8C02484D9800092BE4D /* SN-吉他3.mp3 */; };
+		2F1CF93C2484D9800092BE4D /* SN-吉他2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8C12484D9800092BE4D /* SN-吉他2.mp3 */; };
+		2F1CF93D2484D9800092BE4D /* SN-鼓2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8C22484D9800092BE4D /* SN-鼓2.mp3 */; };
+		2F1CF93E2484D9800092BE4D /* SN-鼓3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8C32484D9800092BE4D /* SN-鼓3.mp3 */; };
+		2F1CF93F2484D9800092BE4D /* SN-鼓1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8C42484D9800092BE4D /* SN-鼓1.mp3 */; };
+		2F1CF9402484D9800092BE4D /* SN-鼓4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8C52484D9800092BE4D /* SN-鼓4.mp3 */; };
+		2F1CF9412484D9800092BE4D /* SN-鼓5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8C62484D9800092BE4D /* SN-鼓5.mp3 */; };
+		2F1CF9462484D9800092BE4D /* JS-节奏吉他1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8CF2484D9800092BE4D /* JS-节奏吉他1.mp3 */; };
+		2F1CF9472484D9800092BE4D /* JS-节奏吉他2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8D02484D9800092BE4D /* JS-节奏吉他2.mp3 */; };
+		2F1CF9482484D9800092BE4D /* JS-节奏吉他3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8D12484D9800092BE4D /* JS-节奏吉他3.mp3 */; };
+		2F1CF9492484D9800092BE4D /* JS-节奏吉他4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8D22484D9800092BE4D /* JS-节奏吉他4.mp3 */; };
+		2F1CF94A2484D9800092BE4D /* JS-节奏吉他5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8D32484D9800092BE4D /* JS-节奏吉他5.mp3 */; };
+		2F1CF94B2484D9800092BE4D /* JS-贝斯5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8D42484D9800092BE4D /* JS-贝斯5.mp3 */; };
+		2F1CF94C2484D9800092BE4D /* JS-贝斯4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8D52484D9800092BE4D /* JS-贝斯4.mp3 */; };
+		2F1CF94D2484D9800092BE4D /* JS-贝斯1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8D62484D9800092BE4D /* JS-贝斯1.mp3 */; };
+		2F1CF94E2484D9800092BE4D /* JS-贝斯3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8D72484D9800092BE4D /* JS-贝斯3.mp3 */; };
+		2F1CF94F2484D9800092BE4D /* JS-贝斯2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8D82484D9800092BE4D /* JS-贝斯2.mp3 */; };
+		2F1CF9502484D9800092BE4D /* JS-主音吉他2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8D92484D9800092BE4D /* JS-主音吉他2.mp3 */; };
+		2F1CF9512484D9800092BE4D /* JS-鼓1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8DA2484D9800092BE4D /* JS-鼓1.mp3 */; };
+		2F1CF9522484D9800092BE4D /* JS-主音吉他3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8DB2484D9800092BE4D /* JS-主音吉他3.mp3 */; };
+		2F1CF9532484D9800092BE4D /* JS-主音吉他1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8DC2484D9800092BE4D /* JS-主音吉他1.mp3 */; };
+		2F1CF9542484D9800092BE4D /* JS-鼓2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8DD2484D9800092BE4D /* JS-鼓2.mp3 */; };
+		2F1CF9552484D9800092BE4D /* JS-鼓3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8DE2484D9800092BE4D /* JS-鼓3.mp3 */; };
+		2F1CF9562484D9800092BE4D /* JS-主音吉他4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8DF2484D9800092BE4D /* JS-主音吉他4.mp3 */; };
+		2F1CF9572484D9800092BE4D /* JS-主音吉他5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8E02484D9800092BE4D /* JS-主音吉他5.mp3 */; };
+		2F1CF9582484D9800092BE4D /* JS-鼓4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8E12484D9800092BE4D /* JS-鼓4.mp3 */; };
+		2F1CF9592484D9800092BE4D /* JS-鼓5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8E22484D9800092BE4D /* JS-鼓5.mp3 */; };
+		2F1CF95A2484D9800092BE4D /* DZ-鼓5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8E42484D9800092BE4D /* DZ-鼓5.mp3 */; };
+		2F1CF95B2484D9800092BE4D /* DZ-贝斯5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8E52484D9800092BE4D /* DZ-贝斯5.mp3 */; };
+		2F1CF95C2484D9800092BE4D /* DZ-贝斯4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8E62484D9800092BE4D /* DZ-贝斯4.mp3 */; };
+		2F1CF95D2484D9800092BE4D /* DZ-鼓4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8E72484D9800092BE4D /* DZ-鼓4.mp3 */; };
+		2F1CF95E2484D9800092BE4D /* DZ-鼓3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8E82484D9800092BE4D /* DZ-鼓3.mp3 */; };
+		2F1CF95F2484D9800092BE4D /* DZ-贝斯3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8E92484D9800092BE4D /* DZ-贝斯3.mp3 */; };
+		2F1CF9602484D9800092BE4D /* DZ-贝斯2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8EA2484D9800092BE4D /* DZ-贝斯2.mp3 */; };
+		2F1CF9612484D9800092BE4D /* DZ-鼓2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8EB2484D9800092BE4D /* DZ-鼓2.mp3 */; };
+		2F1CF9622484D9800092BE4D /* DZ-贝斯1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8EC2484D9800092BE4D /* DZ-贝斯1.mp3 */; };
+		2F1CF9632484D9800092BE4D /* DZ-鼓1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8ED2484D9800092BE4D /* DZ-鼓1.mp3 */; };
+		2F1CF9642484D9800092BE4D /* DZ-键盘1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8EE2484D9800092BE4D /* DZ-键盘1.mp3 */; };
+		2F1CF9652484D9800092BE4D /* DZ-DJ1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8EF2484D9800092BE4D /* DZ-DJ1.mp3 */; };
+		2F1CF9662484D9800092BE4D /* DZ-键盘2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8F02484D9800092BE4D /* DZ-键盘2.mp3 */; };
+		2F1CF9672484D9800092BE4D /* DZ-DJ2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8F12484D9800092BE4D /* DZ-DJ2.mp3 */; };
+		2F1CF9682484D9800092BE4D /* DZ-DJ3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8F22484D9800092BE4D /* DZ-DJ3.mp3 */; };
+		2F1CF9692484D9800092BE4D /* DZ-键盘3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8F32484D9800092BE4D /* DZ-键盘3.mp3 */; };
+		2F1CF96A2484D9800092BE4D /* DZ-键盘4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8F42484D9800092BE4D /* DZ-键盘4.mp3 */; };
+		2F1CF96B2484D9800092BE4D /* DZ-DJ4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8F52484D9800092BE4D /* DZ-DJ4.mp3 */; };
+		2F1CF96C2484D9800092BE4D /* DZ-DJ5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8F62484D9800092BE4D /* DZ-DJ5.mp3 */; };
+		2F1CF96D2484D9800092BE4D /* DZ-键盘5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8F72484D9800092BE4D /* DZ-键盘5.mp3 */; };
+		2F1CF96E2484D9800092BE4D /* LX-主音吉他4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8F92484D9800092BE4D /* LX-主音吉他4.mp3 */; };
+		2F1CF96F2484D9800092BE4D /* LX-主音吉他5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8FA2484D9800092BE4D /* LX-主音吉他5.mp3 */; };
+		2F1CF9702484D9800092BE4D /* LX-主音吉他2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8FB2484D9800092BE4D /* LX-主音吉他2.mp3 */; };
+		2F1CF9712484D9800092BE4D /* LX-主音吉他3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8FC2484D9800092BE4D /* LX-主音吉他3.mp3 */; };
+		2F1CF9722484D9800092BE4D /* LX-主音吉他1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8FD2484D9800092BE4D /* LX-主音吉他1.mp3 */; };
+		2F1CF9732484D9800092BE4D /* LX-贝斯5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8FE2484D9800092BE4D /* LX-贝斯5.mp3 */; };
+		2F1CF9742484D9800092BE4D /* LX-贝斯4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8FF2484D9800092BE4D /* LX-贝斯4.mp3 */; };
+		2F1CF9752484D9800092BE4D /* LX-贝斯3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF9002484D9800092BE4D /* LX-贝斯3.mp3 */; };
+		2F1CF9762484D9800092BE4D /* LX-贝斯2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF9012484D9800092BE4D /* LX-贝斯2.mp3 */; };
+		2F1CF9772484D9800092BE4D /* LX-贝斯1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF9022484D9800092BE4D /* LX-贝斯1.mp3 */; };
+		2F1CF9782484D9800092BE4D /* LX-鼓5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF9032484D9800092BE4D /* LX-鼓5.mp3 */; };
+		2F1CF9792484D9800092BE4D /* LX-鼓4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF9042484D9800092BE4D /* LX-鼓4.mp3 */; };
+		2F1CF97A2484D9800092BE4D /* LX-鼓1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF9052484D9800092BE4D /* LX-鼓1.mp3 */; };
+		2F1CF97B2484D9800092BE4D /* LX-鼓3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF9062484D9800092BE4D /* LX-鼓3.mp3 */; };
+		2F1CF97C2484D9800092BE4D /* LX-鼓2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF9072484D9800092BE4D /* LX-鼓2.mp3 */; };
+		2F1CF97D2484D9800092BE4D /* LX-节奏吉他4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF9082484D9800092BE4D /* LX-节奏吉他4.mp3 */; };
+		2F1CF97E2484D9800092BE4D /* LX-节奏吉他5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF9092484D9800092BE4D /* LX-节奏吉他5.mp3 */; };
+		2F1CF97F2484D9800092BE4D /* LX-节奏吉他1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF90A2484D9800092BE4D /* LX-节奏吉他1.mp3 */; };
+		2F1CF9802484D9800092BE4D /* LX-节奏吉他2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF90B2484D9800092BE4D /* LX-节奏吉他2.mp3 */; };
+		2F1CF9812484D9800092BE4D /* LX-节奏吉他3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF90C2484D9800092BE4D /* LX-节奏吉他3.mp3 */; };
 		2F40E0EA247E6A8400A0C76F /* ComposerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F40E0E9247E6A8400A0C76F /* ComposerViewController.swift */; };
 		2F40E0EC247FBB0E00A0C76F /* MGBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F40E0EB247FBB0E00A0C76F /* MGBase.swift */; };
 		2F40E1102483517100A0C76F /* ComposerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F40E10F2483517100A0C76F /* ComposerCell.swift */; };
@@ -20,6 +100,86 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F1CF8B32484D9800092BE4D /* SN-贝斯2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-贝斯2.mp3"; sourceTree = "<group>"; };
+		2F1CF8B42484D9800092BE4D /* SN-贝斯3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-贝斯3.mp3"; sourceTree = "<group>"; };
+		2F1CF8B52484D9800092BE4D /* SN-贝斯1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-贝斯1.mp3"; sourceTree = "<group>"; };
+		2F1CF8B62484D9800092BE4D /* SN-贝斯4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-贝斯4.mp3"; sourceTree = "<group>"; };
+		2F1CF8B72484D9800092BE4D /* SN-贝斯5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-贝斯5.mp3"; sourceTree = "<group>"; };
+		2F1CF8B82484D9800092BE4D /* SN-键盘5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-键盘5.mp3"; sourceTree = "<group>"; };
+		2F1CF8B92484D9800092BE4D /* SN-键盘4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-键盘4.mp3"; sourceTree = "<group>"; };
+		2F1CF8BA2484D9800092BE4D /* SN-键盘1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-键盘1.mp3"; sourceTree = "<group>"; };
+		2F1CF8BB2484D9800092BE4D /* SN-键盘3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-键盘3.mp3"; sourceTree = "<group>"; };
+		2F1CF8BC2484D9800092BE4D /* SN-键盘2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-键盘2.mp3"; sourceTree = "<group>"; };
+		2F1CF8BD2484D9800092BE4D /* SN-吉他5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-吉他5.mp3"; sourceTree = "<group>"; };
+		2F1CF8BE2484D9800092BE4D /* SN-吉他4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-吉他4.mp3"; sourceTree = "<group>"; };
+		2F1CF8BF2484D9800092BE4D /* SN-吉他1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-吉他1.mp3"; sourceTree = "<group>"; };
+		2F1CF8C02484D9800092BE4D /* SN-吉他3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-吉他3.mp3"; sourceTree = "<group>"; };
+		2F1CF8C12484D9800092BE4D /* SN-吉他2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-吉他2.mp3"; sourceTree = "<group>"; };
+		2F1CF8C22484D9800092BE4D /* SN-鼓2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-鼓2.mp3"; sourceTree = "<group>"; };
+		2F1CF8C32484D9800092BE4D /* SN-鼓3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-鼓3.mp3"; sourceTree = "<group>"; };
+		2F1CF8C42484D9800092BE4D /* SN-鼓1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-鼓1.mp3"; sourceTree = "<group>"; };
+		2F1CF8C52484D9800092BE4D /* SN-鼓4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-鼓4.mp3"; sourceTree = "<group>"; };
+		2F1CF8C62484D9800092BE4D /* SN-鼓5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-鼓5.mp3"; sourceTree = "<group>"; };
+		2F1CF8CF2484D9800092BE4D /* JS-节奏吉他1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-节奏吉他1.mp3"; sourceTree = "<group>"; };
+		2F1CF8D02484D9800092BE4D /* JS-节奏吉他2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-节奏吉他2.mp3"; sourceTree = "<group>"; };
+		2F1CF8D12484D9800092BE4D /* JS-节奏吉他3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-节奏吉他3.mp3"; sourceTree = "<group>"; };
+		2F1CF8D22484D9800092BE4D /* JS-节奏吉他4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-节奏吉他4.mp3"; sourceTree = "<group>"; };
+		2F1CF8D32484D9800092BE4D /* JS-节奏吉他5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-节奏吉他5.mp3"; sourceTree = "<group>"; };
+		2F1CF8D42484D9800092BE4D /* JS-贝斯5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-贝斯5.mp3"; sourceTree = "<group>"; };
+		2F1CF8D52484D9800092BE4D /* JS-贝斯4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-贝斯4.mp3"; sourceTree = "<group>"; };
+		2F1CF8D62484D9800092BE4D /* JS-贝斯1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-贝斯1.mp3"; sourceTree = "<group>"; };
+		2F1CF8D72484D9800092BE4D /* JS-贝斯3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-贝斯3.mp3"; sourceTree = "<group>"; };
+		2F1CF8D82484D9800092BE4D /* JS-贝斯2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-贝斯2.mp3"; sourceTree = "<group>"; };
+		2F1CF8D92484D9800092BE4D /* JS-主音吉他2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-主音吉他2.mp3"; sourceTree = "<group>"; };
+		2F1CF8DA2484D9800092BE4D /* JS-鼓1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-鼓1.mp3"; sourceTree = "<group>"; };
+		2F1CF8DB2484D9800092BE4D /* JS-主音吉他3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-主音吉他3.mp3"; sourceTree = "<group>"; };
+		2F1CF8DC2484D9800092BE4D /* JS-主音吉他1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-主音吉他1.mp3"; sourceTree = "<group>"; };
+		2F1CF8DD2484D9800092BE4D /* JS-鼓2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-鼓2.mp3"; sourceTree = "<group>"; };
+		2F1CF8DE2484D9800092BE4D /* JS-鼓3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-鼓3.mp3"; sourceTree = "<group>"; };
+		2F1CF8DF2484D9800092BE4D /* JS-主音吉他4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-主音吉他4.mp3"; sourceTree = "<group>"; };
+		2F1CF8E02484D9800092BE4D /* JS-主音吉他5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-主音吉他5.mp3"; sourceTree = "<group>"; };
+		2F1CF8E12484D9800092BE4D /* JS-鼓4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-鼓4.mp3"; sourceTree = "<group>"; };
+		2F1CF8E22484D9800092BE4D /* JS-鼓5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "JS-鼓5.mp3"; sourceTree = "<group>"; };
+		2F1CF8E42484D9800092BE4D /* DZ-鼓5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-鼓5.mp3"; sourceTree = "<group>"; };
+		2F1CF8E52484D9800092BE4D /* DZ-贝斯5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-贝斯5.mp3"; sourceTree = "<group>"; };
+		2F1CF8E62484D9800092BE4D /* DZ-贝斯4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-贝斯4.mp3"; sourceTree = "<group>"; };
+		2F1CF8E72484D9800092BE4D /* DZ-鼓4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-鼓4.mp3"; sourceTree = "<group>"; };
+		2F1CF8E82484D9800092BE4D /* DZ-鼓3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-鼓3.mp3"; sourceTree = "<group>"; };
+		2F1CF8E92484D9800092BE4D /* DZ-贝斯3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-贝斯3.mp3"; sourceTree = "<group>"; };
+		2F1CF8EA2484D9800092BE4D /* DZ-贝斯2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-贝斯2.mp3"; sourceTree = "<group>"; };
+		2F1CF8EB2484D9800092BE4D /* DZ-鼓2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-鼓2.mp3"; sourceTree = "<group>"; };
+		2F1CF8EC2484D9800092BE4D /* DZ-贝斯1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-贝斯1.mp3"; sourceTree = "<group>"; };
+		2F1CF8ED2484D9800092BE4D /* DZ-鼓1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-鼓1.mp3"; sourceTree = "<group>"; };
+		2F1CF8EE2484D9800092BE4D /* DZ-键盘1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-键盘1.mp3"; sourceTree = "<group>"; };
+		2F1CF8EF2484D9800092BE4D /* DZ-DJ1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-DJ1.mp3"; sourceTree = "<group>"; };
+		2F1CF8F02484D9800092BE4D /* DZ-键盘2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-键盘2.mp3"; sourceTree = "<group>"; };
+		2F1CF8F12484D9800092BE4D /* DZ-DJ2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-DJ2.mp3"; sourceTree = "<group>"; };
+		2F1CF8F22484D9800092BE4D /* DZ-DJ3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-DJ3.mp3"; sourceTree = "<group>"; };
+		2F1CF8F32484D9800092BE4D /* DZ-键盘3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-键盘3.mp3"; sourceTree = "<group>"; };
+		2F1CF8F42484D9800092BE4D /* DZ-键盘4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-键盘4.mp3"; sourceTree = "<group>"; };
+		2F1CF8F52484D9800092BE4D /* DZ-DJ4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-DJ4.mp3"; sourceTree = "<group>"; };
+		2F1CF8F62484D9800092BE4D /* DZ-DJ5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-DJ5.mp3"; sourceTree = "<group>"; };
+		2F1CF8F72484D9800092BE4D /* DZ-键盘5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "DZ-键盘5.mp3"; sourceTree = "<group>"; };
+		2F1CF8F92484D9800092BE4D /* LX-主音吉他4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-主音吉他4.mp3"; sourceTree = "<group>"; };
+		2F1CF8FA2484D9800092BE4D /* LX-主音吉他5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-主音吉他5.mp3"; sourceTree = "<group>"; };
+		2F1CF8FB2484D9800092BE4D /* LX-主音吉他2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-主音吉他2.mp3"; sourceTree = "<group>"; };
+		2F1CF8FC2484D9800092BE4D /* LX-主音吉他3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-主音吉他3.mp3"; sourceTree = "<group>"; };
+		2F1CF8FD2484D9800092BE4D /* LX-主音吉他1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-主音吉他1.mp3"; sourceTree = "<group>"; };
+		2F1CF8FE2484D9800092BE4D /* LX-贝斯5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-贝斯5.mp3"; sourceTree = "<group>"; };
+		2F1CF8FF2484D9800092BE4D /* LX-贝斯4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-贝斯4.mp3"; sourceTree = "<group>"; };
+		2F1CF9002484D9800092BE4D /* LX-贝斯3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-贝斯3.mp3"; sourceTree = "<group>"; };
+		2F1CF9012484D9800092BE4D /* LX-贝斯2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-贝斯2.mp3"; sourceTree = "<group>"; };
+		2F1CF9022484D9800092BE4D /* LX-贝斯1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-贝斯1.mp3"; sourceTree = "<group>"; };
+		2F1CF9032484D9800092BE4D /* LX-鼓5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-鼓5.mp3"; sourceTree = "<group>"; };
+		2F1CF9042484D9800092BE4D /* LX-鼓4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-鼓4.mp3"; sourceTree = "<group>"; };
+		2F1CF9052484D9800092BE4D /* LX-鼓1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-鼓1.mp3"; sourceTree = "<group>"; };
+		2F1CF9062484D9800092BE4D /* LX-鼓3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-鼓3.mp3"; sourceTree = "<group>"; };
+		2F1CF9072484D9800092BE4D /* LX-鼓2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-鼓2.mp3"; sourceTree = "<group>"; };
+		2F1CF9082484D9800092BE4D /* LX-节奏吉他4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-节奏吉他4.mp3"; sourceTree = "<group>"; };
+		2F1CF9092484D9800092BE4D /* LX-节奏吉他5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-节奏吉他5.mp3"; sourceTree = "<group>"; };
+		2F1CF90A2484D9800092BE4D /* LX-节奏吉他1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-节奏吉他1.mp3"; sourceTree = "<group>"; };
+		2F1CF90B2484D9800092BE4D /* LX-节奏吉他2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-节奏吉他2.mp3"; sourceTree = "<group>"; };
+		2F1CF90C2484D9800092BE4D /* LX-节奏吉他3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-节奏吉他3.mp3"; sourceTree = "<group>"; };
 		2F40E0E9247E6A8400A0C76F /* ComposerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposerViewController.swift; sourceTree = "<group>"; };
 		2F40E0EB247FBB0E00A0C76F /* MGBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGBase.swift; sourceTree = "<group>"; };
 		2F40E10F2483517100A0C76F /* ComposerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposerCell.swift; sourceTree = "<group>"; };
@@ -57,6 +217,125 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		2F1CF88F2484D9800092BE4D /* Resouce */ = {
+			isa = PBXGroup;
+			children = (
+				2F1CF8B22484D9800092BE4D /* 思念 */,
+				2F1CF8CE2484D9800092BE4D /* 金属 */,
+				2F1CF8E32484D9800092BE4D /* 电子 */,
+				2F1CF8F82484D9800092BE4D /* 流行 */,
+			);
+			path = Resouce;
+			sourceTree = "<group>";
+		};
+		2F1CF8B22484D9800092BE4D /* 思念 */ = {
+			isa = PBXGroup;
+			children = (
+				2F1CF8B32484D9800092BE4D /* SN-贝斯2.mp3 */,
+				2F1CF8B42484D9800092BE4D /* SN-贝斯3.mp3 */,
+				2F1CF8B52484D9800092BE4D /* SN-贝斯1.mp3 */,
+				2F1CF8B62484D9800092BE4D /* SN-贝斯4.mp3 */,
+				2F1CF8B72484D9800092BE4D /* SN-贝斯5.mp3 */,
+				2F1CF8B82484D9800092BE4D /* SN-键盘5.mp3 */,
+				2F1CF8B92484D9800092BE4D /* SN-键盘4.mp3 */,
+				2F1CF8BA2484D9800092BE4D /* SN-键盘1.mp3 */,
+				2F1CF8BB2484D9800092BE4D /* SN-键盘3.mp3 */,
+				2F1CF8BC2484D9800092BE4D /* SN-键盘2.mp3 */,
+				2F1CF8BD2484D9800092BE4D /* SN-吉他5.mp3 */,
+				2F1CF8BE2484D9800092BE4D /* SN-吉他4.mp3 */,
+				2F1CF8BF2484D9800092BE4D /* SN-吉他1.mp3 */,
+				2F1CF8C02484D9800092BE4D /* SN-吉他3.mp3 */,
+				2F1CF8C12484D9800092BE4D /* SN-吉他2.mp3 */,
+				2F1CF8C22484D9800092BE4D /* SN-鼓2.mp3 */,
+				2F1CF8C32484D9800092BE4D /* SN-鼓3.mp3 */,
+				2F1CF8C42484D9800092BE4D /* SN-鼓1.mp3 */,
+				2F1CF8C52484D9800092BE4D /* SN-鼓4.mp3 */,
+				2F1CF8C62484D9800092BE4D /* SN-鼓5.mp3 */,
+			);
+			path = "思念";
+			sourceTree = "<group>";
+		};
+		2F1CF8CE2484D9800092BE4D /* 金属 */ = {
+			isa = PBXGroup;
+			children = (
+				2F1CF8CF2484D9800092BE4D /* JS-节奏吉他1.mp3 */,
+				2F1CF8D02484D9800092BE4D /* JS-节奏吉他2.mp3 */,
+				2F1CF8D12484D9800092BE4D /* JS-节奏吉他3.mp3 */,
+				2F1CF8D22484D9800092BE4D /* JS-节奏吉他4.mp3 */,
+				2F1CF8D32484D9800092BE4D /* JS-节奏吉他5.mp3 */,
+				2F1CF8D42484D9800092BE4D /* JS-贝斯5.mp3 */,
+				2F1CF8D52484D9800092BE4D /* JS-贝斯4.mp3 */,
+				2F1CF8D62484D9800092BE4D /* JS-贝斯1.mp3 */,
+				2F1CF8D72484D9800092BE4D /* JS-贝斯3.mp3 */,
+				2F1CF8D82484D9800092BE4D /* JS-贝斯2.mp3 */,
+				2F1CF8DC2484D9800092BE4D /* JS-主音吉他1.mp3 */,
+				2F1CF8D92484D9800092BE4D /* JS-主音吉他2.mp3 */,
+				2F1CF8DB2484D9800092BE4D /* JS-主音吉他3.mp3 */,
+				2F1CF8DF2484D9800092BE4D /* JS-主音吉他4.mp3 */,
+				2F1CF8E02484D9800092BE4D /* JS-主音吉他5.mp3 */,
+				2F1CF8DA2484D9800092BE4D /* JS-鼓1.mp3 */,
+				2F1CF8DD2484D9800092BE4D /* JS-鼓2.mp3 */,
+				2F1CF8DE2484D9800092BE4D /* JS-鼓3.mp3 */,
+				2F1CF8E12484D9800092BE4D /* JS-鼓4.mp3 */,
+				2F1CF8E22484D9800092BE4D /* JS-鼓5.mp3 */,
+			);
+			path = "金属";
+			sourceTree = "<group>";
+		};
+		2F1CF8E32484D9800092BE4D /* 电子 */ = {
+			isa = PBXGroup;
+			children = (
+				2F1CF8ED2484D9800092BE4D /* DZ-鼓1.mp3 */,
+				2F1CF8EB2484D9800092BE4D /* DZ-鼓2.mp3 */,
+				2F1CF8E82484D9800092BE4D /* DZ-鼓3.mp3 */,
+				2F1CF8E72484D9800092BE4D /* DZ-鼓4.mp3 */,
+				2F1CF8E42484D9800092BE4D /* DZ-鼓5.mp3 */,
+				2F1CF8E52484D9800092BE4D /* DZ-贝斯5.mp3 */,
+				2F1CF8E62484D9800092BE4D /* DZ-贝斯4.mp3 */,
+				2F1CF8E92484D9800092BE4D /* DZ-贝斯3.mp3 */,
+				2F1CF8EA2484D9800092BE4D /* DZ-贝斯2.mp3 */,
+				2F1CF8EC2484D9800092BE4D /* DZ-贝斯1.mp3 */,
+				2F1CF8EE2484D9800092BE4D /* DZ-键盘1.mp3 */,
+				2F1CF8F02484D9800092BE4D /* DZ-键盘2.mp3 */,
+				2F1CF8F32484D9800092BE4D /* DZ-键盘3.mp3 */,
+				2F1CF8F42484D9800092BE4D /* DZ-键盘4.mp3 */,
+				2F1CF8F72484D9800092BE4D /* DZ-键盘5.mp3 */,
+				2F1CF8EF2484D9800092BE4D /* DZ-DJ1.mp3 */,
+				2F1CF8F12484D9800092BE4D /* DZ-DJ2.mp3 */,
+				2F1CF8F22484D9800092BE4D /* DZ-DJ3.mp3 */,
+				2F1CF8F52484D9800092BE4D /* DZ-DJ4.mp3 */,
+				2F1CF8F62484D9800092BE4D /* DZ-DJ5.mp3 */,
+			);
+			path = "电子";
+			sourceTree = "<group>";
+		};
+		2F1CF8F82484D9800092BE4D /* 流行 */ = {
+			isa = PBXGroup;
+			children = (
+				2F1CF8FD2484D9800092BE4D /* LX-主音吉他1.mp3 */,
+				2F1CF8FB2484D9800092BE4D /* LX-主音吉他2.mp3 */,
+				2F1CF8FC2484D9800092BE4D /* LX-主音吉他3.mp3 */,
+				2F1CF8F92484D9800092BE4D /* LX-主音吉他4.mp3 */,
+				2F1CF8FA2484D9800092BE4D /* LX-主音吉他5.mp3 */,
+				2F1CF8FE2484D9800092BE4D /* LX-贝斯5.mp3 */,
+				2F1CF8FF2484D9800092BE4D /* LX-贝斯4.mp3 */,
+				2F1CF9002484D9800092BE4D /* LX-贝斯3.mp3 */,
+				2F1CF9012484D9800092BE4D /* LX-贝斯2.mp3 */,
+				2F1CF9022484D9800092BE4D /* LX-贝斯1.mp3 */,
+				2F1CF9052484D9800092BE4D /* LX-鼓1.mp3 */,
+				2F1CF9072484D9800092BE4D /* LX-鼓2.mp3 */,
+				2F1CF9062484D9800092BE4D /* LX-鼓3.mp3 */,
+				2F1CF9042484D9800092BE4D /* LX-鼓4.mp3 */,
+				2F1CF9032484D9800092BE4D /* LX-鼓5.mp3 */,
+				2F1CF90A2484D9800092BE4D /* LX-节奏吉他1.mp3 */,
+				2F1CF90B2484D9800092BE4D /* LX-节奏吉他2.mp3 */,
+				2F1CF90C2484D9800092BE4D /* LX-节奏吉他3.mp3 */,
+				2F1CF9082484D9800092BE4D /* LX-节奏吉他4.mp3 */,
+				2F1CF9092484D9800092BE4D /* LX-节奏吉他5.mp3 */,
+			);
+			path = "流行";
+			sourceTree = "<group>";
+		};
 		2F87DC4B247BBEDA009C2ED4 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +367,7 @@
 				2F87DC60247BBEDC009C2ED4 /* Assets.xcassets */,
 				2F87DC62247BBEDC009C2ED4 /* LaunchScreen.storyboard */,
 				2F87DC65247BBEDC009C2ED4 /* Info.plist */,
+				2F1CF88F2484D9800092BE4D /* Resouce */,
 			);
 			path = Imood_swift;
 			sourceTree = "<group>";
@@ -160,9 +440,89 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F1CF95F2484D9800092BE4D /* DZ-贝斯3.mp3 in Resources */,
+				2F1CF93B2484D9800092BE4D /* SN-吉他3.mp3 in Resources */,
+				2F1CF9372484D9800092BE4D /* SN-键盘2.mp3 in Resources */,
+				2F1CF9702484D9800092BE4D /* LX-主音吉他2.mp3 in Resources */,
+				2F1CF9652484D9800092BE4D /* DZ-DJ1.mp3 in Resources */,
+				2F1CF97C2484D9800092BE4D /* LX-鼓2.mp3 in Resources */,
+				2F1CF97B2484D9800092BE4D /* LX-鼓3.mp3 in Resources */,
+				2F1CF97F2484D9800092BE4D /* LX-节奏吉他1.mp3 in Resources */,
+				2F1CF93E2484D9800092BE4D /* SN-鼓3.mp3 in Resources */,
+				2F1CF95B2484D9800092BE4D /* DZ-贝斯5.mp3 in Resources */,
+				2F1CF9732484D9800092BE4D /* LX-贝斯5.mp3 in Resources */,
+				2F1CF9632484D9800092BE4D /* DZ-鼓1.mp3 in Resources */,
+				2F1CF96E2484D9800092BE4D /* LX-主音吉他4.mp3 in Resources */,
+				2F1CF96A2484D9800092BE4D /* DZ-键盘4.mp3 in Resources */,
+				2F1CF9522484D9800092BE4D /* JS-主音吉他3.mp3 in Resources */,
 				2F87DC64247BBEDC009C2ED4 /* LaunchScreen.storyboard in Resources */,
+				2F1CF9602484D9800092BE4D /* DZ-贝斯2.mp3 in Resources */,
+				2F1CF9392484D9800092BE4D /* SN-吉他4.mp3 in Resources */,
+				2F1CF96C2484D9800092BE4D /* DZ-DJ5.mp3 in Resources */,
+				2F1CF93C2484D9800092BE4D /* SN-吉他2.mp3 in Resources */,
+				2F1CF9572484D9800092BE4D /* JS-主音吉他5.mp3 in Resources */,
+				2F1CF9362484D9800092BE4D /* SN-键盘3.mp3 in Resources */,
+				2F1CF9672484D9800092BE4D /* DZ-DJ2.mp3 in Resources */,
 				2F87DC61247BBEDC009C2ED4 /* Assets.xcassets in Resources */,
+				2F1CF9342484D9800092BE4D /* SN-键盘4.mp3 in Resources */,
+				2F1CF9762484D9800092BE4D /* LX-贝斯2.mp3 in Resources */,
+				2F1CF9682484D9800092BE4D /* DZ-DJ3.mp3 in Resources */,
 				2F87DC5F247BBEDA009C2ED4 /* Main.storyboard in Resources */,
+				2F1CF9312484D9800092BE4D /* SN-贝斯4.mp3 in Resources */,
+				2F1CF95C2484D9800092BE4D /* DZ-贝斯4.mp3 in Resources */,
+				2F1CF9592484D9800092BE4D /* JS-鼓5.mp3 in Resources */,
+				2F1CF93D2484D9800092BE4D /* SN-鼓2.mp3 in Resources */,
+				2F1CF9462484D9800092BE4D /* JS-节奏吉他1.mp3 in Resources */,
+				2F1CF96B2484D9800092BE4D /* DZ-DJ4.mp3 in Resources */,
+				2F1CF9352484D9800092BE4D /* SN-键盘1.mp3 in Resources */,
+				2F1CF9782484D9800092BE4D /* LX-鼓5.mp3 in Resources */,
+				2F1CF95A2484D9800092BE4D /* DZ-鼓5.mp3 in Resources */,
+				2F1CF9302484D9800092BE4D /* SN-贝斯1.mp3 in Resources */,
+				2F1CF9382484D9800092BE4D /* SN-吉他5.mp3 in Resources */,
+				2F1CF9582484D9800092BE4D /* JS-鼓4.mp3 in Resources */,
+				2F1CF9512484D9800092BE4D /* JS-鼓1.mp3 in Resources */,
+				2F1CF97E2484D9800092BE4D /* LX-节奏吉他5.mp3 in Resources */,
+				2F1CF9692484D9800092BE4D /* DZ-键盘3.mp3 in Resources */,
+				2F1CF9772484D9800092BE4D /* LX-贝斯1.mp3 in Resources */,
+				2F1CF9722484D9800092BE4D /* LX-主音吉他1.mp3 in Resources */,
+				2F1CF9752484D9800092BE4D /* LX-贝斯3.mp3 in Resources */,
+				2F1CF94E2484D9800092BE4D /* JS-贝斯3.mp3 in Resources */,
+				2F1CF9622484D9800092BE4D /* DZ-贝斯1.mp3 in Resources */,
+				2F1CF9552484D9800092BE4D /* JS-鼓3.mp3 in Resources */,
+				2F1CF92F2484D9800092BE4D /* SN-贝斯3.mp3 in Resources */,
+				2F1CF9642484D9800092BE4D /* DZ-键盘1.mp3 in Resources */,
+				2F1CF9792484D9800092BE4D /* LX-鼓4.mp3 in Resources */,
+				2F1CF93F2484D9800092BE4D /* SN-鼓1.mp3 in Resources */,
+				2F1CF9482484D9800092BE4D /* JS-节奏吉他3.mp3 in Resources */,
+				2F1CF96F2484D9800092BE4D /* LX-主音吉他5.mp3 in Resources */,
+				2F1CF97D2484D9800092BE4D /* LX-节奏吉他4.mp3 in Resources */,
+				2F1CF93A2484D9800092BE4D /* SN-吉他1.mp3 in Resources */,
+				2F1CF96D2484D9800092BE4D /* DZ-键盘5.mp3 in Resources */,
+				2F1CF9502484D9800092BE4D /* JS-主音吉他2.mp3 in Resources */,
+				2F1CF9662484D9800092BE4D /* DZ-键盘2.mp3 in Resources */,
+				2F1CF9812484D9800092BE4D /* LX-节奏吉他3.mp3 in Resources */,
+				2F1CF95D2484D9800092BE4D /* DZ-鼓4.mp3 in Resources */,
+				2F1CF9402484D9800092BE4D /* SN-鼓4.mp3 in Resources */,
+				2F1CF94D2484D9800092BE4D /* JS-贝斯1.mp3 in Resources */,
+				2F1CF9472484D9800092BE4D /* JS-节奏吉他2.mp3 in Resources */,
+				2F1CF95E2484D9800092BE4D /* DZ-鼓3.mp3 in Resources */,
+				2F1CF9562484D9800092BE4D /* JS-主音吉他4.mp3 in Resources */,
+				2F1CF94B2484D9800092BE4D /* JS-贝斯5.mp3 in Resources */,
+				2F1CF94C2484D9800092BE4D /* JS-贝斯4.mp3 in Resources */,
+				2F1CF9492484D9800092BE4D /* JS-节奏吉他4.mp3 in Resources */,
+				2F1CF94A2484D9800092BE4D /* JS-节奏吉他5.mp3 in Resources */,
+				2F1CF9322484D9800092BE4D /* SN-贝斯5.mp3 in Resources */,
+				2F1CF94F2484D9800092BE4D /* JS-贝斯2.mp3 in Resources */,
+				2F1CF9532484D9800092BE4D /* JS-主音吉他1.mp3 in Resources */,
+				2F1CF9332484D9800092BE4D /* SN-键盘5.mp3 in Resources */,
+				2F1CF9802484D9800092BE4D /* LX-节奏吉他2.mp3 in Resources */,
+				2F1CF9542484D9800092BE4D /* JS-鼓2.mp3 in Resources */,
+				2F1CF9712484D9800092BE4D /* LX-主音吉他3.mp3 in Resources */,
+				2F1CF9412484D9800092BE4D /* SN-鼓5.mp3 in Resources */,
+				2F1CF92E2484D9800092BE4D /* SN-贝斯2.mp3 in Resources */,
+				2F1CF9612484D9800092BE4D /* DZ-鼓2.mp3 in Resources */,
+				2F1CF97A2484D9800092BE4D /* LX-鼓1.mp3 in Resources */,
+				2F1CF9742484D9800092BE4D /* LX-贝斯4.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

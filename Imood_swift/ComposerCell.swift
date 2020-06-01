@@ -14,7 +14,11 @@ class ComposerCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.layer.cornerRadius = 5
+        self.clipsToBounds = true
+
         self.contentView.addSubview(titleLab)
+        titleLab.font = UIFont.systemFont(ofSize: 30)
         titleLab.mas_makeConstraints { (make) in
             make?.edges.install()
         }

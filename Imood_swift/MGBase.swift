@@ -9,12 +9,18 @@
 import UIKit
 
 class MGBase: NSObject {
-
-    public class func screen_width() -> CGFloat {
-        return UIScreen.main.bounds.size.width
+    
+    //private(set) var name : String!
+    
+    public class var screenWidth: CGFloat{
+        get{
+            return UIScreen.main.bounds.size.width
+        }
     }
-    public class func screen_height() -> CGFloat {
-        return UIScreen.main.bounds.size.height
+    public class var screenHeight: CGFloat{
+        get{
+            return UIScreen.main.bounds.size.height
+        }
     }
 
 }

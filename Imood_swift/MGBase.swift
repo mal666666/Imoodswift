@@ -24,3 +24,12 @@ class MGBase: NSObject {
     }
 
 }
+
+extension URL{
+    static func bundlePathWith(resouce: String ,type: String) -> URL {
+        return URL.init(fileURLWithPath: Bundle.main.path(forResource: resouce, ofType: type)!)
+    }
+    static func domainPathWith(path: String) -> URL {
+        return URL.init(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .allDomainsMask, true).first! + "/" + path)
+    }
+}

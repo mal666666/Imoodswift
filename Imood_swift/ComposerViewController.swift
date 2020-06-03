@@ -51,6 +51,11 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     let rightProgressLab = UILabel()
     //进度条
     let slider = UISlider()
+    //音乐合成
+    let compo = Composition()
+    //音乐元素数组
+    var musicUrlArr: [URL] = [URL.init(fileURLWithPath: ""),URL.init(fileURLWithPath: ""),URL.init(fileURLWithPath: ""),URL.init(fileURLWithPath: "")]
+        
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +81,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         let playBtn = UIButton()
         musicMixCollectionView.addSubview(playBtn)
         playBtn.setImage(UIImage.init(named: "play"), for: .normal)
-        playBtn.addTarget(self, action: #selector(backBtnClick), for: .touchUpInside)
+        playBtn.addTarget(self, action: #selector(mixAndPlayBtnClick), for: .touchUpInside)
         playBtn.mas_makeConstraints { (make) in
             make?.width.height()?.offset()(MGBase.screenWidth/3)
             make?.centerX.equalTo()(musicMixCollectionView)
@@ -141,6 +146,10 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
             make?.right.offset()(-70)
             make?.centerY.equalTo()(leftProgressLab)
         }
+    }
+    
+    @objc func mixAndPlayBtnClick(){
+        compo.compositionWithArr(audioUrlArr: musicUrlArr)
     }
     
     @objc func backBtnClick(){
@@ -217,11 +226,10 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
                 break
             }
             
-            let path: String = Bundle.main.path(forResource: (temArr[musicalInstrumentsIndex][indexPath.row] as! String), ofType: "mp3")!
-            let palyerItem = AVPlayerItem.init(url: URL.init(fileURLWithPath: path))
-            player = AVPlayer.init(playerItem: palyerItem)
+            let url = URL.bundlePathWith(resouce: (temArr[musicalInstrumentsIndex][indexPath.row] as! String), type: "mp3")
+            player = AVPlayer.init(url: url)
             player.play()
-            
+            musicUrlArr.replaceObject(at: musicalInstrumentsIndex, with: url)
         }
     }
 }

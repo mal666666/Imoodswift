@@ -97,6 +97,7 @@
 		2F87DC5F247BBEDA009C2ED4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F87DC5D247BBEDA009C2ED4 /* Main.storyboard */; };
 		2F87DC61247BBEDC009C2ED4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F87DC60247BBEDC009C2ED4 /* Assets.xcassets */; };
 		2F87DC64247BBEDC009C2ED4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F87DC62247BBEDC009C2ED4 /* LaunchScreen.storyboard */; };
+		2FFC33A624877F5400799EF2 /* Composition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFC33A524877F5400799EF2 /* Composition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -191,6 +192,7 @@
 		2F87DC60247BBEDC009C2ED4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F87DC63247BBEDC009C2ED4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F87DC65247BBEDC009C2ED4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2FFC33A524877F5400799EF2 /* Composition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Composition.swift; sourceTree = "<group>"; };
 		5CCC3A2E3E35C5F251E0C831 /* Pods-Imood_swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Imood_swift.release.xcconfig"; path = "Target Support Files/Pods-Imood_swift/Pods-Imood_swift.release.xcconfig"; sourceTree = "<group>"; };
 		87136052D60CA11E60C36E15 /* Pods-Imood_swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Imood_swift.debug.xcconfig"; path = "Target Support Files/Pods-Imood_swift/Pods-Imood_swift.debug.xcconfig"; sourceTree = "<group>"; };
 		F185DBE30A5B5B41FE188746 /* Pods_Imood_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Imood_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -362,6 +364,7 @@
 				2F87DC5B247BBEDA009C2ED4 /* ViewController.swift */,
 				2F40E0E9247E6A8400A0C76F /* ComposerViewController.swift */,
 				2F40E10F2483517100A0C76F /* ComposerCell.swift */,
+				2FFC33A524877F5400799EF2 /* Composition.swift */,
 				2F40E0EB247FBB0E00A0C76F /* MGBase.swift */,
 				2F87DC5D247BBEDA009C2ED4 /* Main.storyboard */,
 				2F87DC60247BBEDC009C2ED4 /* Assets.xcassets */,
@@ -576,6 +579,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F40E0EC247FBB0E00A0C76F /* MGBase.swift in Sources */,
+				2FFC33A624877F5400799EF2 /* Composition.swift in Sources */,
 				2F40E1102483517100A0C76F /* ComposerCell.swift in Sources */,
 				2F87DC5C247BBEDA009C2ED4 /* ViewController.swift in Sources */,
 				2F87DC58247BBEDA009C2ED4 /* AppDelegate.swift in Sources */,

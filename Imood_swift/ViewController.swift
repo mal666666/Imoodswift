@@ -58,8 +58,8 @@ class ViewController: UIViewController {
         let cancelAC = UIAlertAction.init(title: "取消", style: .cancel) { (action) in
             
         }
-        let itemS = ["流行","金属","思念","电子"]
         ac.addAction(cancelAC)
+        let itemS = ["流行","金属","思念","电子"]
         for item in itemS {
             let action = UIAlertAction.init(title: item, style: .default) { (action) in
                 let composerVC = ComposerViewController()
@@ -70,11 +70,9 @@ class ViewController: UIViewController {
             }
             ac.addAction(action)
         }
-        
         self.present(ac, animated: true) {
             
         }
-        
     }
 }
 

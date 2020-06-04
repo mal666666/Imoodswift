@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MGBase: NSObject {
+class MGBase {
     
     //private(set) var name : String!
     

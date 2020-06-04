@@ -15,7 +15,7 @@ class Composition: NSObject {
     typealias mixSuccess = (URL)->()
     var mixSuccessBlock: mixSuccess! = nil
     
-    func compositionWithArr(audioUrlArr: [URL]){
+    func compositionWithArr(audioUrlArr: [URL], completion: @escaping (_ string: String?) -> Void){
         let mixComposition = AVMutableComposition()
         for audioUrl in audioUrlArr {
             if audioUrl.path  == "/" {
@@ -43,11 +43,15 @@ class Composition: NSObject {
         assetExport?.outputURL = url
         assetExport?.shouldOptimizeForNetworkUse = true
         assetExport?.exportAsynchronously(completionHandler: {
-            print("混合音乐完成:")
-            print(assetExport?.outputURL! as Any)
+            print("混合音乐完成: \(assetExport?.outputURL! as Any)")
             if (self.mixSuccessBlock != nil){
                 self.mixSuccessBlock(url)
             }
+            completion("ff")
         })
     }
+    
+//    func completion(completion: @escaping (_ string: String?) -> Void) {
+//
+//    }
 }

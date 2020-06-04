@@ -12,7 +12,7 @@ import AVFoundation
 class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
     var musicMixCollectionView: UICollectionView!
-    var player: AVPlayer!
+    var player = AVPlayer.init()
     //4种乐器名字
     let musicalInstrumentsNameArr = ["DRUM","BASS","GUITAR","MIDI"]
     //4种乐器代表的颜色
@@ -23,7 +23,8 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     //选中第几个乐器
     var musicalInstrumentsIndex = 0
     //音乐类型
-    var type: String! = nil
+    var type: String?
+    
     //4x5种流行音乐元素
     let musicLXArr = [["LX-鼓1","LX-鼓2","LX-鼓3","LX-鼓4","LX-鼓5"]
         ,["LX-贝斯1","LX-贝斯2","LX-贝斯3","LX-贝斯4","LX-贝斯5"]
@@ -149,7 +150,9 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     }
     
     @objc func mixAndPlayBtnClick(){
-        compo.compositionWithArr(audioUrlArr: musicUrlArr)
+        compo.compositionWithArr(audioUrlArr: musicUrlArr) { (ss) in
+            
+        }
         compo.mixSuccessBlock = { [weak self]url in
             self!.player = AVPlayer.init(url: url)
             self!.player.play()
@@ -233,6 +236,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
             let url = URL.bundlePathWith(resouce: (temArr[musicalInstrumentsIndex][indexPath.row] as! String), type: "mp3")
             player = AVPlayer.init(url: url)
             player.play()
+            //player.addObserver(<#T##observer: NSObject##NSObject#>, forKeyPath: <#T##String#>, options: <#T##NSKeyValueObservingOptions#>, context: <#T##UnsafeMutableRawPointer?#>)
             musicUrlArr[musicalInstrumentsIndex] = url
         }
     }

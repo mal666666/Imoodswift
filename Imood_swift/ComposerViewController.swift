@@ -150,6 +150,10 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     
     @objc func mixAndPlayBtnClick(){
         compo.compositionWithArr(audioUrlArr: musicUrlArr)
+        compo.mixSuccessBlock = { [weak self]url in
+            self!.player = AVPlayer.init(url: url)
+            self!.player.play()
+        }
     }
     
     @objc func backBtnClick(){
@@ -229,7 +233,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
             let url = URL.bundlePathWith(resouce: (temArr[musicalInstrumentsIndex][indexPath.row] as! String), type: "mp3")
             player = AVPlayer.init(url: url)
             player.play()
-            musicUrlArr.replaceObject(at: musicalInstrumentsIndex, with: url)
+            musicUrlArr[musicalInstrumentsIndex] = url
         }
     }
 }

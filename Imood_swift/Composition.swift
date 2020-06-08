@@ -12,10 +12,8 @@ import AVFoundation
 class Composition: NSObject {
     //音乐合成沙河路经
     let exportMusicPath = "exportMusic.m4a"
-    typealias mixSuccess = (URL)->()
-    var mixSuccessBlock: mixSuccess! = nil
     
-    func compositionWithArr(audioUrlArr: [URL], completion: @escaping (_ string: String?) -> Void){
+    func compositionWithArr(audioUrlArr: [URL], completion: @escaping (_ string: URL?) -> Void){
         let mixComposition = AVMutableComposition()
         for audioUrl in audioUrlArr {
             if audioUrl.path  == "/" {
@@ -44,14 +42,8 @@ class Composition: NSObject {
         assetExport?.shouldOptimizeForNetworkUse = true
         assetExport?.exportAsynchronously(completionHandler: {
             print("混合音乐完成: \(assetExport?.outputURL! as Any)")
-            if (self.mixSuccessBlock != nil){
-                self.mixSuccessBlock(url)
-            }
-            completion("ff")
+            completion(url)
         })
     }
-    
-//    func completion(completion: @escaping (_ string: String?) -> Void) {
-//
-//    }
+
 }

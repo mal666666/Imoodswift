@@ -8,9 +8,17 @@
 
 import UIKit
 import Masonry
+import TZImagePickerController
+
+//protocol ViewControllerDelegate: class {
+//    func test()
+//}
 
 class ViewController: UIViewController {
-
+    
+    var imgCollectionView: UICollectionView!
+    var imgArr: [UIImage] = [UIImage.init(named: "album_add")!]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
@@ -23,11 +31,20 @@ class ViewController: UIViewController {
             make?.topMargin.equalTo()(self.view)
             make?.left.right()?.offset()(0)
         }
-        //选照片滑条
-        let scroll = UIScrollView.init()
-        self.view.addSubview(scroll)
-        scroll.backgroundColor = UIColor.init(red: 0.2, green: 0.42, blue: 0.54, alpha: 1.0)
-        scroll.mas_makeConstraints { (make) in
+        //collectionView选照片
+        let layout = UICollectionViewFlowLayout.init()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 5
+        layout.itemSize = CGSize.init(width: 70, height: 70)
+        imgCollectionView = UICollectionView.init(frame: CGRect.zero, collectionViewLayout:layout)
+        self.view.addSubview(imgCollectionView)
+        imgCollectionView.delegate = self
+        imgCollectionView.dataSource = self
+        imgCollectionView.showsHorizontalScrollIndicator = false
+        imgCollectionView.backgroundColor = UIColor.init(red: 0.2, green: 0.42, blue: 0.54, alpha: 1.0)
+        imgCollectionView.register(ImageViewCell.self, forCellWithReuseIdentifier: "cellID")
+        imgCollectionView.mas_makeConstraints { (make) in
             make?.height.offset()(80)
             make?.top.equalTo()(backgroundIV.mas_bottom)
             make?.left.right()?.offset()(0)
@@ -40,7 +57,7 @@ class ViewController: UIViewController {
         selectBtn.mas_makeConstraints { (make) in
             make?.width.height()?.offset()(35)
             make?.left.offset()(10)
-            make?.top.equalTo()(scroll.mas_bottom)?.offset()(40)
+            make?.top.equalTo()(imgCollectionView.mas_bottom)?.offset()(40)
         }
         //设置视频时间滑竿
         let slider = UISlider()
@@ -53,8 +70,9 @@ class ViewController: UIViewController {
         }
     
     }
+    
     @objc func btnClick(){
-        let ac = UIAlertController.init(title: "提示", message: "请选择音乐风格", preferredStyle: .actionSheet)
+        let ac = UIAlertController.init(title: "提示", message: "请选择音乐风格", preferredStyle: .alert)
         let cancelAC = UIAlertAction.init(title: "取消", style: .cancel) { (action) in
             
         }
@@ -74,5 +92,40 @@ class ViewController: UIViewController {
             
         }
     }
+    
+    func goImage(){
+        let imagePickerVC = TZImagePickerController()
+        imagePickerVC.maxImagesCount = 9
+        imagePickerVC.modalPresentationStyle = .fullScreen
+        self.present(imagePickerVC, animated: true, completion: nil)
+        imagePickerVC.didFinishPickingPhotosHandle = {photos, aseets, isSelectOriginalPhoto in
+            guard let ps = photos else {return}
+            for photo in ps {
+                self.imgArr.insert(photo, at: self.imgArr.count-1)
+            }
+            self.imgCollectionView.reloadData()
+        }
+    }
+
 }
 
+extension ViewController: UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
+        goImage()
+    }
+
+}
+
+extension ViewController: UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imgArr.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell:ImageViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! ImageViewCell
+        cell.backgroundColor = .gray
+        cell.imgV.image = imgArr[indexPath.row]
+        return cell
+    }
+
+}

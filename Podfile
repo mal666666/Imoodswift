@@ -8,5 +8,6 @@ target 'Imood_swift' do
   # Pods for Imood_swift
 
   pod 'Masonry'
-
+  pod 'ZLPhotoBrowser'
+  pod 'TZImagePickerController'
 end

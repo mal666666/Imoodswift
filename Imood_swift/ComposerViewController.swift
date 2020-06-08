@@ -13,6 +13,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     
     var musicMixCollectionView: UICollectionView!
     var player = AVPlayer.init()
+    var timeObserver : Any! = nil
     //4种乐器名字
     let musicalInstrumentsNameArr = ["DRUM","BASS","GUITAR","MIDI"]
     //4种乐器代表的颜色
@@ -121,6 +122,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         //左进度
         self.view.addSubview(leftProgressLab)
         leftProgressLab.text = "00:00"
+        leftProgressLab.font = UIFont.init(name: "Helvetica Neue", size: 16)
         leftProgressLab.textAlignment = .right
         leftProgressLab.adjustsFontSizeToFitWidth = true
         leftProgressLab.mas_makeConstraints { (make) in
@@ -132,6 +134,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         //右进度
         self.view.addSubview(rightProgressLab)
         rightProgressLab.text = "00:00"
+        rightProgressLab.font = UIFont.init(name: "Helvetica Neue", size: 16)
         rightProgressLab.textAlignment = .left
         rightProgressLab.adjustsFontSizeToFitWidth = true
         rightProgressLab.mas_makeConstraints { (make) in
@@ -150,16 +153,15 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     }
     
     @objc func mixAndPlayBtnClick(){
-        compo.compositionWithArr(audioUrlArr: musicUrlArr) { (ss) in
-            
-        }
-        compo.mixSuccessBlock = { [weak self]url in
-            self!.player = AVPlayer.init(url: url)
-            self!.player.play()
+        compo.compositionWithArr(audioUrlArr: musicUrlArr) { [weak self] url in
+            self!.playWithUrl(url: url!)
         }
     }
     
     @objc func backBtnClick(){
+        if (timeObserver != nil) {
+            player.removeTimeObserver(timeObserver!)
+        }
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -169,6 +171,21 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     
     @objc func recordBtnClick(){
         
+    }
+    //播放音乐用url
+    @objc func playWithUrl(url:URL){
+        if (timeObserver != nil) {
+            player.removeTimeObserver(timeObserver!)
+        }
+        player = AVPlayer.init(url: url)
+        player.play()
+        timeObserver = player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 10), queue: DispatchQueue.main) { [weak self]time in
+            let loadTime = CMTimeGetSeconds(time)
+            let totalTime = CMTimeGetSeconds(self!.player.currentItem!.duration)
+            self!.slider.value = Float(loadTime/totalTime)
+            self!.leftProgressLab.text = String.customTimeWithSecond(sec: Float(loadTime))
+            self!.rightProgressLab.text = String.customTimeWithSecond(sec: Float(totalTime))
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -234,10 +251,8 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
             }
             
             let url = URL.bundlePathWith(resouce: (temArr[musicalInstrumentsIndex][indexPath.row] as! String), type: "mp3")
-            player = AVPlayer.init(url: url)
-            player.play()
-            //player.addObserver(<#T##observer: NSObject##NSObject#>, forKeyPath: <#T##String#>, options: <#T##NSKeyValueObservingOptions#>, context: <#T##UnsafeMutableRawPointer?#>)
             musicUrlArr[musicalInstrumentsIndex] = url
+            self.playWithUrl(url: url)
         }
     }
 }

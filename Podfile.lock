@@ -1,16 +1,30 @@
 PODS:
   - Masonry (1.1.0)
+  - SDWebImage (5.8.0):
+    - SDWebImage/Core (= 5.8.0)
+  - SDWebImage/Core (5.8.0)
+  - TZImagePickerController (3.3.2)
+  - ZLPhotoBrowser (3.1.4):
+    - SDWebImage
 
 DEPENDENCIES:
   - Masonry
+  - TZImagePickerController
+  - ZLPhotoBrowser
 
 SPEC REPOS:
   trunk:
     - Masonry
+    - SDWebImage
+    - TZImagePickerController
+    - ZLPhotoBrowser
 
 SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  SDWebImage: 84000f962cbfa70c07f19d2234cbfcf5d779b5dc
+  TZImagePickerController: 36ca728ec681228918aa82e993aaab1962281b72
+  ZLPhotoBrowser: 638189d99c51f78013c9a0369e385db4a4b9673f
 
-PODFILE CHECKSUM: 783d66685eeda94dcb9c2a19a4a42c409876c248
+PODFILE CHECKSUM: b663d71c31dbe2bef80fbdfb298548b35ad0abb4
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3

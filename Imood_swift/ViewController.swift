@@ -23,6 +23,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         self.edgesForExtendedLayout = UIRectEdge.bottom
+        //音乐合成
+        let compo = Composition()
+        compo.pixelBuffer(from: (UIImage(named: "background")?.cgImage!)!, size: CGSize(width: 600, height: 600))
         //背景
         let backgroundIV :UIImageView = UIImageView.init(image: UIImage.init(named: "background"))
         self.view.addSubview(backgroundIV)
@@ -30,6 +33,14 @@ class ViewController: UIViewController {
             make?.height.offset()(MGBase.screenWidth)
             make?.topMargin.equalTo()(self.view)
             make?.left.right()?.offset()(0)
+        }
+        //选音乐风格
+        let playBtn = UIButton()
+        backgroundIV.addSubview(playBtn)
+        playBtn.setImage(UIImage.init(named: "play_btn"), for: .normal)
+        playBtn.addTarget(self, action: #selector(playBtnClick), for: .touchUpInside)
+        playBtn.mas_makeConstraints { (make) in
+            make?.edges.install()
         }
         //collectionView选照片
         let layout = UICollectionViewFlowLayout.init()
@@ -106,12 +117,18 @@ class ViewController: UIViewController {
             self.imgCollectionView.reloadData()
         }
     }
+    
+    @objc func playBtnClick() {
+        
+    }
 
 }
 
 extension ViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
-        goImage()
+        if indexPath.row == self.imgArr.count-1 {
+            goImage()
+        }
     }
 
 }

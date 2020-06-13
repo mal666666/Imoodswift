@@ -18,14 +18,14 @@ class ViewController: UIViewController {
     
     var imgCollectionView: UICollectionView!
     var imgArr: [UIImage] = [UIImage.init(named: "album_add")!]
-    
+    let compo = Composition()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         self.edgesForExtendedLayout = UIRectEdge.bottom
         //音乐合成
-        let compo = Composition()
-        compo.pixelBuffer(from: (UIImage(named: "background")?.cgImage!)!, size: CGSize(width: 600, height: 600))
+        //compo.pixelBuffer(from: (UIImage(named: "background")?.cgImage!)!, size: CGSize(width: 1500, height: 1500))
         //背景
         let backgroundIV :UIImageView = UIImageView.init(image: UIImage.init(named: "background"))
         self.view.addSubview(backgroundIV)
@@ -115,6 +115,7 @@ class ViewController: UIViewController {
                 self.imgArr.insert(photo, at: self.imgArr.count-1)
             }
             self.imgCollectionView.reloadData()
+            self.compo.writeImage(imgArr: self.imgArr, moviePath: "dd", size: CGSize(width: 1280, height: 1280), duration: 10, fps: 30)
         }
     }
     

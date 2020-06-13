@@ -47,31 +47,63 @@ class Composition: NSObject {
         })
     }
     //CGImage->CVPixelBuffer
-    func pixelBuffer(from image: CGImage?, size: CGSize) -> CVPixelBuffer? {
+    func pixelBuffer(from image: CGImage, size: CGSize) -> CVPixelBuffer? {
         let options : [NSObject:AnyObject] = [
             kCVPixelBufferCGImageCompatibilityKey : true as AnyObject,
             kCVPixelBufferCGBitmapContextCompatibilityKey : true as AnyObject
         ]
         
         var pxbuffer: CVPixelBuffer? = nil
-        let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(size.width), Int(size.height), kCVPixelFormatType_32ARGB, options as CFDictionary, &pxbuffer)
-
-        assert(status == kCVReturnSuccess && pxbuffer != nil, "Invalid parameter not satisfying: status == kCVReturnSuccess && pxbuffer != nil")
+        CVPixelBufferCreate(kCFAllocatorDefault, Int(size.width), Int(size.height), kCVPixelFormatType_32ARGB, options as CFDictionary, &pxbuffer)
         
         if let pxbuffer = pxbuffer {
             CVPixelBufferLockBaseAddress(pxbuffer, CVPixelBufferLockFlags(rawValue: 0))
         }
         let pxdata :UnsafeMutableRawPointer = CVPixelBufferGetBaseAddress(pxbuffer!)!
-        //assert(pxdata != nil, "Invalid parameter not satisfying: pxdata != nil")
         let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
-        let context = CGContext(data: pxdata, width: Int(size.width), height: Int(size.height), bitsPerComponent: 8, bytesPerRow: 4 * Int(size.width), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.premultipliedFirst.rawValue)
-        //assert(context != nil, "Invalid parameter not satisfying: context != nil")
-        context?.draw(image!, in: CGRect(x: 0.0, y: 0.0, width: CGFloat(image!.width), height: CGFloat(image!.height)))
+        let context = CGContext(data: pxdata, width: Int(size.width), height: Int(size.height), bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pxbuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.premultipliedFirst.rawValue)
+        context?.draw(image, in: CGRect(x: 0, y: 0, width: Int(image.width), height: Int(image.height)))
         if let pxbuffer = pxbuffer {
             CVPixelBufferUnlockBaseAddress(pxbuffer, CVPixelBufferLockFlags(rawValue: 0))
         }
         
         return pxbuffer
+    }
+    //图片合成视频
+    func writeImage(imgArr:Array<UIImage> ,moviePath:String ,size:CGSize ,duration:CGFloat ,fps:Int)  {
+        unlink(moviePath)
+        let url = URL.domainPathWith(path: "photo.mov")
+        let videoWriter = try? AVAssetWriter.init(url: url, fileType: .mov)
+        let videoSettingS = [AVVideoCodecKey:AVVideoCodecH264
+            ,AVVideoWidthKey: size.width
+            ,AVVideoHeightKey: size.height] as [String : Any]
+        let videoWriterInput = AVAssetWriterInput.init(mediaType: .video, outputSettings: videoSettingS)
+        let soucePixelBufferAttributesDic = [kCVPixelBufferPixelFormatTypeKey:kCVPixelFormatType_32ARGB]as [String : Any]
+        let adaptor = AVAssetWriterInputPixelBufferAdaptor.init(assetWriterInput: videoWriterInput, sourcePixelBufferAttributes: soucePixelBufferAttributesDic)
+        videoWriter?.add(videoWriterInput)
+        videoWriter?.startWriting()
+        videoWriter?.startSession(atSourceTime: .zero)
+        let imageCount = imgArr.count
+        let averageTime:CGFloat = duration/CGFloat(imageCount)
+        var frame:Int = 0
+        videoWriterInput.requestMediaDataWhenReady(on: DispatchQueue(label: "mediaInputQueue")) {
+            while(videoWriterInput.isReadyForMoreMediaData){
+                frame += 1
+                if frame >= imgArr.count*10{
+                    videoWriterInput.markAsFinished()
+                    videoWriter?.finishWriting(completionHandler: {
+                        
+                    })
+                    break
+                }
+                var buffer: CVPixelBuffer? = nil
+                let idx = frame/10
+                buffer = self.pixelBuffer(from: imgArr[idx].cgImage!, size: size)
+                let state = adaptor.append(buffer!, withPresentationTime: CMTime(seconds: Double(frame * Int(averageTime)), preferredTimescale: 10))
+                    print(state)
+            }
+        }
+    
     }
     
 }

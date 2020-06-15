@@ -32,13 +32,8 @@ class Composition: NSObject {
         let assetExport = AVAssetExportSession.init(asset: mixComposition, presetName: AVAssetExportPresetAppleM4A)
         assetExport?.outputFileType = .m4a
         let url = URL.domainPathWith(path: exportMusicPath)
-        if FileManager.default.fileExists(atPath: url.path) {
-            do {
-                try FileManager.default.removeItem(at: url)
-            } catch {
-                print(url.path + "删除失败")
-            }
-        }
+        URL.domainPathClear(url: url)
+
         assetExport?.outputURL = url
         assetExport?.shouldOptimizeForNetworkUse = true
         assetExport?.exportAsynchronously(completionHandler: {
@@ -72,7 +67,9 @@ class Composition: NSObject {
     //图片合成视频
     func writeImage(imgArr:Array<UIImage> ,moviePath:String ,size:CGSize ,duration:CGFloat ,fps:Int)  {
         unlink(moviePath)
-        let url = URL.domainPathWith(path: "photo.mov")
+        let url = URL.domainPathWith(path: moviePath)
+        URL.domainPathClear(url: url)
+
         let videoWriter = try? AVAssetWriter.init(url: url, fileType: .mov)
         let videoSettingS = [AVVideoCodecKey:AVVideoCodecH264
             ,AVVideoWidthKey: size.width
@@ -89,7 +86,7 @@ class Composition: NSObject {
         videoWriterInput.requestMediaDataWhenReady(on: DispatchQueue(label: "mediaInputQueue")) {
             while(videoWriterInput.isReadyForMoreMediaData){
                 frame += 1
-                if frame >= imgArr.count*10{
+                if frame >= imgArr.count * 10{
                     videoWriterInput.markAsFinished()
                     videoWriter?.finishWriting(completionHandler: {
                         
@@ -100,7 +97,7 @@ class Composition: NSObject {
                 let idx = frame/10
                 buffer = self.pixelBuffer(from: imgArr[idx].cgImage!, size: size)
                 let state = adaptor.append(buffer!, withPresentationTime: CMTime(seconds: Double(frame * Int(averageTime)), preferredTimescale: 10))
-                    print(state)
+                if !state {print(state)}
             }
         }
     

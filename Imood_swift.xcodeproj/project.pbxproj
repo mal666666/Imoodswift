@@ -90,14 +90,18 @@
 		2F1CF9802484D9800092BE4D /* LX-节奏吉他2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF90B2484D9800092BE4D /* LX-节奏吉他2.mp3 */; };
 		2F1CF9812484D9800092BE4D /* LX-节奏吉他3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF90C2484D9800092BE4D /* LX-节奏吉他3.mp3 */; };
 		2F40E0EA247E6A8400A0C76F /* ComposerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F40E0E9247E6A8400A0C76F /* ComposerViewController.swift */; };
-		2F40E0EC247FBB0E00A0C76F /* MGBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F40E0EB247FBB0E00A0C76F /* MGBase.swift */; };
 		2F40E1102483517100A0C76F /* ComposerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F40E10F2483517100A0C76F /* ComposerCell.swift */; };
+		2F65C4D0249763A500FA8F14 /* MGBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F65C4CF249763A500FA8F14 /* MGBase.swift */; };
 		2F87DC58247BBEDA009C2ED4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F87DC57247BBEDA009C2ED4 /* AppDelegate.swift */; };
 		2F87DC5A247BBEDA009C2ED4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F87DC59247BBEDA009C2ED4 /* SceneDelegate.swift */; };
 		2F87DC5C247BBEDA009C2ED4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F87DC5B247BBEDA009C2ED4 /* ViewController.swift */; };
 		2F87DC5F247BBEDA009C2ED4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F87DC5D247BBEDA009C2ED4 /* Main.storyboard */; };
 		2F87DC61247BBEDC009C2ED4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F87DC60247BBEDC009C2ED4 /* Assets.xcassets */; };
 		2F87DC64247BBEDC009C2ED4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F87DC62247BBEDC009C2ED4 /* LaunchScreen.storyboard */; };
+		2FC2A7AD24971A230073B863 /* MGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC2A7AC24971A230073B863 /* MGImage.swift */; };
+		2FC2A7AF24971A780073B863 /* MGDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC2A7AE24971A780073B863 /* MGDevice.swift */; };
+		2FC2A7B124971B6B0073B863 /* MGURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC2A7B024971B6B0073B863 /* MGURL.swift */; };
+		2FC2A7B324971B760073B863 /* MGString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC2A7B224971B760073B863 /* MGString.swift */; };
 		2FFC33A624877F5400799EF2 /* Composition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFC33A524877F5400799EF2 /* Composition.swift */; };
 /* End PBXBuildFile section */
 
@@ -184,8 +188,8 @@
 		2F1CF90B2484D9800092BE4D /* LX-节奏吉他2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-节奏吉他2.mp3"; sourceTree = "<group>"; };
 		2F1CF90C2484D9800092BE4D /* LX-节奏吉他3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "LX-节奏吉他3.mp3"; sourceTree = "<group>"; };
 		2F40E0E9247E6A8400A0C76F /* ComposerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposerViewController.swift; sourceTree = "<group>"; };
-		2F40E0EB247FBB0E00A0C76F /* MGBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGBase.swift; sourceTree = "<group>"; };
 		2F40E10F2483517100A0C76F /* ComposerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposerCell.swift; sourceTree = "<group>"; };
+		2F65C4CF249763A500FA8F14 /* MGBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGBase.swift; sourceTree = "<group>"; };
 		2F87DC54247BBEDA009C2ED4 /* Imood_swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Imood_swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F87DC57247BBEDA009C2ED4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2F87DC59247BBEDA009C2ED4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -194,6 +198,10 @@
 		2F87DC60247BBEDC009C2ED4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F87DC63247BBEDC009C2ED4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F87DC65247BBEDC009C2ED4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2FC2A7AC24971A230073B863 /* MGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGImage.swift; sourceTree = "<group>"; };
+		2FC2A7AE24971A780073B863 /* MGDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGDevice.swift; sourceTree = "<group>"; };
+		2FC2A7B024971B6B0073B863 /* MGURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGURL.swift; sourceTree = "<group>"; };
+		2FC2A7B224971B760073B863 /* MGString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGString.swift; sourceTree = "<group>"; };
 		2FFC33A524877F5400799EF2 /* Composition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Composition.swift; sourceTree = "<group>"; };
 		5CCC3A2E3E35C5F251E0C831 /* Pods-Imood_swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Imood_swift.release.xcconfig"; path = "Target Support Files/Pods-Imood_swift/Pods-Imood_swift.release.xcconfig"; sourceTree = "<group>"; };
 		87136052D60CA11E60C36E15 /* Pods-Imood_swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Imood_swift.debug.xcconfig"; path = "Target Support Files/Pods-Imood_swift/Pods-Imood_swift.debug.xcconfig"; sourceTree = "<group>"; };
@@ -365,10 +373,9 @@
 				2F87DC59247BBEDA009C2ED4 /* SceneDelegate.swift */,
 				2F87DC5B247BBEDA009C2ED4 /* ViewController.swift */,
 				2F40E0E9247E6A8400A0C76F /* ComposerViewController.swift */,
-				2F40E10F2483517100A0C76F /* ComposerCell.swift */,
-				2F16DD8B248A486100E002FC /* ImageViewCell.swift */,
 				2FFC33A524877F5400799EF2 /* Composition.swift */,
-				2F40E0EB247FBB0E00A0C76F /* MGBase.swift */,
+				2FC2A7B524971C710073B863 /* View */,
+				2FC2A7B424971C0F0073B863 /* Common */,
 				2F87DC5D247BBEDA009C2ED4 /* Main.storyboard */,
 				2F87DC60247BBEDC009C2ED4 /* Assets.xcassets */,
 				2F87DC62247BBEDC009C2ED4 /* LaunchScreen.storyboard */,
@@ -376,6 +383,27 @@
 				2F1CF88F2484D9800092BE4D /* Resouce */,
 			);
 			path = Imood_swift;
+			sourceTree = "<group>";
+		};
+		2FC2A7B424971C0F0073B863 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2F65C4CF249763A500FA8F14 /* MGBase.swift */,
+				2FC2A7AC24971A230073B863 /* MGImage.swift */,
+				2FC2A7AE24971A780073B863 /* MGDevice.swift */,
+				2FC2A7B024971B6B0073B863 /* MGURL.swift */,
+				2FC2A7B224971B760073B863 /* MGString.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		2FC2A7B524971C710073B863 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2F40E10F2483517100A0C76F /* ComposerCell.swift */,
+				2F16DD8B248A486100E002FC /* ImageViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		5916ED93F71F80B08A68BE29 /* Frameworks */ = {
@@ -581,12 +609,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F40E0EC247FBB0E00A0C76F /* MGBase.swift in Sources */,
 				2FFC33A624877F5400799EF2 /* Composition.swift in Sources */,
 				2F40E1102483517100A0C76F /* ComposerCell.swift in Sources */,
+				2FC2A7AF24971A780073B863 /* MGDevice.swift in Sources */,
+				2FC2A7B324971B760073B863 /* MGString.swift in Sources */,
 				2F87DC5C247BBEDA009C2ED4 /* ViewController.swift in Sources */,
 				2F16DD8C248A486100E002FC /* ImageViewCell.swift in Sources */,
+				2F65C4D0249763A500FA8F14 /* MGBase.swift in Sources */,
+				2FC2A7AD24971A230073B863 /* MGImage.swift in Sources */,
 				2F87DC58247BBEDA009C2ED4 /* AppDelegate.swift in Sources */,
+				2FC2A7B124971B6B0073B863 /* MGURL.swift in Sources */,
 				2F40E0EA247E6A8400A0C76F /* ComposerViewController.swift in Sources */,
 				2F87DC5A247BBEDA009C2ED4 /* SceneDelegate.swift in Sources */,
 			);

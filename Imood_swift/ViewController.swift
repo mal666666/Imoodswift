@@ -19,18 +19,19 @@ class ViewController: UIViewController {
     var imgCollectionView: UICollectionView!
     var imgArr: [UIImage] = [UIImage.init(named: "album_add")!]
     let compo = Composition()
+    var backgroundIV :UIImageView!
+    var player: AVPlayer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         self.edgesForExtendedLayout = UIRectEdge.bottom
-        //音乐合成
-        //compo.pixelBuffer(from: (UIImage(named: "background")?.cgImage!)!, size: CGSize(width: 1500, height: 1500))
         //背景
-        let backgroundIV :UIImageView = UIImageView.init(image: UIImage.init(named: "background"))
+        backgroundIV  = UIImageView.init(image: UIImage.init(named: "background"))
         self.view.addSubview(backgroundIV)
+        backgroundIV.isUserInteractionEnabled = true
         backgroundIV.mas_makeConstraints { (make) in
-            make?.height.offset()(MGBase.screenWidth)
+            make?.height.offset()(MGDevice.screenWidth)
             make?.topMargin.equalTo()(self.view)
             make?.left.right()?.offset()(0)
         }
@@ -38,7 +39,7 @@ class ViewController: UIViewController {
         let playBtn = UIButton()
         backgroundIV.addSubview(playBtn)
         playBtn.setImage(UIImage.init(named: "play_btn"), for: .normal)
-        playBtn.addTarget(self, action: #selector(playBtnClick), for: .touchUpInside)
+        playBtn.addTarget(self, action: #selector(playBtnClick(btn:)), for: .touchUpInside)
         playBtn.mas_makeConstraints { (make) in
             make?.edges.install()
         }
@@ -115,14 +116,31 @@ class ViewController: UIViewController {
                 self.imgArr.insert(photo, at: self.imgArr.count-1)
             }
             self.imgCollectionView.reloadData()
-            self.compo.writeImage(imgArr: self.imgArr, moviePath: "dd", size: CGSize(width: 1280, height: 1280), duration: 10, fps: 30)
+            
+            var squareImgArr: [UIImage] = []
+            for image in self.imgArr {
+                let img = image.squareImage(img: image, size: MGBase.videoSize)
+                squareImgArr.append(img)
+            }
+            self.compo.writeImage(imgArr: squareImgArr, moviePath: MGBase.photoMov, size: MGBase.videoSize, duration: 10, fps: 30)
         }
     }
     
-    @objc func playBtnClick() {
+    @objc func playBtnClick(btn: UIButton) {
+        btn.isSelected = !btn.isSelected
+        if (player == nil) {
+            player = AVPlayer.init(url: URL.domainPathWith(path: MGBase.photoMov))
+            let playerLayer = AVPlayerLayer.init(player: player)
+            backgroundIV.layer.addSublayer(playerLayer)
+            playerLayer.frame = backgroundIV.bounds
+        }
+        if btn.isSelected{
+            player.play()
+        }else{
+            player.pause()
+        }
         
     }
-
 }
 
 extension ViewController: UICollectionViewDelegate{

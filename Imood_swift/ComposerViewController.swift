@@ -67,7 +67,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
-        layout.headerReferenceSize = CGSize.init(width: MGBase.screenWidth, height: 10)
+        layout.headerReferenceSize = CGSize.init(width: MGDevice.screenWidth, height: 10)
         musicMixCollectionView = UICollectionView.init(frame: CGRect.zero, collectionViewLayout:layout)
         self.view.addSubview(musicMixCollectionView)
         musicMixCollectionView.delegate = self
@@ -77,7 +77,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         musicMixCollectionView.mas_makeConstraints { (make) in
             make?.topMargin.offset()(20)
             make?.left.right()?.offset()(0)
-            make?.height.equalTo()(self.view.mas_width)?.offset()(MGBase.screenWidth/4+30)
+            make?.height.equalTo()(self.view.mas_width)?.offset()(MGDevice.screenWidth/4+30)
         }
         //播放
         let playBtn = UIButton()
@@ -85,9 +85,9 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         playBtn.setImage(UIImage.init(named: "play"), for: .normal)
         playBtn.addTarget(self, action: #selector(mixAndPlayBtnClick), for: .touchUpInside)
         playBtn.mas_makeConstraints { (make) in
-            make?.width.height()?.offset()(MGBase.screenWidth/3)
+            make?.width.height()?.offset()(MGDevice.screenWidth/3)
             make?.centerX.equalTo()(musicMixCollectionView)
-            make?.top.offset()(MGBase.screenWidth/3+10)
+            make?.top.offset()(MGDevice.screenWidth/3+10)
         }
         //退出
         let backBtn = UIButton()
@@ -191,9 +191,9 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case 0:
-            return CGSize.init(width: MGBase.screenWidth/2-5, height: MGBase.screenWidth/2-5)
+            return CGSize.init(width: MGDevice.screenWidth/2-5, height: MGDevice.screenWidth/2-5)
         default:
-            return CGSize.init(width: MGBase.screenWidth/5-10, height: MGBase.screenWidth/4)
+            return CGSize.init(width: MGDevice.screenWidth/5-10, height: MGDevice.screenWidth/4)
         }
     }
         

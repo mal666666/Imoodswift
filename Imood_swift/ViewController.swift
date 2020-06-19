@@ -122,7 +122,7 @@ class ViewController: UIViewController {
                 let img = image.squareImage(img: image, size: MGBase.videoSize)
                 squareImgArr.append(img)
             }
-            self.compo.writeImage(imgArr: squareImgArr, moviePath: MGBase.photoMov, size: MGBase.videoSize, duration: 10, fps: 30)
+            self.compo.writeImage(imgArr: squareImgArr, moviePath: MGBase.photoMov, size: MGBase.videoSize, duration: 25, fps: 24)
         }
     }
     

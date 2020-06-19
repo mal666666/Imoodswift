@@ -81,22 +81,22 @@ class Composition: NSObject {
         videoWriter?.startWriting()
         videoWriter?.startSession(atSourceTime: .zero)
         let imageCount = imgArr.count
-        let averageTime:CGFloat = duration/CGFloat(imageCount)
+        let averageTime: CGFloat = duration/CGFloat(imageCount)
         var frame:Int = 0
         videoWriterInput.requestMediaDataWhenReady(on: DispatchQueue(label: "mediaInputQueue")) {
             while(videoWriterInput.isReadyForMoreMediaData){
-                frame += 1
-                if frame >= imgArr.count * 10{
+                if frame >= imgArr.count {
                     videoWriterInput.markAsFinished()
                     videoWriter?.finishWriting(completionHandler: {
-                        
                     })
                     break
                 }
                 var buffer: CVPixelBuffer? = nil
-                let idx = frame/10
-                buffer = self.pixelBuffer(from: imgArr[idx].cgImage!, size: size)
-                let state = adaptor.append(buffer!, withPresentationTime: CMTime(seconds: Double(frame * Int(averageTime)), preferredTimescale: 10))
+                buffer = self.pixelBuffer(from: imgArr[frame].cgImage!, size: size)
+                let ct = CMTime(seconds: Double(frame) * Double(averageTime), preferredTimescale: CMTimeScale(fps))
+                CMTimeShow(ct)
+                let state = adaptor.append(buffer!, withPresentationTime:ct)
+                frame += 1
                 if !state {print(state)}
             }
         }

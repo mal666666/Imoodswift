@@ -10,17 +10,32 @@ import UIKit
 import Masonry
 import TZImagePickerController
 
-//protocol ViewControllerDelegate: class {
-//    func test()
-//}
-
 class ViewController: UIViewController {
     
     var imgCollectionView: UICollectionView!
-    var imgArr: [UIImage] = [UIImage.init(named: "album_add")!]
+    @objc dynamic var imgArr: [UIImage] = []
     let compo = Composition()
     var backgroundIV :UIImageView!
-    var player: AVPlayer!
+    let playBtn = UIButton()
+    lazy var player: AVPlayer = {
+        let player = AVPlayer.init(playerItem: AVPlayerItem.init(url: URL.domainPathWith(path: MGBase.photoMov)))
+        let playerLayer = AVPlayerLayer.init(player: player)
+        self.backgroundIV.layer.insertSublayer(playerLayer, at: 0)
+        playerLayer.frame = self.backgroundIV.bounds
+        player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 10), queue: DispatchQueue.main) { [weak self]time in
+            let loadTime = CMTimeGetSeconds(time)
+            let totalTime = CMTimeGetSeconds(player.currentItem!.duration)
+            if loadTime/totalTime == 1{
+                player.seek(to: CMTime.zero)
+                self?.playBtn.isSelected = false
+            }
+            //print(loadTime)
+        }
+        return player
+    }()
+    var needMix: Bool!
+    var squareImgArr: [UIImage] = []
+    var myContext = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,9 +51,10 @@ class ViewController: UIViewController {
             make?.left.right()?.offset()(0)
         }
         //选音乐风格
-        let playBtn = UIButton()
         backgroundIV.addSubview(playBtn)
         playBtn.setImage(UIImage.init(named: "play_btn"), for: .normal)
+        playBtn.setImage(UIImage.init(named: "play_btn"), for: .highlighted)
+        playBtn.setImage(UIImage.from(color: UIColor.clear), for: .selected)
         playBtn.addTarget(self, action: #selector(playBtnClick(btn:)), for: .touchUpInside)
         playBtn.mas_makeConstraints { (make) in
             make?.edges.install()
@@ -49,6 +65,7 @@ class ViewController: UIViewController {
         layout.minimumLineSpacing = 5
         layout.minimumInteritemSpacing = 5
         layout.itemSize = CGSize.init(width: 70, height: 70)
+        layout.headerReferenceSize = CGSize(width: 5, height: 0)
         imgCollectionView = UICollectionView.init(frame: CGRect.zero, collectionViewLayout:layout)
         self.view.addSubview(imgCollectionView)
         imgCollectionView.delegate = self
@@ -61,6 +78,10 @@ class ViewController: UIViewController {
             make?.top.equalTo()(backgroundIV.mas_bottom)
             make?.left.right()?.offset()(0)
         }
+        //
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(moveAction))
+        imgCollectionView.isUserInteractionEnabled = true
+        imgCollectionView.addGestureRecognizer(longPressGesture)
         //选音乐风格
         let selectBtn = UIButton()
         self.view.addSubview(selectBtn)
@@ -80,9 +101,24 @@ class ViewController: UIViewController {
             make?.right.offset()(-20)
             make?.centerY.equalTo()(selectBtn)
         }
+        //
+        addObserver(self, forKeyPath: "imgArr", options: .new, context: &myContext)
     
     }
-    
+    //
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if context == &myContext {
+            self.needMix = true
+            self.squareImgArr.removeAll()
+            for image in self.imgArr {
+                let img = image.squareImage(img: image, size: MGBase.videoSize, aspectFill: false)
+                self.squareImgArr.append(img)
+            }
+         } else {
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+        }
+    }
+    //选择音乐风格
     @objc func btnClick(){
         let ac = UIAlertController.init(title: "提示", message: "请选择音乐风格", preferredStyle: .alert)
         let cancelAC = UIAlertAction.init(title: "取消", style: .cancel) { (action) in
@@ -104,7 +140,7 @@ class ViewController: UIViewController {
             
         }
     }
-    
+    //选择照片
     func goImage(){
         let imagePickerVC = TZImagePickerController()
         imagePickerVC.maxImagesCount = 9
@@ -113,55 +149,106 @@ class ViewController: UIViewController {
         imagePickerVC.didFinishPickingPhotosHandle = {photos, aseets, isSelectOriginalPhoto in
             guard let ps = photos else {return}
             for photo in ps {
-                self.imgArr.insert(photo, at: self.imgArr.count-1)
+                let img = photo.squareImage(img: photo, size: MGBase.videoSize, aspectFill: true)
+                self.imgArr.insert(img, at: self.imgArr.count)
             }
             self.imgCollectionView.reloadData()
-            
-            var squareImgArr: [UIImage] = []
-            for image in self.imgArr {
-                let img = image.squareImage(img: image, size: MGBase.videoSize)
-                squareImgArr.append(img)
-            }
-            self.compo.writeImage(imgArr: squareImgArr, moviePath: MGBase.photoMov, size: MGBase.videoSize, duration: 25, fps: 24)
         }
     }
     
     @objc func playBtnClick(btn: UIButton) {
         btn.isSelected = !btn.isSelected
-        if (player == nil) {
-            player = AVPlayer.init(url: URL.domainPathWith(path: MGBase.photoMov))
-            let playerLayer = AVPlayerLayer.init(player: player)
-            backgroundIV.layer.addSublayer(playerLayer)
-            playerLayer.frame = backgroundIV.bounds
-        }
         if btn.isSelected{
-            player.play()
+            if self.needMix  {
+                self.compo.writeImage(imgArr: self.squareImgArr, moviePath: MGBase.photoMov, size: MGBase.videoSize, duration: 25, fps: 24, completion: {
+                    DispatchQueue.main.async {
+                        self.needMix = false
+                        self.player.replaceCurrentItem(with: AVPlayerItem.init(url: URL.domainPathWith(path: MGBase.photoMov)))
+                        self.player.play()
+                    }
+                })
+            }else{
+                self.player.play()
+            }
+            self.playBtn.setBackgroundImage(UIImage.from(color: .clear), for: .normal)
         }else{
             player.pause()
         }
-        
+    }
+    
+    @objc func moveAction(_ longGes: UILongPressGestureRecognizer?) {
+        if longGes?.state == .began {
+            let point = longGes?.location(in: longGes?.view)
+            let selectPath:IndexPath? = imgCollectionView.indexPathForItem(at: point!)
+            guard (selectPath != nil && selectPath?.section == 0) else {return}
+            imgCollectionView.beginInteractiveMovementForItem(at: selectPath!)
+            let cell: ImageViewCell = self.imgCollectionView.cellForItem(at: selectPath!) as! ImageViewCell
+            cell.deleteBtn.isHidden = false
+            cell.deleteBtn.tag = selectPath!.row
+            cell.deleteBtn.addTarget(self, action: #selector(deleteItemAction), for: .touchUpInside)
+            DispatchQueue.main.asyncAfter(deadline: .now()+3) {
+                cell.deleteBtn.isHidden = true
+            }
+        } else if longGes?.state == .changed {
+            imgCollectionView.updateInteractiveMovementTargetPosition(longGes?.location(in: longGes?.view) ?? CGPoint.zero)
+        } else if longGes?.state == .ended {
+            imgCollectionView.endInteractiveMovement()
+        } else {
+            imgCollectionView.cancelInteractiveMovement()
+        }
+    }
+    
+    @objc func deleteItemAction(_ btn: UIButton?) {
+        imgArr.remove(at: btn?.tag ?? 0)
+        imgCollectionView.reloadData()
     }
 }
 
 extension ViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
-        if indexPath.row == self.imgArr.count-1 {
+        if indexPath.section == 1 {
             goImage()
+        }else{
+            player.pause()
+            self.playBtn.setBackgroundImage(imgArr[indexPath.row], for: .normal)
         }
     }
-
 }
 
 extension ViewController: UICollectionViewDataSource{
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imgArr.count
+        switch section {
+        case 0://图片
+            return imgArr.count
+        case 1://加号
+            return 1
+        default:
+            return 0
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:ImageViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! ImageViewCell
-        cell.backgroundColor = .gray
-        cell.imgV.image = imgArr[indexPath.row]
+        cell.backgroundColor = .clear
+        if indexPath.section == 0 {
+            cell.imgV.image = imgArr[indexPath.row]
+        }else{
+            cell.imgV.image = UIImage.init(named: "album_add")
+        }
+        cell.deleteBtn.isHidden = true
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let obj = imgArr[sourceIndexPath.item]
+        imgArr.remove(at: sourceIndexPath.item)
+        imgArr.insert(obj, at: destinationIndexPath.item)
+        imgCollectionView.reloadData()
     }
 
 }

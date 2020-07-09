@@ -40,15 +40,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "AA8D4150-433C-4964-AD41-C5D9B0215BD4"
+            uuid = "49DE887E-89BE-4C27-92EF-A2CE8ECAE720"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Imood_swift/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "playBtnClick(btn:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -56,32 +56,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B6ED52AD-5A9A-4A60-BA12-15C58555696F"
+            uuid = "EC1F81FC-6324-4C55-A531-31B38ABFAFAA"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Imood_swift/ViewController.swift"
+            filePath = "Imood_swift/Composition.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
-            landmarkName = "playBtnClick(btn:)"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "writeImage(imgArr:moviePath:size:duration:fps:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "760AF0D8-1907-4C02-B879-BC73A48599E8"
+            uuid = "5E6E28F7-0ED3-4348-8FD5-6FA8FC08E2D5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Imood_swift/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "goImage()"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "observeValue(forKeyPath:of:change:context:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

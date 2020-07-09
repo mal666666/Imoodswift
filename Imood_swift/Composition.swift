@@ -65,7 +65,7 @@ class Composition: NSObject {
         return pxbuffer
     }
     //图片合成视频
-    func writeImage(imgArr:Array<UIImage> ,moviePath:String ,size:CGSize ,duration:CGFloat ,fps:Int)  {
+    func writeImage(imgArr:Array<UIImage> ,moviePath:String ,size:CGSize ,duration:CGFloat ,fps:Int ,completion: @escaping()-> Void)  {
         unlink(moviePath)
         let url = URL.domainPathWith(path: moviePath)
         URL.domainPathClear(url: url)
@@ -88,6 +88,7 @@ class Composition: NSObject {
                 if frame >= imgArr.count {
                     videoWriterInput.markAsFinished()
                     videoWriter?.finishWriting(completionHandler: {
+                        completion()
                     })
                     break
                 }

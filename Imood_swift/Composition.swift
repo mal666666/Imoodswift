@@ -11,10 +11,8 @@ import AVFoundation
 import AVKit
 
 class Composition: NSObject {
-    //音乐合成沙河路经
-    let exportMusicPath = "exportMusic.m4a"
     //音频合成，传入音频Url数组
-    func compositionWithArr(audioUrlArr: [URL], completion: @escaping (_ string: URL?) -> Void){
+    func audioCompositionWithArr(audioUrlArr: [URL], completion: @escaping (_ string: URL?) -> Void){
         let mixComposition = AVMutableComposition()
         for audioUrl in audioUrlArr {
             if audioUrl.path  == "/" {
@@ -31,7 +29,7 @@ class Composition: NSObject {
         }
         let assetExport = AVAssetExportSession.init(asset: mixComposition, presetName: AVAssetExportPresetAppleM4A)
         assetExport?.outputFileType = .m4a
-        let url = URL.domainPathWith(path: exportMusicPath)
+        let url = URL.domainPathWith(name: MGBase.audioName)
         URL.domainPathClear(url: url)
 
         assetExport?.outputURL = url
@@ -40,6 +38,51 @@ class Composition: NSObject {
             print("混合音乐完成: \(assetExport?.outputURL! as Any)")
             completion(url)
         })
+    }
+    //最终音视频合成
+    func audioVideoComposition(completion: @escaping(_ url: URL?) -> Void) {
+        let audioUrl:URL    = URL.domainPathWith(name: MGBase.audioName)
+        let photoMovUrl:URL = URL.domainPathWith(name: MGBase.photoMov)
+        let videoUrl:URL    = URL.domainPathWith(name: MGBase.videoName)
+        let recorderUrl:URL = URL.domainPathWith(name: MGBase.recoderName)
+
+        URL.domainPathClear(url: videoUrl)
+        
+        let mixComposition:AVMutableComposition = AVMutableComposition()
+        //视频采集
+        let videoAsset:AVURLAsset = AVURLAsset.init(url: photoMovUrl)
+        let videoTimeRange:CMTimeRange = CMTimeRange.init(start: .zero, duration: videoAsset.duration)
+        let videoTrack:AVMutableCompositionTrack = mixComposition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)!
+        try? videoTrack.insertTimeRange(videoTimeRange, of: videoAsset.tracks(withMediaType: .video)[0], at: .zero)
+        //音频采集
+        if URL.fileSize(url: audioUrl) != 0 {
+            let audioAsset:AVURLAsset = AVURLAsset.init(url: audioUrl)
+            let audioTimeRange:CMTimeRange = CMTimeRange.init(start: .zero, duration: audioAsset.duration)
+            let audioTrack:AVMutableCompositionTrack = mixComposition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)!
+            do {
+                try audioTrack.insertTimeRange(audioTimeRange, of: audioAsset.tracks(withMediaType: .audio)[0], at: .zero)
+            } catch  {
+                print("音频无效")
+            }
+        }
+        //录音采集
+        if URL.fileSize(url: recorderUrl) != 0 {
+            let recorderAsset:AVURLAsset = AVURLAsset.init(url: recorderUrl)
+            let recorderTimeRange:CMTimeRange = CMTimeRange.init(start: .zero, duration: recorderAsset.duration)
+            let audioTrack:AVMutableCompositionTrack = mixComposition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)!
+            do {
+                try audioTrack.insertTimeRange(recorderTimeRange, of: recorderAsset.tracks(withMediaType: .audio)[0], at: .zero)
+            } catch  {
+                print("录音无效")
+            }
+        }
+        //创建输出
+        let assetExport:AVAssetExportSession = AVAssetExportSession.init(asset: mixComposition, presetName: AVAssetExportPresetMediumQuality)!
+        assetExport.outputFileType = .mov
+        assetExport.outputURL = videoUrl
+        assetExport.exportAsynchronously {
+            completion(videoUrl)
+        }
     }
     //CGImage->CVPixelBuffer
     func pixelBuffer(from image: CGImage, size: CGSize) -> CVPixelBuffer? {
@@ -65,9 +108,9 @@ class Composition: NSObject {
         return pxbuffer
     }
     //图片合成视频
-    func writeImage(imgArr:Array<UIImage> ,moviePath:String ,size:CGSize ,duration:CGFloat ,fps:Int ,completion: @escaping()-> Void)  {
-        unlink(moviePath)
-        let url = URL.domainPathWith(path: moviePath)
+    func writeImage(imgArr:Array<UIImage> ,movieName:String ,size:CGSize ,duration:CGFloat ,fps:Int ,completion: @escaping()-> Void)  {
+        unlink(movieName)
+        let url = URL.domainPathWith(name: movieName)
         URL.domainPathClear(url: url)
 
         let videoWriter = try? AVAssetWriter.init(url: url, fileType: .mov)

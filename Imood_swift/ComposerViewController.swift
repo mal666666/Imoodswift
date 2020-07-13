@@ -57,7 +57,21 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     let compo = Composition()
     //音乐元素数组
     var musicUrlArr: [URL] = [URL.init(fileURLWithPath: ""),URL.init(fileURLWithPath: ""),URL.init(fileURLWithPath: ""),URL.init(fileURLWithPath: "")]
-        
+    //录音
+    lazy var recoder: AVAudioRecorder = {
+        var recoderSetting:[String: Any] = [:]
+        recoderSetting[AVFormatIDKey] = NSNumber(value: Int32(kAudioFormatMPEG4AAC))
+        recoderSetting[AVSampleRateKey] = NSNumber(value: 44100.0)
+        recoderSetting[AVNumberOfChannelsKey] = NSNumber(value: 2)
+        var re = AVAudioRecorder()
+        do{
+            re = try AVAudioRecorder.init(url: URL.domainPathWith(name: MGBase.recoderName), settings: recoderSetting)
+            re.prepareToRecord()
+        }catch{
+            
+        }
+        return re
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,7 +127,9 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         let recordBtn = UIButton()
         self.view.addSubview(recordBtn)
         recordBtn.setImage(UIImage.init(named: "record"), for: .normal)
-        recordBtn.addTarget(self, action: #selector(recordBtnClick), for: .touchUpInside)
+        recordBtn.layer.borderColor = UIColor.red.cgColor
+        recordBtn.layer.cornerRadius = 25
+        recordBtn.addTarget(self, action: #selector(recordBtnClick(btn:)), for: .touchUpInside)
         recordBtn.mas_makeConstraints { (make) in
             make?.width.height()?.offset()(50)
             make?.centerX.equalTo()(self.view.mas_centerX)
@@ -153,7 +169,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     }
     
     @objc func mixAndPlayBtnClick(){
-        compo.compositionWithArr(audioUrlArr: musicUrlArr) { [weak self] url in
+        compo.audioCompositionWithArr(audioUrlArr: musicUrlArr) { [weak self] url in
             self!.playWithUrl(url: url!)
         }
     }
@@ -169,8 +185,15 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         
     }
     
-    @objc func recordBtnClick(){
-        
+    @objc func recordBtnClick(btn: UIButton){
+        btn.isSelected = !btn.isSelected
+        if btn.isSelected {
+            btn.layer.borderWidth = 2
+            self.recoder.record()
+        }else{
+            btn.layer.borderWidth = 0
+            self.recoder.stop()
+        }
     }
     //播放音乐用url
     @objc func playWithUrl(url:URL){

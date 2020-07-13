@@ -15,8 +15,21 @@ class MGBase{
     public static var videoSize: CGSize{
         return CGSize(width: 1280, height: 1280)
     }
-    //图片合成视频
+    //图片合成视频名字
     public static var photoMov: String{
         return "photo.mov"
     }
+    //合成音乐名字
+    public static var audioName: String{
+        return "audio.m4a"
+    }
+    //音视频合成名字
+    public static var videoName: String{
+        return "video.mov"
+    }
+    //录音名字
+    public static var recoderName: String{
+        return "recoder.m4a"
+    }
+
 }

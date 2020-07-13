@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     var backgroundIV :UIImageView!
     let playBtn = UIButton()
     lazy var player: AVPlayer = {
-        let player = AVPlayer.init(playerItem: AVPlayerItem.init(url: URL.domainPathWith(path: MGBase.photoMov)))
+        let player = AVPlayer.init(playerItem: AVPlayerItem.init(url: URL.domainPathWith(name: MGBase.photoMov)))
         let playerLayer = AVPlayerLayer.init(player: player)
         self.backgroundIV.layer.insertSublayer(playerLayer, at: 0)
         playerLayer.frame = self.backgroundIV.bounds
@@ -33,6 +33,7 @@ class ViewController: UIViewController {
         }
         return player
     }()
+
     var needMix: Bool!
     var squareImgArr: [UIImage] = []
     var myContext = 0
@@ -160,11 +161,13 @@ class ViewController: UIViewController {
         btn.isSelected = !btn.isSelected
         if btn.isSelected{
             if self.needMix  {
-                self.compo.writeImage(imgArr: self.squareImgArr, moviePath: MGBase.photoMov, size: MGBase.videoSize, duration: 25, fps: 24, completion: {
-                    DispatchQueue.main.async {
-                        self.needMix = false
-                        self.player.replaceCurrentItem(with: AVPlayerItem.init(url: URL.domainPathWith(path: MGBase.photoMov)))
-                        self.player.play()
+                self.compo.writeImage(imgArr: self.squareImgArr, movieName: MGBase.photoMov, size: MGBase.videoSize, duration: 25, fps: 24, completion: {
+                    self.compo.audioVideoComposition { (url) in
+                        DispatchQueue.main.async {
+                            self.needMix = false
+                            self.player.replaceCurrentItem(with: AVPlayerItem.init(url: url!))
+                            self.player.play()
+                        }
                     }
                 })
             }else{

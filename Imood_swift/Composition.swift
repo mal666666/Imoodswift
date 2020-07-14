@@ -71,7 +71,7 @@ class Composition: NSObject {
             let recorderTimeRange:CMTimeRange = CMTimeRange.init(start: .zero, duration: recorderAsset.duration)
             let audioTrack:AVMutableCompositionTrack = mixComposition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)!
             do {
-                try audioTrack.insertTimeRange(recorderTimeRange, of: recorderAsset.tracks(withMediaType: .audio)[0], at: .zero)
+                try audioTrack.insertTimeRange(recorderTimeRange, of: recorderAsset.tracks(withMediaType: .audio)[0], at: MGBase.recoderStartTime)
             } catch  {
                 print("录音无效")
             }
@@ -144,7 +144,5 @@ class Composition: NSObject {
                 if !state {print(state)}
             }
         }
-    
     }
-    
 }

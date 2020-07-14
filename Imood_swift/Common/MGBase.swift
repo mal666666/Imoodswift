@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 //项目基础配置
 class MGBase{
@@ -31,5 +32,15 @@ class MGBase{
     public static var recoderName: String{
         return "recoder.m4a"
     }
+    //录音开始时间
+    static var recoderStartTime: CMTime = .zero
+//     {
+//        set{
+//            self.recoderStartTime = newValue
+//        }
+//        get{
+//            return 0.0
+//        }
+//    }
 
 }

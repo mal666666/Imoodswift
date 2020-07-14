@@ -59,12 +59,27 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     var musicUrlArr: [URL] = [URL.init(fileURLWithPath: ""),URL.init(fileURLWithPath: ""),URL.init(fileURLWithPath: ""),URL.init(fileURLWithPath: "")]
     //录音
     lazy var recoder: AVAudioRecorder = {
+        let audioSession: AVAudioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(.playAndRecord)
+            //增加录音音量
+            try audioSession.overrideOutputAudioPort(.speaker)
+            try audioSession.setActive(true)
+        } catch let error {
+            debugPrint("Couldn't force audio to speaker: \(error)")
+        }
+        
         var recoderSetting:[String: Any] = [:]
+        
         recoderSetting[AVFormatIDKey] = NSNumber(value: Int32(kAudioFormatMPEG4AAC))
         recoderSetting[AVSampleRateKey] = NSNumber(value: 44100.0)
         recoderSetting[AVNumberOfChannelsKey] = NSNumber(value: 2)
+        recoderSetting[AVEncoderAudioQualityKey] = NSNumber(value: AVAudioQuality.high.rawValue)
+        recoderSetting[AVLinearPCMBitDepthKey] = NSNumber(value: 8)
+        
         var re = AVAudioRecorder()
         do{
+            URL.domainPathClear(url: URL.domainPathWith(name: MGBase.recoderName))
             re = try AVAudioRecorder.init(url: URL.domainPathWith(name: MGBase.recoderName), settings: recoderSetting)
             re.prepareToRecord()
         }catch{
@@ -179,10 +194,15 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
             player.removeTimeObserver(timeObserver!)
         }
         self.dismiss(animated: true, completion: nil)
+        URL.domainPathClear(url: URL.domainPathWith(name: MGBase.audioName))
+        URL.domainPathClear(url: URL.domainPathWith(name: MGBase.recoderName))
     }
     
     @objc func mixBtnClick(){
-        
+        if (timeObserver != nil) {
+               player.removeTimeObserver(timeObserver!)
+           }
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func recordBtnClick(btn: UIButton){
@@ -190,6 +210,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         if btn.isSelected {
             btn.layer.borderWidth = 2
             self.recoder.record()
+            MGBase.recoderStartTime = self.player.currentTime()
         }else{
             btn.layer.borderWidth = 0
             self.recoder.stop()

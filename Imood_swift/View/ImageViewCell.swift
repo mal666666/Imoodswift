@@ -23,7 +23,8 @@ class ImageViewCell: UICollectionViewCell {
         }
         //
         self.contentView.addSubview(deleteBtn)
-        deleteBtn.backgroundColor = .red
+        deleteBtn.backgroundColor = .clear
+        deleteBtn.setImage(UIImage.init(named: "delete"), for: .normal)
         deleteBtn.isHidden = true
         deleteBtn.mas_makeConstraints { (make) in
             make?.width.height()?.offset()(20)

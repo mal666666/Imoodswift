@@ -10,4 +10,5 @@ target 'Imood_swift' do
   pod 'Masonry'
   pod 'ZLPhotoBrowser'
   pod 'TZImagePickerController'
+  pod 'Toast-Swift'
 end

@@ -9,6 +9,7 @@
 import UIKit
 import Masonry
 import TZImagePickerController
+import Toast_Swift
 
 class ViewController: UIViewController {
     
@@ -34,7 +35,7 @@ class ViewController: UIViewController {
         return player
     }()
 
-    var needMix: Bool!
+    var needMix: Bool = true
     var squareImgArr: [UIImage] = []
     var myContext = 0
 
@@ -158,6 +159,10 @@ class ViewController: UIViewController {
     }
     
     @objc func playBtnClick(btn: UIButton) {
+        guard self.squareImgArr.count>0 else {
+            self.view.makeToast("请添加照片")
+            return
+        }
         btn.isSelected = !btn.isSelected
         if btn.isSelected{
             if self.needMix  {

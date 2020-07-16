@@ -16,7 +16,7 @@
 #import "ZLPullDownInteractiveTransition.h"
 #import "NSBundle+ZLPhotoBrowser.h"
 #import "ToastUtils.h"
-#import "UIButton+EnlargeTouchArea.h"
+#import "UIControl+EnlargeTouchArea.h"
 #import "UIImage+ZLPhotoBrowser.h"
 #import "ZLAlbumListController.h"
 #import "ZLBigImageCell.h"

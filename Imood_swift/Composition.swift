@@ -50,6 +50,9 @@ class Composition: NSObject {
         
         let mixComposition:AVMutableComposition = AVMutableComposition()
         //视频采集
+        guard URL.fileSize(url: photoMovUrl) != 0 else {
+            return
+        }
         let videoAsset:AVURLAsset = AVURLAsset.init(url: photoMovUrl)
         let videoTimeRange:CMTimeRange = CMTimeRange.init(start: .zero, duration: videoAsset.duration)
         let videoTrack:AVMutableCompositionTrack = mixComposition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)!

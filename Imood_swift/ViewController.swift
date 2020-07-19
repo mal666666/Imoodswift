@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     let compo = Composition()
     var backgroundIV :UIImageView!
     let playBtn = UIButton()
+    let videoTimeLab = UILabel()
+    
     lazy var player: AVPlayer = {
         let player = AVPlayer.init(playerItem: AVPlayerItem.init(url: URL.domainPathWith(name: MGBase.photoMov)))
         let playerLayer = AVPlayerLayer.init(player: player)
@@ -98,14 +100,35 @@ class ViewController: UIViewController {
         let slider = UISlider()
         self.view.addSubview(slider)
         slider.setThumbImage(UIImage.init(named: "faderKey"), for: .normal)
+        slider.addTarget(self, action: #selector(sliderChange(s:)), for: .valueChanged)
+        slider.minimumValue = 10
+        slider.maximumValue = 30
+        slider.value = 20
         slider.mas_makeConstraints { (make) in
             make?.left.equalTo()(selectBtn.mas_right)?.offset()(20)
-            make?.right.offset()(-20)
+            make?.right.offset()(-50)
             make?.centerY.equalTo()(selectBtn)
+        }
+        //显示视频总时间
+        self.view.addSubview(videoTimeLab)
+        videoTimeLab.textAlignment = .center
+        videoTimeLab.font = UIFont.init(name: "Helvetica Neue", size: 16)
+        videoTimeLab.adjustsFontSizeToFitWidth = true
+        videoTimeLab.text = String.init(format: "%.0fs", slider.value)
+        videoTimeLab.textColor = .black
+        videoTimeLab.mas_makeConstraints { (make) in
+            make?.width.offset()(50)
+            make?.height.offset()(30)
+            make?.right.offset()(0)
+            make?.centerY.equalTo()(slider)
         }
         //
         addObserver(self, forKeyPath: "imgArr", options: .new, context: &myContext)
     
+    }
+    //
+    @objc func sliderChange(s:UISlider) -> Void {
+        videoTimeLab.text = String.init(format: "%.0fs", s.value)
     }
     //
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -165,9 +188,14 @@ class ViewController: UIViewController {
         }
         btn.isSelected = !btn.isSelected
         if btn.isSelected{
+            self.playBtn.setBackgroundImage(UIImage.from(color: .clear), for: .normal)
+            
+            let videoText = videoTimeLab.text!.index(videoTimeLab.text!.startIndex, offsetBy: 1)
+            let videoTime:String = String((videoTimeLab.text?.prefix(through: videoText))!)
+                        
             if self.needMix  {
-                self.compo.writeImage(imgArr: self.squareImgArr, movieName: MGBase.photoMov, size: MGBase.videoSize, duration: 25, fps: 24, completion: {
-                    self.compo.audioVideoComposition { (url) in
+                self.compo.writeImage(imgArr: self.squareImgArr, movieName: MGBase.photoMov, size: MGBase.videoSize, duration: CGFloat(Float(videoTime)!), fps: 24, completion: {
+                    self.compo.audioVideoComposition(videoTime: Int64(videoTime)!) { (url) in
                         DispatchQueue.main.async {
                             self.needMix = false
                             self.player.replaceCurrentItem(with: AVPlayerItem.init(url: url!))
@@ -178,7 +206,6 @@ class ViewController: UIViewController {
             }else{
                 self.player.play()
             }
-            self.playBtn.setBackgroundImage(UIImage.from(color: .clear), for: .normal)
         }else{
             player.pause()
         }

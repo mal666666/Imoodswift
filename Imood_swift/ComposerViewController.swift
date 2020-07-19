@@ -193,16 +193,22 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         if (timeObserver != nil) {
             player.removeTimeObserver(timeObserver!)
         }
-        self.dismiss(animated: true, completion: nil)
         URL.domainPathClear(url: URL.domainPathWith(name: MGBase.audioName))
         URL.domainPathClear(url: URL.domainPathWith(name: MGBase.recoderName))
+        self.view.makeToast("音乐取消")
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            self.dismiss(animated: true)
+        }
     }
     
     @objc func mixBtnClick(){
         if (timeObserver != nil) {
                player.removeTimeObserver(timeObserver!)
            }
-        self.dismiss(animated: true, completion: nil)
+        self.view.makeToast("音乐保存")
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            self.dismiss(animated: true)
+        }
     }
     
     @objc func recordBtnClick(btn: UIButton){

@@ -40,7 +40,7 @@ class Composition: NSObject {
         })
     }
     //最终音视频合成
-    func audioVideoComposition(completion: @escaping(_ url: URL?) -> Void) {
+    func audioVideoComposition(videoTime:Int64, completion: @escaping(_ url: URL?) -> Void) {
         let audioUrl:URL    = URL.domainPathWith(name: MGBase.audioName)
         let photoMovUrl:URL = URL.domainPathWith(name: MGBase.photoMov)
         let videoUrl:URL    = URL.domainPathWith(name: MGBase.videoName)
@@ -60,7 +60,7 @@ class Composition: NSObject {
         //音频采集
         if URL.fileSize(url: audioUrl) != 0 {
             let audioAsset:AVURLAsset = AVURLAsset.init(url: audioUrl)
-            let audioTimeRange:CMTimeRange = CMTimeRange.init(start: .zero, duration: audioAsset.duration)
+            let audioTimeRange:CMTimeRange = CMTimeRange.init(start: .zero, duration: CMTime(value: videoTime, timescale: 1))
             let audioTrack:AVMutableCompositionTrack = mixComposition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)!
             do {
                 try audioTrack.insertTimeRange(audioTimeRange, of: audioAsset.tracks(withMediaType: .audio)[0], at: .zero)

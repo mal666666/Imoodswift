@@ -1,10 +1,10 @@
 PODS:
   - Masonry (1.1.0)
-  - SDWebImage (5.8.3):
-    - SDWebImage/Core (= 5.8.3)
-  - SDWebImage/Core (5.8.3)
+  - SDWebImage (5.8.4):
+    - SDWebImage/Core (= 5.8.4)
+  - SDWebImage/Core (5.8.4)
   - Toast-Swift (5.0.1)
-  - TZImagePickerController (3.3.2)
+  - TZImagePickerController (3.4.0)
   - ZLPhotoBrowser (3.2.0):
     - SDWebImage
 
@@ -24,11 +24,11 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  SDWebImage: 112503ec94a5a2a41869503844a15e8d8f1ead5c
+  SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
-  TZImagePickerController: 36ca728ec681228918aa82e993aaab1962281b72
+  TZImagePickerController: 9e3b0cd989e2a8bcb9e65eb9b68b8d4f9f2ce998
   ZLPhotoBrowser: 3748fdbeb2b28961c2495d15131dbf413082e1b9
 
 PODFILE CHECKSUM: 2bb88087f63517bff05eb0f68145f467e4e1d6cb
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0.beta.1

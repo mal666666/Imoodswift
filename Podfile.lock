@@ -1,38 +1,28 @@
 PODS:
   - lottie-ios (3.1.8)
   - Masonry (1.1.0)
-  - SDWebImage (5.8.4):
-    - SDWebImage/Core (= 5.8.4)
-  - SDWebImage/Core (5.8.4)
   - Toast-Swift (5.0.1)
-  - TZImagePickerController (3.4.0)
-  - ZLPhotoBrowser (3.2.0):
-    - SDWebImage
+  - TZImagePickerController (3.4.1)
 
 DEPENDENCIES:
   - lottie-ios
   - Masonry
   - Toast-Swift
   - TZImagePickerController
-  - ZLPhotoBrowser
 
 SPEC REPOS:
   trunk:
     - lottie-ios
     - Masonry
-    - SDWebImage
     - Toast-Swift
     - TZImagePickerController
-    - ZLPhotoBrowser
 
 SPEC CHECKSUMS:
   lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
-  TZImagePickerController: 9e3b0cd989e2a8bcb9e65eb9b68b8d4f9f2ce998
-  ZLPhotoBrowser: 3748fdbeb2b28961c2495d15131dbf413082e1b9
+  TZImagePickerController: 4e7a7b3d314f8a75f11042931dfd9d34c270c7db
 
-PODFILE CHECKSUM: e61a6b527a849839ee9181e46e6ac3617d002564
+PODFILE CHECKSUM: 1cfe99f66cc557eba062ad1d95ab200551a09c68
 
 COCOAPODS: 1.10.0.beta.1

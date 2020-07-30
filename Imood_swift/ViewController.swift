@@ -98,20 +98,20 @@ class ViewController: UIViewController {
         imgCollectionView.isUserInteractionEnabled = true
         imgCollectionView.addGestureRecognizer(longPressGesture)
         // 添加动画视图
-        let animation = Animation.named("music-box-happy")
-        let animationView = AnimationView(animation: animation)
-        self.view.addSubview(animationView)
-        animationView.mas_makeConstraints { (make) in
-            make?.width.height()?.offset()(55)
-            make?.left.offset()(10)
-            make?.top.equalTo()(imgCollectionView.mas_bottom)?.offset()(30)
-        }
-        animationView.play()
-        animationView.loopMode = .loop
+//        let animation = Animation.named("music-box-happy")
+//        let animationView = AnimationView(animation: animation)
+//        self.view.addSubview(animationView)
+//        animationView.mas_makeConstraints { (make) in
+//            make?.width.height()?.offset()(55)
+//            make?.left.offset()(10)
+//            make?.top.equalTo()(imgCollectionView.mas_bottom)?.offset()(30)
+//        }
+//        animationView.play()
+//        animationView.loopMode = .loop
         //选音乐风格
         let selectBtn = UIButton()
         self.view.addSubview(selectBtn)
-        //selectBtn.setImage(UIImage.init(named: "music_add"), for: .normal)
+        selectBtn.setImage(UIImage.init(named: "music_add"), for: .normal)
         selectBtn.addTarget(self, action: #selector(btnClick), for: .touchUpInside)
         selectBtn.mas_makeConstraints { (make) in
             make?.width.height()?.offset()(35)

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		248B7622A493F98FEEDDCDE7 /* Pods_Imood_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F185DBE30A5B5B41FE188746 /* Pods_Imood_swift.framework */; };
-		2F012E3E24CDA34100640928 /* LottieLogo1.json in Resources */ = {isa = PBXBuildFile; fileRef = 2F012E3D24CDA34100640928 /* LottieLogo1.json */; };
 		2F012E4024CDA63F00640928 /* music-box-happy.json in Resources */ = {isa = PBXBuildFile; fileRef = 2F012E3F24CDA63E00640928 /* music-box-happy.json */; };
 		2F16DD8C248A486100E002FC /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F16DD8B248A486100E002FC /* ImageViewCell.swift */; };
 		2F1CF92E2484D9800092BE4D /* SN-贝斯2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1CF8B32484D9800092BE4D /* SN-贝斯2.mp3 */; };
@@ -108,7 +107,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2F012E3D24CDA34100640928 /* LottieLogo1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LottieLogo1.json; sourceTree = "<group>"; };
 		2F012E3F24CDA63E00640928 /* music-box-happy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "music-box-happy.json"; sourceTree = "<group>"; };
 		2F16DD8B248A486100E002FC /* ImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCell.swift; sourceTree = "<group>"; };
 		2F1CF8B32484D9800092BE4D /* SN-贝斯2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SN-贝斯2.mp3"; sourceTree = "<group>"; };
@@ -237,7 +235,6 @@
 			isa = PBXGroup;
 			children = (
 				2F012E3F24CDA63E00640928 /* music-box-happy.json */,
-				2F012E3D24CDA34100640928 /* LottieLogo1.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -532,7 +529,6 @@
 				2F1CF9512484D9800092BE4D /* JS-鼓1.mp3 in Resources */,
 				2F1CF97E2484D9800092BE4D /* LX-节奏吉他5.mp3 in Resources */,
 				2F1CF9692484D9800092BE4D /* DZ-键盘3.mp3 in Resources */,
-				2F012E3E24CDA34100640928 /* LottieLogo1.json in Resources */,
 				2F1CF9772484D9800092BE4D /* LX-贝斯1.mp3 in Resources */,
 				2F1CF9722484D9800092BE4D /* LX-主音吉他1.mp3 in Resources */,
 				2F1CF9752484D9800092BE4D /* LX-贝斯3.mp3 in Resources */,

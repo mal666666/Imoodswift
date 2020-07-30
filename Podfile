@@ -11,4 +11,5 @@ target 'Imood_swift' do
   pod 'ZLPhotoBrowser'
   pod 'TZImagePickerController'
   pod 'Toast-Swift'
+  pod 'lottie-ios'
 end

@@ -4,7 +4,11 @@
 //
 //  Created by 谭真 on 15/12/24.
 //  Copyright © 2015年 谭真. All rights reserved.
+<<<<<<< HEAD
 //  version 3.4.1 - 2020.07.20
+=======
+//  version 3.4.0 - 2020.07.16
+>>>>>>> 55b04d37d7d1aba309edeaedea042cc96c59fc65
 //  更多信息，请前往项目的github地址：https://github.com/banchichen/TZImagePickerController
 
 /*

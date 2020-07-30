@@ -34,13 +34,5 @@ class MGBase{
     }
     //录音开始时间
     static var recoderStartTime: CMTime = .zero
-//     {
-//        set{
-//            self.recoderStartTime = newValue
-//        }
-//        get{
-//            return 0.0
-//        }
-//    }
 
 }

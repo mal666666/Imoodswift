@@ -41,6 +41,16 @@ class ViewController: UIViewController {
     var squareImgArr: [UIImage] = []
     var myContext = 0
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.needMix = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.player.pause()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
@@ -129,6 +139,7 @@ class ViewController: UIViewController {
     //
     @objc func sliderChange(s:UISlider) -> Void {
         videoTimeLab.text = String.init(format: "%.0fs", s.value)
+        self.needMix = true
     }
     //
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

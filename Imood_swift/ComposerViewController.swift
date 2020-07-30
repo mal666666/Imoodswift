@@ -77,13 +77,13 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         recoderSetting[AVEncoderAudioQualityKey] = NSNumber(value: AVAudioQuality.high.rawValue)
         recoderSetting[AVLinearPCMBitDepthKey] = NSNumber(value: 8)
         
-        var re = AVAudioRecorder()
+        var re : AVAudioRecorder!
         do{
             URL.domainPathClear(url: URL.domainPathWith(name: MGBase.recoderName))
             re = try AVAudioRecorder.init(url: URL.domainPathWith(name: MGBase.recoderName), settings: recoderSetting)
             re.prepareToRecord()
         }catch{
-            
+            print(error)
         }
         return re
     }()

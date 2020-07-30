@@ -610,11 +610,7 @@
         } else {
             self->_doneButton.enabled = YES;
         }
-<<<<<<< HEAD
         self->_selectButton.hidden = currentModel.iCloudFailed || !_tzImagePickerVc.showSelectBtn;
-=======
-        self->_selectButton.hidden = currentModel.iCloudFailed;
->>>>>>> 55b04d37d7d1aba309edeaedea042cc96c59fc65
         self->_originalPhotoButton.hidden = currentModel.iCloudFailed;
         self->_originalPhotoLabel.hidden = currentModel.iCloudFailed;
     });

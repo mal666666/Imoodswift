@@ -1,17 +1,7 @@
 PODS:
   - Masonry (1.1.0)
-<<<<<<< HEAD
   - Toast-Swift (5.0.1)
   - TZImagePickerController (3.4.1)
-=======
-  - SDWebImage (5.8.4):
-    - SDWebImage/Core (= 5.8.4)
-  - SDWebImage/Core (5.8.4)
-  - Toast-Swift (5.0.1)
-  - TZImagePickerController (3.4.0)
-  - ZLPhotoBrowser (3.2.0):
-    - SDWebImage
->>>>>>> 55b04d37d7d1aba309edeaedea042cc96c59fc65
 
 DEPENDENCIES:
   - Masonry
@@ -26,16 +16,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-<<<<<<< HEAD
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   TZImagePickerController: 4e7a7b3d314f8a75f11042931dfd9d34c270c7db
-=======
-  SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
-  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
-  TZImagePickerController: 9e3b0cd989e2a8bcb9e65eb9b68b8d4f9f2ce998
-  ZLPhotoBrowser: 3748fdbeb2b28961c2495d15131dbf413082e1b9
->>>>>>> 55b04d37d7d1aba309edeaedea042cc96c59fc65
 
-PODFILE CHECKSUM: 0045340910418a1f9f8e333f39740387cb3d0384
+PODFILE CHECKSUM: 2b41e4d4db2169e0bee6b94cd6e3eec23ee5619e
 
 COCOAPODS: 1.10.0.beta.1

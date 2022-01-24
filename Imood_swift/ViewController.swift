@@ -256,7 +256,7 @@ class ViewController: UIViewController {
         view.setTitleColor(.white, for: .normal)
         view.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
         view.backgroundColor = UIColor.init(red: 0.2, green: 0.42, blue: 0.54, alpha: 1.0)
-        view.layer.cornerRadius = 8
+        view.layer.cornerRadius = 5
         view.addTarget(self, action: #selector(didClickExportButton), for: .touchUpInside)
         return view
     }()

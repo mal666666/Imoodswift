@@ -92,7 +92,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = MGBase.backColor
+        self.view.backgroundColor = UIColor.init(red: 0.2, green: 0.42, blue: 0.54, alpha: 1.0)
         //collectionView
         let layout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = .vertical

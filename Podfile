@@ -6,5 +6,6 @@ target 'Imood_swift' do
   pod 'Masonry'
   pod 'TZImagePickerController'
   pod 'Toast-Swift'
+  pod 'lottie-ios'
   
 end

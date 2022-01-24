@@ -34,5 +34,11 @@ class MGBase{
     }
     //录音开始时间
     static var recoderStartTime: CMTime = .zero
+    // 背景颜色
+    static let backColor = UIColor.init(red: 40/255, green: 185/255, blue: 134/255, alpha: 1.0)
+    //沙盒PATH
+    static func videoPathWith(name: String) -> String {
+        return NSSearchPathForDirectoriesInDomains(.documentDirectory, .allDomainsMask, true).first! + "/" + name
+    }
 
 }

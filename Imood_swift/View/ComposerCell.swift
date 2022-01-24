@@ -11,6 +11,7 @@ import UIKit
 class ComposerCell: UICollectionViewCell {
     
     let titleLab = UILabel()
+    let subTitleLab = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,6 +24,15 @@ class ComposerCell: UICollectionViewCell {
             make?.edges.install()
         }
         titleLab.textAlignment = .center
+        
+        self.contentView.addSubview(subTitleLab)
+        subTitleLab.font = UIFont.systemFont(ofSize: 16)
+        subTitleLab.mas_makeConstraints { (make) in
+            make?.centerY.offset()(MGDevice.screenWidth/15)
+            make?.left.right().offset()(0)
+            make?.height.offset()(30)
+        }
+        subTitleLab.textAlignment = .center
     }
     
     required init?(coder: NSCoder) {

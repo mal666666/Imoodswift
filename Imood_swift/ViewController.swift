@@ -53,8 +53,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
-        self.edgesForExtendedLayout = UIRectEdge.bottom
+        self.view.backgroundColor = .white
+        self.edgesForExtendedLayout = .bottom
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: exportButton)
         //背景
         backgroundIV  = UIImageView.init(image: UIImage.init(named: "background"))
         self.view.addSubview(backgroundIV)
@@ -173,7 +174,7 @@ class ViewController: UIViewController {
             ac.addAction(action)
         }
         self.present(ac, animated: true) {
-            
+
         }
     }
     //选择照片
@@ -247,6 +248,24 @@ class ViewController: UIViewController {
     @objc func deleteItemAction(_ btn: UIButton?) {
         imgArr.remove(at: btn?.tag ?? 0)
         imgCollectionView.reloadData()
+    }
+    
+    private lazy var exportButton: UIButton = {
+        let view = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
+        view.setTitle("导出", for: .normal)
+        view.setTitleColor(.white, for: .normal)
+        view.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+        view.backgroundColor = UIColor.init(red: 0.2, green: 0.42, blue: 0.54, alpha: 1.0)
+        view.layer.cornerRadius = 8
+        view.addTarget(self, action: #selector(didClickExportButton), for: .touchUpInside)
+        return view
+    }()
+    
+    @objc func didClickExportButton() {
+        if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(MGBase.videoPathWith(name: MGBase.videoName)) {
+            UISaveVideoAtPathToSavedPhotosAlbum(MGBase.videoPathWith(name: MGBase.videoName), nil, nil, nil)
+            view.makeToast("导出成功")
+        }
     }
 }
 

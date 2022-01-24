@@ -57,6 +57,8 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     let compo = Composition()
     //音乐元素数组
     var musicUrlArr: [URL] = [URL.init(fileURLWithPath: ""),URL.init(fileURLWithPath: ""),URL.init(fileURLWithPath: ""),URL.init(fileURLWithPath: "")]
+    //音乐元素索引数组
+    var musicIndexArr: [Int] = [-1,-1,-1,-1]
     //录音
     lazy var recoder: AVAudioRecorder = {
         let audioSession: AVAudioSession = AVAudioSession.sharedInstance()
@@ -90,7 +92,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.init(red: 0.2, green: 0.423, blue: 0.549, alpha: 1.0)
+        self.view.backgroundColor = MGBase.backColor
         //collectionView
         let layout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = .vertical
@@ -267,9 +269,12 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         if indexPath.section == 0 {
             cell.backgroundColor = colorArr[indexPath.row]
             cell.titleLab.text = musicalInstrumentsNameArr[indexPath.row]
+            cell.subTitleLab.isHidden = false
+            cell.subTitleLab.text = "\(musicIndexArr[indexPath.row])" == "-1" ? "" : "\(musicIndexArr[indexPath.row])"
         }else{
             cell.backgroundColor = colorArr[musicalInstrumentsIndex]
             cell.titleLab.text = String(indexPath.row)
+            cell.subTitleLab.isHidden = true
         }
         return cell
     }
@@ -301,8 +306,16 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
             }
             
             let url = URL.bundlePathWith(resouce: (temArr[musicalInstrumentsIndex][indexPath.row] as! String), type: "mp3")
-            musicUrlArr[musicalInstrumentsIndex] = url
-            self.playWithUrl(url: url)
+            if musicIndexArr[musicalInstrumentsIndex] != indexPath.row {
+                musicIndexArr[musicalInstrumentsIndex] = indexPath.row
+                musicUrlArr[musicalInstrumentsIndex] = url
+                self.playWithUrl(url: url)
+            }else{
+                musicIndexArr[musicalInstrumentsIndex] = -1
+                musicUrlArr[musicalInstrumentsIndex] = URL.init(fileURLWithPath: "")
+                self.player.pause()
+            }
+            musicMixCollectionView.reloadData()
         }
     }
 }

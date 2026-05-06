@@ -23,6 +23,10 @@ DerivedData/
 # CocoaPods local/generated user data
 Pods/Local Podspecs/
 Pods/Pods.xcodeproj/xcuserdata/
+Pods/Manifest.lock
+
+# CocoaPods dependencies (ignore entire Pods tree)
+Pods/
 
 # Tooling caches
 fastlane/report.xml

@@ -11,11 +11,15 @@ import Foundation
 extension URL{
     //项目目录转URL
     static func bundlePathWith(resouce: String ,type: String) -> URL {
-        return URL.init(fileURLWithPath: Bundle.main.path(forResource: resouce, ofType: type)!)
+        guard let path = Bundle.main.path(forResource: resouce, ofType: type) else {
+            return URL(fileURLWithPath: "/")
+        }
+        return URL(fileURLWithPath: path)
     }
     //沙盒转URL
     static func domainPathWith(name: String) -> URL {
-        return URL.init(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .allDomainsMask, true).first! + "/" + name)
+        let basePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .allDomainsMask, true).first ?? NSTemporaryDirectory()
+        return URL(fileURLWithPath: basePath + "/" + name)
     }
     //写入前删除
     static func domainPathClear(url: URL){
@@ -30,13 +34,14 @@ extension URL{
     //计算大小
     static func fileSize(url: URL) -> Int{
         if FileManager.default.fileExists(atPath: url.path) {
-            var attributes:[FileAttributeKey: Any]?
             do {
-                attributes = try FileManager.default.attributesOfItem(atPath: url.path)
+                let attributes = try FileManager.default.attributesOfItem(atPath: url.path)
+                if let size = attributes[FileAttributeKey.size] as? NSNumber {
+                    return size.intValue
+                }
             } catch  {
-                
+                return 0
             }
-            return attributes?[FileAttributeKey.size] as! Int
         }
         return 0
     }

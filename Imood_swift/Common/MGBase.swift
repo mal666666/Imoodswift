@@ -45,7 +45,8 @@ class MGBase{
     static let themeTextSecondary = UIColor(red: 164/255, green: 177/255, blue: 209/255, alpha: 1.0)
     //沙盒PATH
     static func videoPathWith(name: String) -> String {
-        return NSSearchPathForDirectoriesInDomains(.documentDirectory, .allDomainsMask, true).first! + "/" + name
+        let basePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .allDomainsMask, true).first ?? NSTemporaryDirectory()
+        return basePath + "/" + name
     }
 
 }

@@ -38,8 +38,11 @@ extension UIImage{
             }
         }
         
-        let imageRef = img.cgImage?.cropping(to: rect)
-        let thumbScale = UIImage.init(cgImage: imageRef!)
+        guard let sourceCGImage = img.cgImage,
+              let imageRef = sourceCGImage.cropping(to: rect) else {
+            return img
+        }
+        let thumbScale = UIImage(cgImage: imageRef)
         UIGraphicsBeginImageContext(size)
         if aspectFill {
             thumbScale.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
@@ -47,7 +50,10 @@ extension UIImage{
             UIGraphicsGetCurrentContext()?.concatenate(scaleTransform)
             thumbScale.draw(at: origin)
         }
-        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        guard let newImage = UIGraphicsGetImageFromCurrentImageContext() else {
+            UIGraphicsEndImageContext()
+            return img
+        }
         UIGraphicsEndImageContext();
         return newImage
     }

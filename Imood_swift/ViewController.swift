@@ -7,40 +7,36 @@
 //
 
 import UIKit
+import AVFoundation
 import Masonry
 import TZImagePickerController
 import Toast_Swift
-import Lottie
 
 class ViewController: UIViewController {
     
     var imgCollectionView: UICollectionView!
-    @objc dynamic var imgArr: [UIImage] = []
+    var imgArr: [UIImage] = [] {
+        didSet {
+            refreshPreparedImages()
+        }
+    }
     let compo = Composition()
     var backgroundIV :UIImageView!
     let playBtn = UIButton()
     let videoTimeLab = UILabel()
-    
-    lazy var player: AVPlayer = {
-        let player = AVPlayer.init(playerItem: AVPlayerItem.init(url: URL.domainPathWith(name: MGBase.photoMov)))
-        let playerLayer = AVPlayerLayer.init(player: player)
-        self.backgroundIV.layer.insertSublayer(playerLayer, at: 0)
-        playerLayer.frame = self.backgroundIV.bounds
-        player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 10), queue: DispatchQueue.main) { [weak self]time in
-            let loadTime = CMTimeGetSeconds(time)
-            let totalTime = CMTimeGetSeconds(player.currentItem!.duration)
-            if loadTime/totalTime == 1{
-                player.seek(to: CMTime.zero)
-                self?.playBtn.isSelected = false
-            }
-            //print(loadTime)
-        }
-        return player
-    }()
+    private let durationSlider = UISlider()
+    private let outputFPS = 24
+    private var playerLayer: AVPlayerLayer?
+    private var playerTimeObserver: Any?
+    private let player = AVPlayer()
+    private var isComposing = false
+    private let loadingMaskView = UIView()
+    private let loadingCardView = UIView()
+    private let loadingIndicator = UIActivityIndicatorView(style: .large)
+    private let loadingTextLabel = UILabel()
 
     var needMix: Bool = true
     var squareImgArr: [UIImage] = []
-    var myContext = 0
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -50,6 +46,7 @@ class ViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.player.pause()
+        hideComposingLoading()
     }
     
     override func viewDidLoad() {
@@ -70,6 +67,7 @@ class ViewController: UIViewController {
             make?.topMargin.offset()(8)
             make?.left.right()?.offset()(0)
         }
+        setupPlayer()
         //选音乐风格
         backgroundIV.addSubview(playBtn)
         let heroPlayIcon = UIImage.symbol(
@@ -111,17 +109,6 @@ class ViewController: UIViewController {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(moveAction))
         imgCollectionView.isUserInteractionEnabled = true
         imgCollectionView.addGestureRecognizer(longPressGesture)
-        // 添加动画视图
-//        let animation = Animation.named("music-box-happy")
-//        let animationView = AnimationView(animation: animation)
-//        self.view.addSubview(animationView)
-//        animationView.mas_makeConstraints { (make) in
-//            make?.width.height()?.offset()(55)
-//            make?.left.offset()(10)
-//            make?.top.equalTo()(imgCollectionView.mas_bottom)?.offset()(30)
-//        }
-//        animationView.play()
-//        animationView.loopMode = .loop
         //选音乐风格
         let selectBtn = UIButton()
         self.view.addSubview(selectBtn)
@@ -138,16 +125,15 @@ class ViewController: UIViewController {
             make?.top.equalTo()(imgCollectionView.mas_bottom)?.offset()(40)
         }
         //设置视频时间滑竿
-        let slider = UISlider()
-        self.view.addSubview(slider)
-        slider.setThumbImage(UIImage.sliderThumbImage(diameter: 18, fillColor: MGBase.themeTextPrimary, strokeColor: MGBase.themeAccent), for: .normal)
-        slider.addTarget(self, action: #selector(sliderChange(s:)), for: .valueChanged)
-        slider.minimumTrackTintColor = MGBase.themeAccent
-        slider.maximumTrackTintColor = MGBase.themePanelAlt
-        slider.minimumValue = 10
-        slider.maximumValue = 30
-        slider.value = 20
-        slider.mas_makeConstraints { (make) in
+        self.view.addSubview(durationSlider)
+        durationSlider.setThumbImage(UIImage.sliderThumbImage(diameter: 18, fillColor: MGBase.themeTextPrimary, strokeColor: MGBase.themeAccent), for: .normal)
+        durationSlider.addTarget(self, action: #selector(sliderChange(s:)), for: .valueChanged)
+        durationSlider.minimumTrackTintColor = MGBase.themeAccent
+        durationSlider.maximumTrackTintColor = MGBase.themePanelAlt
+        durationSlider.minimumValue = 10
+        durationSlider.maximumValue = 30
+        durationSlider.value = 20
+        durationSlider.mas_makeConstraints { (make) in
             make?.left.equalTo()(selectBtn.mas_right)?.offset()(20)
             make?.right.offset()(-50)
             make?.centerY.equalTo()(selectBtn)
@@ -157,35 +143,125 @@ class ViewController: UIViewController {
         videoTimeLab.textAlignment = .center
         videoTimeLab.font = UIFont.init(name: "Helvetica Neue", size: 16)
         videoTimeLab.adjustsFontSizeToFitWidth = true
-        videoTimeLab.text = String.init(format: "%.0fs", slider.value)
+        videoTimeLab.text = String(format: "%.0fs", durationSlider.value)
         videoTimeLab.textColor = MGBase.themeTextPrimary
         videoTimeLab.mas_makeConstraints { (make) in
             make?.width.offset()(50)
             make?.height.offset()(30)
             make?.right.offset()(0)
-            make?.centerY.equalTo()(slider)
+            make?.centerY.equalTo()(durationSlider)
         }
-        //
-        addObserver(self, forKeyPath: "imgArr", options: .new, context: &myContext)
-    
+        
+        setupLoadingUI()
     }
+
+    deinit {
+        if let token = playerTimeObserver {
+            player.removeTimeObserver(token)
+            playerTimeObserver = nil
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        playerLayer?.frame = backgroundIV.bounds
+    }
+    
+    private func setupPlayer() {
+        if playerLayer == nil {
+            let layer = AVPlayerLayer(player: player)
+            layer.videoGravity = .resizeAspectFill
+            backgroundIV.layer.insertSublayer(layer, at: 0)
+            playerLayer = layer
+        }
+        
+        if playerTimeObserver == nil {
+            playerTimeObserver = player.addPeriodicTimeObserver(
+                forInterval: CMTime(value: 1, timescale: 10),
+                queue: .main
+            ) { [weak self] time in
+                guard let self,
+                      let currentItem = self.player.currentItem else { return }
+                let totalTime = CMTimeGetSeconds(currentItem.duration)
+                guard totalTime.isFinite, totalTime > 0 else { return }
+                let loadTime = CMTimeGetSeconds(time)
+                if loadTime >= totalTime {
+                    self.player.seek(to: .zero)
+                    self.playBtn.isSelected = false
+                }
+            }
+        }
+    }
+    
+    private func refreshPreparedImages() {
+        needMix = true
+        squareImgArr = imgArr.map { image in
+            image.squareImage(img: image, size: MGBase.videoSize, aspectFill: false)
+        }
+    }
+    
+    private func setupLoadingUI() {
+        loadingMaskView.backgroundColor = UIColor.black.withAlphaComponent(0.34)
+        loadingMaskView.alpha = 0
+        loadingMaskView.isHidden = true
+        view.addSubview(loadingMaskView)
+        loadingMaskView.mas_makeConstraints { make in
+            make?.edges.equalTo()(self.view)
+        }
+        
+        loadingCardView.backgroundColor = MGBase.themePanel
+        loadingCardView.layer.cornerRadius = 14
+        loadingCardView.layer.borderWidth = 1
+        loadingCardView.layer.borderColor = MGBase.themePanelAlt.cgColor
+        loadingMaskView.addSubview(loadingCardView)
+        loadingCardView.mas_makeConstraints { make in
+            make?.centerX.equalTo()(self.loadingMaskView)
+            make?.centerY.equalTo()(self.loadingMaskView)
+            make?.width.offset()(180)
+            make?.height.offset()(130)
+        }
+        
+        loadingIndicator.color = MGBase.themeAccent
+        loadingCardView.addSubview(loadingIndicator)
+        loadingIndicator.mas_makeConstraints { make in
+            make?.top.offset()(20)
+            make?.centerX.equalTo()(self.loadingCardView)
+        }
+        
+        loadingTextLabel.text = "正在合成视频..."
+        loadingTextLabel.textColor = MGBase.themeTextPrimary
+        loadingTextLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+        loadingTextLabel.textAlignment = .center
+        loadingCardView.addSubview(loadingTextLabel)
+        loadingTextLabel.mas_makeConstraints { make in
+            make?.left.offset()(12)
+            make?.right.offset()(-12)
+            make?.bottom.offset()(-22)
+        }
+    }
+    
+    private func showComposingLoading() {
+        loadingMaskView.isHidden = false
+        loadingMaskView.alpha = 0
+        loadingIndicator.startAnimating()
+        UIView.animate(withDuration: 0.2) {
+            self.loadingMaskView.alpha = 1
+        }
+    }
+    
+    private func hideComposingLoading() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.loadingMaskView.alpha = 0
+        }) { _ in
+            self.loadingIndicator.stopAnimating()
+            self.loadingMaskView.isHidden = true
+        }
+    }
+    
     //
     @objc func sliderChange(s:UISlider) -> Void {
-        videoTimeLab.text = String.init(format: "%.0fs", s.value)
+        videoTimeLab.text = String(format: "%.0fs", s.value)
         self.needMix = true
-    }
-    //
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if context == &myContext {
-            self.needMix = true
-            self.squareImgArr.removeAll()
-            for image in self.imgArr {
-                let img = image.squareImage(img: image, size: MGBase.videoSize, aspectFill: false)
-                self.squareImgArr.append(img)
-            }
-         } else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        }
     }
     //选择音乐风格
     @objc func btnClick(){
@@ -216,55 +292,72 @@ class ViewController: UIViewController {
         imagePickerVC.maxImagesCount = 9
         imagePickerVC.modalPresentationStyle = .fullScreen
         self.present(imagePickerVC, animated: true, completion: nil)
-        imagePickerVC.didFinishPickingPhotosHandle = {photos, aseets, isSelectOriginalPhoto in
-            guard let ps = photos else {return}
-            for photo in ps {
-                let img = photo.squareImage(img: photo, size: MGBase.videoSize, aspectFill: true)
-                self.imgArr.insert(img, at: self.imgArr.count)
+        imagePickerVC.didFinishPickingPhotosHandle = { [weak self] photos, _, _ in
+            guard let self, let ps = photos else { return }
+            let newImages = ps.map { photo in
+                photo.squareImage(img: photo, size: MGBase.videoSize, aspectFill: true)
             }
+            self.imgArr.append(contentsOf: newImages)
             self.imgCollectionView.reloadData()
         }
     }
     
     @objc func playBtnClick(btn: UIButton) {
-        guard self.squareImgArr.count>0 else {
+        if isComposing {
+            return
+        }
+        
+        guard !squareImgArr.isEmpty else {
             self.view.makeToast("请添加照片")
             return
         }
         btn.isSelected = !btn.isSelected
-        if btn.isSelected{
+        if btn.isSelected {
             self.playBtn.setBackgroundImage(UIImage.from(color: .clear), for: .normal)
+            let selectedDuration = durationSlider.value
             
-            let videoText = videoTimeLab.text!.index(videoTimeLab.text!.startIndex, offsetBy: 1)
-            let videoTime:String = String((videoTimeLab.text?.prefix(through: videoText))!)
-                        
-            if self.needMix  {
-                self.compo.writeImage(imgArr: self.squareImgArr, movieName: MGBase.photoMov, size: MGBase.videoSize, duration: CGFloat(Float(videoTime)!), fps: 24, completion: {
-                    self.compo.audioVideoComposition(videoTime: Int64(videoTime)!) { (url) in
-                        DispatchQueue.main.async {
-                            self.needMix = false
-                            self.player.replaceCurrentItem(with: AVPlayerItem.init(url: url!))
-                            self.player.play()
+            if self.needMix {
+                isComposing = true
+                showComposingLoading()
+                self.compo.writeImage(
+                    imgArr: self.squareImgArr,
+                    movieName: MGBase.photoMov,
+                    size: MGBase.videoSize,
+                    duration: CGFloat(selectedDuration),
+                    fps: outputFPS
+                ) { [weak self] in
+                    guard let self else { return }
+                    self.compo.audioVideoComposition(videoTime: Int64(selectedDuration.rounded())) { [weak self] url in
+                        guard let self else { return }
+                        self.isComposing = false
+                        self.hideComposingLoading()
+                        guard let url else {
+                            self.playBtn.isSelected = false
+                            self.view.makeToast("合成失败，请重试")
+                            return
                         }
+                        self.needMix = false
+                        self.player.replaceCurrentItem(with: AVPlayerItem(url: url))
+                        self.player.play()
                     }
-                })
-            }else{
+                }
+            } else {
                 self.player.play()
             }
-        }else{
+        } else {
             player.pause()
         }
     }
     
     @objc func moveAction(_ longGes: UILongPressGestureRecognizer?) {
         if longGes?.state == .began {
-            let point = longGes?.location(in: longGes?.view)
-            let selectPath:IndexPath? = imgCollectionView.indexPathForItem(at: point!)
-            guard (selectPath != nil && selectPath?.section == 0) else {return}
-            imgCollectionView.beginInteractiveMovementForItem(at: selectPath!)
-            let cell: ImageViewCell = self.imgCollectionView.cellForItem(at: selectPath!) as! ImageViewCell
+            guard let point = longGes?.location(in: longGes?.view),
+                  let selectPath = imgCollectionView.indexPathForItem(at: point),
+                  selectPath.section == 0 else { return }
+            imgCollectionView.beginInteractiveMovementForItem(at: selectPath)
+            guard let cell = self.imgCollectionView.cellForItem(at: selectPath) as? ImageViewCell else { return }
             cell.deleteBtn.isHidden = false
-            cell.deleteBtn.tag = selectPath!.row
+            cell.deleteBtn.tag = selectPath.row
             cell.deleteBtn.addTarget(self, action: #selector(deleteItemAction), for: .touchUpInside)
             DispatchQueue.main.asyncAfter(deadline: .now()+3) {
                 cell.deleteBtn.isHidden = true
@@ -279,7 +372,8 @@ class ViewController: UIViewController {
     }
     
     @objc func deleteItemAction(_ btn: UIButton?) {
-        imgArr.remove(at: btn?.tag ?? 0)
+        guard let index = btn?.tag, imgArr.indices.contains(index) else { return }
+        imgArr.remove(at: index)
         imgCollectionView.reloadData()
     }
     

@@ -13,7 +13,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     
     var musicMixCollectionView: UICollectionView!
     var player = AVPlayer.init()
-    var timeObserver : Any! = nil
+    var timeObserver: Any?
     //4种乐器名字
     let musicalInstrumentsNameArr = ["DRUM","BASS","GUITAR","MIDI"]
     //4种乐器代表的颜色
@@ -60,7 +60,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     //音乐元素索引数组
     var musicIndexArr: [Int] = [-1,-1,-1,-1]
     //录音
-    lazy var recoder: AVAudioRecorder = {
+    lazy var recoder: AVAudioRecorder? = {
         let audioSession: AVAudioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(.playAndRecord)
@@ -79,16 +79,20 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         recoderSetting[AVEncoderAudioQualityKey] = NSNumber(value: AVAudioQuality.high.rawValue)
         recoderSetting[AVLinearPCMBitDepthKey] = NSNumber(value: 8)
         
-        var re : AVAudioRecorder!
+        var re: AVAudioRecorder?
         do{
             URL.domainPathClear(url: URL.domainPathWith(name: MGBase.recoderName))
             re = try AVAudioRecorder.init(url: URL.domainPathWith(name: MGBase.recoderName), settings: recoderSetting)
-            re.prepareToRecord()
+            re?.prepareToRecord()
         }catch{
             print(error)
         }
         return re
     }()
+    
+    deinit {
+        clearPlayerObserver()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -206,13 +210,19 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     
     @objc func mixAndPlayBtnClick(){
         compo.audioCompositionWithArr(audioUrlArr: musicUrlArr) { [weak self] url in
-            self!.playWithUrl(url: url!)
+            guard let self else { return }
+            guard let url else {
+                self.view.makeToast("请先选择音乐片段")
+                return
+            }
+            self.playWithUrl(url: url)
         }
     }
     
     @objc func backBtnClick(){
-        if (timeObserver != nil) {
-            player.removeTimeObserver(timeObserver!)
+        clearPlayerObserver()
+        if recoder?.isRecording == true {
+            recoder?.stop()
         }
         URL.domainPathClear(url: URL.domainPathWith(name: MGBase.audioName))
         URL.domainPathClear(url: URL.domainPathWith(name: MGBase.recoderName))
@@ -223,9 +233,10 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     }
     
     @objc func mixBtnClick(){
-        if (timeObserver != nil) {
-               player.removeTimeObserver(timeObserver!)
-           }
+        clearPlayerObserver()
+        if recoder?.isRecording == true {
+            recoder?.stop()
+        }
         self.view.makeToast("音乐保存")
         DispatchQueue.main.asyncAfter(deadline: .now()+1) {
             self.dismiss(animated: true)
@@ -234,28 +245,46 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     
     @objc func recordBtnClick(btn: UIButton){
         btn.isSelected = !btn.isSelected
+        guard let recoder else {
+            btn.isSelected = false
+            self.view.makeToast("录音初始化失败")
+            return
+        }
         if btn.isSelected {
             btn.layer.borderWidth = 2
-            self.recoder.record()
+            recoder.record()
             MGBase.recoderStartTime = self.player.currentTime()
         }else{
             btn.layer.borderWidth = 0
-            self.recoder.stop()
+            recoder.stop()
         }
     }
     //播放音乐用url
     @objc func playWithUrl(url:URL){
-        if (timeObserver != nil) {
-            player.removeTimeObserver(timeObserver!)
-        }
+        clearPlayerObserver()
         player = AVPlayer.init(url: url)
         player.play()
-        timeObserver = player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 10), queue: DispatchQueue.main) { [weak self]time in
+        timeObserver = player.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 10), queue: DispatchQueue.main) { [weak self] time in
+            guard let self else { return }
             let loadTime = CMTimeGetSeconds(time)
-            let totalTime = CMTimeGetSeconds(self!.player.currentItem!.duration)
-            self!.slider.value = Float(loadTime/totalTime)
-            self!.leftProgressLab.text = String.customTimeWithSecond(sec: Float(loadTime))
-            self!.rightProgressLab.text = String.customTimeWithSecond(sec: Float(totalTime))
+            guard let item = self.player.currentItem else { return }
+            let totalTime = CMTimeGetSeconds(item.duration)
+            guard totalTime.isFinite, totalTime > 0 else {
+                self.slider.value = 0
+                self.leftProgressLab.text = "00:00"
+                self.rightProgressLab.text = "00:00"
+                return
+            }
+            self.slider.value = Float(loadTime / totalTime)
+            self.leftProgressLab.text = String.customTimeWithSecond(sec: Float(loadTime))
+            self.rightProgressLab.text = String.customTimeWithSecond(sec: Float(totalTime))
+        }
+    }
+    
+    private func clearPlayerObserver() {
+        if let observer = timeObserver {
+            player.removeTimeObserver(observer)
+            timeObserver = nil
         }
     }
     
@@ -312,26 +341,21 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
             //headerReferenceSize会奔溃
             //musicMixCollectionView.reloadSections(IndexSet(integer: 1))
         }else if indexPath.section == 1{
-            var temArr = [[]]
+            var temArr: [[String]] = musicLXArr
             switch type {
             case "流行":
                 temArr = musicLXArr
-                break;
             case "金属":
                 temArr = musicJSArr
-                break;
             case "思念":
                 temArr = musicSNArr
-                break;
             case "电子":
                 temArr = musicDZArr
-                break;
             default:
                 temArr = musicLXArr
-                break
             }
             
-            let url = URL.bundlePathWith(resouce: (temArr[musicalInstrumentsIndex][indexPath.row] as! String), type: "mp3")
+            let url = URL.bundlePathWith(resouce: temArr[musicalInstrumentsIndex][indexPath.row], type: "mp3")
             if musicIndexArr[musicalInstrumentsIndex] != indexPath.row {
                 musicIndexArr[musicalInstrumentsIndex] = indexPath.row
                 musicUrlArr[musicalInstrumentsIndex] = url

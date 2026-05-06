@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+
+# Xcode user data
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+xcuserdata/
+
+# Xcode build artifacts
+build/
+DerivedData/
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM
+*.dSYM.zip
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# CocoaPods local/generated user data
+Pods/Local Podspecs/
+Pods/Pods.xcodeproj/xcuserdata/
+
+# Tooling caches
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output/

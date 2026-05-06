@@ -34,6 +34,14 @@ class ViewController: UIViewController {
     private let loadingCardView = UIView()
     private let loadingIndicator = UIActivityIndicatorView(style: .large)
     private let loadingTextLabel = UILabel()
+    
+    private var isPad: Bool {
+        UIDevice.current.userInterfaceIdiom == .pad
+    }
+    
+    private var horizontalInset: CGFloat {
+        0.0
+    }
 
     var needMix: Bool = true
     var squareImgArr: [UIImage] = []
@@ -63,9 +71,10 @@ class ViewController: UIViewController {
         backgroundIV.layer.cornerRadius = 12
         backgroundIV.clipsToBounds = true
         backgroundIV.mas_makeConstraints { (make) in
-            make?.height.offset()(MGDevice.screenWidth)
-            make?.topMargin.offset()(8)
-            make?.left.right()?.offset()(0)
+            make?.height.equalTo()(self.backgroundIV.mas_width)
+            make?.topMargin.offset()(self.isPad ? 20 : 8)
+            make?.left.offset()(self.horizontalInset)
+            make?.right.offset()(-self.horizontalInset)
         }
         setupPlayer()
         //选音乐风格
@@ -101,9 +110,10 @@ class ViewController: UIViewController {
         imgCollectionView.layer.borderColor = MGBase.themePanelAlt.cgColor
         imgCollectionView.register(ImageViewCell.self, forCellWithReuseIdentifier: "cellID")
         imgCollectionView.mas_makeConstraints { (make) in
-            make?.height.offset()(80)
+            make?.height.offset()(self.isPad ? 92 : 80)
             make?.top.equalTo()(backgroundIV.mas_bottom)
-            make?.left.right()?.offset()(0)
+            make?.left.offset()(self.horizontalInset)
+            make?.right.offset()(-self.horizontalInset)
         }
         //
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(moveAction))
@@ -120,8 +130,8 @@ class ViewController: UIViewController {
         selectBtn.layer.borderWidth = 1
         selectBtn.layer.borderColor = MGBase.themeAccent.cgColor
         selectBtn.mas_makeConstraints { (make) in
-            make?.width.height()?.offset()(35)
-            make?.left.offset()(10)
+            make?.width.height()?.offset()(self.isPad ? 42 : 35)
+            make?.left.offset()(self.horizontalInset + 10)
             make?.top.equalTo()(imgCollectionView.mas_bottom)?.offset()(40)
         }
         //设置视频时间滑竿
@@ -135,7 +145,7 @@ class ViewController: UIViewController {
         durationSlider.value = 20
         durationSlider.mas_makeConstraints { (make) in
             make?.left.equalTo()(selectBtn.mas_right)?.offset()(20)
-            make?.right.offset()(-50)
+            make?.right.offset()(-(self.horizontalInset + 56))
             make?.centerY.equalTo()(selectBtn)
         }
         //显示视频总时间
@@ -148,7 +158,7 @@ class ViewController: UIViewController {
         videoTimeLab.mas_makeConstraints { (make) in
             make?.width.offset()(50)
             make?.height.offset()(30)
-            make?.right.offset()(0)
+            make?.right.offset()(-(self.horizontalInset + 6))
             make?.centerY.equalTo()(durationSlider)
         }
         
@@ -217,8 +227,8 @@ class ViewController: UIViewController {
         loadingCardView.mas_makeConstraints { make in
             make?.centerX.equalTo()(self.loadingMaskView)
             make?.centerY.equalTo()(self.loadingMaskView)
-            make?.width.offset()(180)
-            make?.height.offset()(130)
+            make?.width.offset()(self.isPad ? 230 : 180)
+            make?.height.offset()(self.isPad ? 150 : 130)
         }
         
         loadingIndicator.color = MGBase.themeAccent
@@ -230,7 +240,7 @@ class ViewController: UIViewController {
         
         loadingTextLabel.text = L10n.t("home_loading_composing")
         loadingTextLabel.textColor = MGBase.themeTextPrimary
-        loadingTextLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+        loadingTextLabel.font = UIFont.systemFont(ofSize: isPad ? 17 : 15, weight: .semibold)
         loadingTextLabel.textAlignment = .center
         loadingCardView.addSubview(loadingTextLabel)
         loadingTextLabel.mas_makeConstraints { make in

@@ -34,7 +34,7 @@ class ComposerCell: UICollectionViewCell {
         subTitleLab.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         subTitleLab.textColor = MGBase.themeTextPrimary.withAlphaComponent(0.88)
         subTitleLab.mas_makeConstraints { (make) in
-            make?.centerY.offset()(MGDevice.screenWidth/15)
+            make?.centerY.offset()(34)
             make?.left.right().offset()(0)
             make?.height.offset()(30)
         }

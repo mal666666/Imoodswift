@@ -90,6 +90,48 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         return re
     }()
     
+    private var isPad: Bool {
+        UIDevice.current.userInterfaceIdiom == .pad
+    }
+    
+    private var horizontalInset: CGFloat {
+        0.0
+    }
+    
+    private struct ComposerLayoutMetrics {
+        let instrumentSide: CGFloat
+        let patternWidth: CGFloat
+        let patternHeight: CGFloat
+        let instrumentContentWidth: CGFloat
+        let mixHeight: CGFloat
+        let playButtonSize: CGFloat
+        let playButtonTop: CGFloat
+    }
+    
+    private func layoutMetrics(for width: CGFloat) -> ComposerLayoutMetrics {
+        let instrumentByWidth = max((width - 10.0) / 2.0, 120.0)
+        let instrumentByHeight = max((MGDevice.screenHeight - (isPad ? 380.0 : 300.0)) / 2.0, 120.0)
+        let instrumentMax: CGFloat = isPad ? 360.0 : instrumentByWidth
+        let instrumentSide = min(instrumentByWidth, instrumentByHeight, instrumentMax)
+        let instrumentContentWidth = instrumentSide * 2.0 + 10.0
+        
+        // Keep the 5-pad row visually aligned with the 2x2 instrument block width.
+        let patternByWidth = max((instrumentContentWidth - 40.0) / 5.0, 44.0)
+        let patternWidth = isPad ? min(patternByWidth, 190.0) : patternByWidth
+        let patternHeight = isPad ? 120.0 : max(patternWidth * 1.05, 72.0)
+        
+        let mixHeight = instrumentSide * 2.0 + patternHeight + 70.0
+        let playButtonSize = isPad ? min(max(instrumentSide * 0.62, 180.0), 230.0) : MGDevice.screenWidth / 3.0
+        let playButtonTop = max(instrumentSide - playButtonSize / 2.0 + 15.0, 40.0)
+        return ComposerLayoutMetrics(instrumentSide: instrumentSide,
+                                     patternWidth: patternWidth,
+                                     patternHeight: patternHeight,
+                                     instrumentContentWidth: instrumentContentWidth,
+                                     mixHeight: mixHeight,
+                                     playButtonSize: playButtonSize,
+                                     playButtonTop: playButtonTop)
+    }
+    
     deinit {
         clearPlayerObserver()
     }
@@ -102,7 +144,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
-        layout.headerReferenceSize = CGSize.init(width: MGDevice.screenWidth, height: 10)
+        layout.headerReferenceSize = CGSize(width: 1, height: 10)
         musicMixCollectionView = UICollectionView.init(frame: CGRect.zero, collectionViewLayout:layout)
         self.view.addSubview(musicMixCollectionView)
         musicMixCollectionView.delegate = self
@@ -112,10 +154,13 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         musicMixCollectionView.layer.borderWidth = 1
         musicMixCollectionView.layer.borderColor = MGBase.themePanelAlt.cgColor
         musicMixCollectionView.register(ComposerCell.self, forCellWithReuseIdentifier: "cellID")
+        let listWidth = MGDevice.screenWidth - horizontalInset * 2.0
+        let metrics = layoutMetrics(for: listWidth)
         musicMixCollectionView.mas_makeConstraints { (make) in
-            make?.topMargin.offset()(20)
-            make?.left.right()?.offset()(0)
-            make?.height.equalTo()(self.view.mas_width)?.offset()(MGDevice.screenWidth/4+30)
+            make?.topMargin.offset()(self.isPad ? 24 : 20)
+            make?.left.offset()(self.horizontalInset)
+            make?.right.offset()(-self.horizontalInset)
+            make?.height.offset()(metrics.mixHeight)
         }
         //播放
         let playBtn = UIButton()
@@ -125,9 +170,9 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         playBtn.layer.cornerRadius = 12
         playBtn.addTarget(self, action: #selector(mixAndPlayBtnClick), for: .touchUpInside)
         playBtn.mas_makeConstraints { (make) in
-            make?.width.height()?.offset()(MGDevice.screenWidth/3)
+            make?.width.height()?.offset()(metrics.playButtonSize)
             make?.centerX.equalTo()(musicMixCollectionView)
-            make?.top.offset()(MGDevice.screenWidth/3+10)
+            make?.top.offset()(metrics.playButtonTop)
         }
         //退出
         let backBtn = UIButton()
@@ -140,7 +185,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         backBtn.addTarget(self, action: #selector(backBtnClick), for: .touchUpInside)
         backBtn.mas_makeConstraints { (make) in
             make?.width.height()?.offset()(40)
-            make?.left.offset()(50)
+            make?.left.offset()(self.horizontalInset + (self.isPad ? 24 : 50))
             make?.bottomMargin.offset()(-20)
         }
         //合成音乐
@@ -154,7 +199,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         mixBtn.addTarget(self, action: #selector(mixBtnClick), for: .touchUpInside)
         mixBtn.mas_makeConstraints { (make) in
             make?.width.height()?.offset()(40)
-            make?.right.offset()(-50)
+            make?.right.offset()(-(self.horizontalInset + (self.isPad ? 24 : 50)))
             make?.bottomMargin.offset()(-20)
         }
         //录音
@@ -181,7 +226,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         leftProgressLab.mas_makeConstraints { (make) in
             make?.width.offset()(50)
             make?.height.offset()(20)
-            make?.left.offset()(10)
+            make?.left.offset()(self.horizontalInset + (self.isPad ? 20 : 10))
             make?.bottomMargin.offset()(-90)
         }
         //右进度
@@ -194,7 +239,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         rightProgressLab.mas_makeConstraints { (make) in
             make?.width.offset()(50)
             make?.height.offset()(20)
-            make?.right.offset()(-10)
+            make?.right.offset()(-(self.horizontalInset + (self.isPad ? 20 : 10)))
             make?.bottomMargin.offset()(-90)
         }
         //进度条
@@ -202,8 +247,8 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         slider.minimumTrackTintColor = MGBase.themeAccent
         slider.maximumTrackTintColor = MGBase.themePanelAlt
         slider.mas_makeConstraints { (make) in
-            make?.left.offset()(70)
-            make?.right.offset()(-70)
+            make?.left.offset()(self.horizontalInset + (self.isPad ? 96 : 70))
+            make?.right.offset()(-(self.horizontalInset + (self.isPad ? 96 : 70)))
             make?.centerY.equalTo()(leftProgressLab)
         }
     }
@@ -289,12 +334,28 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width
+        let metrics = layoutMetrics(for: width)
         switch indexPath.section {
         case 0:
-            return CGSize.init(width: MGDevice.screenWidth/2-5, height: MGDevice.screenWidth/2-5)
+            return CGSize(width: metrics.instrumentSide, height: metrics.instrumentSide)
         default:
-            return CGSize.init(width: MGDevice.screenWidth/5-10, height: MGDevice.screenWidth/4)
+            return CGSize(width: metrics.patternWidth, height: metrics.patternHeight)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        let width = collectionView.bounds.width
+        let metrics = layoutMetrics(for: width)
+        let interitemSpace: CGFloat = 10.0
+        let contentWidth: CGFloat
+        if section == 0 {
+            contentWidth = metrics.instrumentContentWidth
+        } else {
+            contentWidth = metrics.patternWidth * 5.0 + interitemSpace * 4.0
+        }
+        let inset = max((width - contentWidth) / 2.0, 0)
+        return UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
     }
         
     func numberOfSections(in collectionView: UICollectionView) -> Int {

@@ -228,7 +228,7 @@ class ViewController: UIViewController {
             make?.centerX.equalTo()(self.loadingCardView)
         }
         
-        loadingTextLabel.text = "正在合成视频..."
+        loadingTextLabel.text = L10n.t("home_loading_composing")
         loadingTextLabel.textColor = MGBase.themeTextPrimary
         loadingTextLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         loadingTextLabel.textAlignment = .center
@@ -265,18 +265,27 @@ class ViewController: UIViewController {
     }
     //选择音乐风格
     @objc func btnClick(){
-        let ac = UIAlertController.init(title: "提示", message: "请选择音乐风格", preferredStyle: .alert)
+        let ac = UIAlertController.init(
+            title: L10n.t("common_notice"),
+            message: L10n.t("home_pick_style_message"),
+            preferredStyle: .alert
+        )
         ac.view.tintColor = MGBase.themeAccent
-        let cancelAC = UIAlertAction.init(title: "取消", style: .cancel) { (action) in
+        let cancelAC = UIAlertAction.init(title: L10n.t("common_cancel"), style: .cancel) { (action) in
             
         }
         ac.addAction(cancelAC)
-        let itemS = ["流行","金属","思念","电子"]
-        for item in itemS {
-            let action = UIAlertAction.init(title: item, style: .default) { (action) in
+        let styleOptions: [(key: String, title: String)] = [
+            ("pop", L10n.t("style_pop")),
+            ("metal", L10n.t("style_metal")),
+            ("nostalgia", L10n.t("style_nostalgia")),
+            ("electronic", L10n.t("style_electronic"))
+        ]
+        for item in styleOptions {
+            let action = UIAlertAction.init(title: item.title, style: .default) { (action) in
                 let composerVC = ComposerViewController()
                 composerVC.modalPresentationStyle = .fullScreen
-                composerVC.type = item
+                composerVC.musicStyleKey = item.key
                 self.present(composerVC, animated: true) {
                 }
             }
@@ -308,7 +317,7 @@ class ViewController: UIViewController {
         }
         
         guard !squareImgArr.isEmpty else {
-            self.view.makeToast("请添加照片")
+            self.view.makeToast(L10n.t("home_toast_add_photos"))
             return
         }
         btn.isSelected = !btn.isSelected
@@ -333,7 +342,7 @@ class ViewController: UIViewController {
                         self.hideComposingLoading()
                         guard let url else {
                             self.playBtn.isSelected = false
-                            self.view.makeToast("合成失败，请重试")
+                            self.view.makeToast(L10n.t("home_toast_compose_failed_retry"))
                             return
                         }
                         self.needMix = false
@@ -379,7 +388,7 @@ class ViewController: UIViewController {
     
     private lazy var exportButton: UIButton = {
         let view = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
-        view.setTitle("导出", for: .normal)
+        view.setTitle(L10n.t("home_export"), for: .normal)
         view.setTitleColor(MGBase.themeTextPrimary, for: .normal)
         view.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
         view.backgroundColor = MGBase.themePanelAlt
@@ -393,7 +402,7 @@ class ViewController: UIViewController {
     @objc func didClickExportButton() {
         if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(MGBase.videoPathWith(name: MGBase.videoName)) {
             UISaveVideoAtPathToSavedPhotosAlbum(MGBase.videoPathWith(name: MGBase.videoName), nil, nil, nil)
-            view.makeToast("导出成功")
+            view.makeToast(L10n.t("home_toast_export_success"))
         }
     }
 }

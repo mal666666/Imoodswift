@@ -15,7 +15,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     var player = AVPlayer.init()
     var timeObserver: Any?
     //4种乐器名字
-    let musicalInstrumentsNameArr = ["DRUM","BASS","GUITAR","MIDI"]
+    let musicalInstrumentsNameArr = ["instrument_drum","instrument_bass","instrument_guitar","instrument_midi"]
     //4种乐器代表的颜色
     let colorArr = [UIColor(red: 255/255, green: 95/255, blue: 128/255, alpha: 1.0)
         ,UIColor(red: 255/255, green: 161/255, blue: 80/255, alpha: 1.0)
@@ -24,7 +24,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     //选中第几个乐器
     var musicalInstrumentsIndex = 0
     //音乐类型
-    var type: String?
+    var musicStyleKey: String?
     
     //4x5种流行音乐元素
     let musicLXArr = [["LX-鼓1","LX-鼓2","LX-鼓3","LX-鼓4","LX-鼓5"]
@@ -212,7 +212,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         compo.audioCompositionWithArr(audioUrlArr: musicUrlArr) { [weak self] url in
             guard let self else { return }
             guard let url else {
-                self.view.makeToast("请先选择音乐片段")
+                self.view.makeToast(L10n.t("composer_toast_select_segments"))
                 return
             }
             self.playWithUrl(url: url)
@@ -226,7 +226,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         }
         URL.domainPathClear(url: URL.domainPathWith(name: MGBase.audioName))
         URL.domainPathClear(url: URL.domainPathWith(name: MGBase.recoderName))
-        self.view.makeToast("音乐取消")
+        self.view.makeToast(L10n.t("composer_toast_cancelled"))
         DispatchQueue.main.asyncAfter(deadline: .now()+1) {
             self.dismiss(animated: true)
         }
@@ -237,7 +237,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         if recoder?.isRecording == true {
             recoder?.stop()
         }
-        self.view.makeToast("音乐保存")
+        self.view.makeToast(L10n.t("composer_toast_saved"))
         DispatchQueue.main.asyncAfter(deadline: .now()+1) {
             self.dismiss(animated: true)
         }
@@ -247,7 +247,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         btn.isSelected = !btn.isSelected
         guard let recoder else {
             btn.isSelected = false
-            self.view.makeToast("录音初始化失败")
+            self.view.makeToast(L10n.t("composer_toast_recorder_init_failed"))
             return
         }
         if btn.isSelected {
@@ -318,7 +318,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
             cell.backgroundColor = colorArr[indexPath.row]
             cell.layer.borderColor = UIColor.white.withAlphaComponent(0.14).cgColor
             cell.layer.borderWidth = 1
-            cell.titleLab.text = musicalInstrumentsNameArr[indexPath.row]
+            cell.titleLab.text = L10n.t(musicalInstrumentsNameArr[indexPath.row])
             cell.titleLab.textColor = MGBase.themeTextPrimary
             cell.subTitleLab.isHidden = false
             cell.subTitleLab.textColor = MGBase.themeTextPrimary.withAlphaComponent(0.85)
@@ -342,14 +342,14 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
             //musicMixCollectionView.reloadSections(IndexSet(integer: 1))
         }else if indexPath.section == 1{
             var temArr: [[String]] = musicLXArr
-            switch type {
-            case "流行":
+            switch musicStyleKey {
+            case "pop":
                 temArr = musicLXArr
-            case "金属":
+            case "metal":
                 temArr = musicJSArr
-            case "思念":
+            case "nostalgia":
                 temArr = musicSNArr
-            case "电子":
+            case "electronic":
                 temArr = musicDZArr
             default:
                 temArr = musicLXArr

@@ -54,22 +54,32 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = MGBase.themeBackground
         self.edgesForExtendedLayout = .bottom
+        self.navigationController?.navigationBar.tintColor = MGBase.themeAccent
+        self.navigationController?.navigationBar.barStyle = .black
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: exportButton)
         //背景
         backgroundIV  = UIImageView.init(image: UIImage.init(named: "background"))
         self.view.addSubview(backgroundIV)
         backgroundIV.isUserInteractionEnabled = true
+        backgroundIV.layer.cornerRadius = 12
+        backgroundIV.clipsToBounds = true
         backgroundIV.mas_makeConstraints { (make) in
             make?.height.offset()(MGDevice.screenWidth)
-            make?.topMargin.equalTo()(self.view)
+            make?.topMargin.offset()(8)
             make?.left.right()?.offset()(0)
         }
         //选音乐风格
         backgroundIV.addSubview(playBtn)
-        playBtn.setImage(UIImage.init(named: "play_btn"), for: .normal)
-        playBtn.setImage(UIImage.init(named: "play_btn"), for: .highlighted)
+        let heroPlayIcon = UIImage.symbol(
+            named: "play.circle.fill",
+            pointSize: 72,
+            weight: .regular,
+            color: MGBase.themeTextPrimary.withAlphaComponent(0.92)
+        )
+        playBtn.setImage(heroPlayIcon, for: .normal)
+        playBtn.setImage(heroPlayIcon, for: .highlighted)
         playBtn.setImage(UIImage.from(color: UIColor.clear), for: .selected)
         playBtn.addTarget(self, action: #selector(playBtnClick(btn:)), for: .touchUpInside)
         playBtn.mas_makeConstraints { (make) in
@@ -87,7 +97,10 @@ class ViewController: UIViewController {
         imgCollectionView.delegate = self
         imgCollectionView.dataSource = self
         imgCollectionView.showsHorizontalScrollIndicator = false
-        imgCollectionView.backgroundColor = UIColor.init(red: 0.2, green: 0.42, blue: 0.54, alpha: 1.0)
+        imgCollectionView.backgroundColor = MGBase.themePanel
+        imgCollectionView.layer.cornerRadius = 10
+        imgCollectionView.layer.borderWidth = 1
+        imgCollectionView.layer.borderColor = MGBase.themePanelAlt.cgColor
         imgCollectionView.register(ImageViewCell.self, forCellWithReuseIdentifier: "cellID")
         imgCollectionView.mas_makeConstraints { (make) in
             make?.height.offset()(80)
@@ -112,8 +125,13 @@ class ViewController: UIViewController {
         //选音乐风格
         let selectBtn = UIButton()
         self.view.addSubview(selectBtn)
-        selectBtn.setImage(UIImage.init(named: "music_add"), for: .normal)
+        selectBtn.setImage(UIImage.composeMusicEntryIcon(waveformColor: MGBase.themeAccent, badgeColor: MGBase.themeAccentWarm), for: .normal)
+        selectBtn.setImage(UIImage.composeMusicEntryIcon(waveformColor: MGBase.themeTextPrimary, badgeColor: MGBase.themeAccentWarm), for: .highlighted)
         selectBtn.addTarget(self, action: #selector(btnClick), for: .touchUpInside)
+        selectBtn.backgroundColor = MGBase.themePanelAlt
+        selectBtn.layer.cornerRadius = 8
+        selectBtn.layer.borderWidth = 1
+        selectBtn.layer.borderColor = MGBase.themeAccent.cgColor
         selectBtn.mas_makeConstraints { (make) in
             make?.width.height()?.offset()(35)
             make?.left.offset()(10)
@@ -122,8 +140,10 @@ class ViewController: UIViewController {
         //设置视频时间滑竿
         let slider = UISlider()
         self.view.addSubview(slider)
-        slider.setThumbImage(UIImage.init(named: "faderKey"), for: .normal)
+        slider.setThumbImage(UIImage.sliderThumbImage(diameter: 18, fillColor: MGBase.themeTextPrimary, strokeColor: MGBase.themeAccent), for: .normal)
         slider.addTarget(self, action: #selector(sliderChange(s:)), for: .valueChanged)
+        slider.minimumTrackTintColor = MGBase.themeAccent
+        slider.maximumTrackTintColor = MGBase.themePanelAlt
         slider.minimumValue = 10
         slider.maximumValue = 30
         slider.value = 20
@@ -138,7 +158,7 @@ class ViewController: UIViewController {
         videoTimeLab.font = UIFont.init(name: "Helvetica Neue", size: 16)
         videoTimeLab.adjustsFontSizeToFitWidth = true
         videoTimeLab.text = String.init(format: "%.0fs", slider.value)
-        videoTimeLab.textColor = .black
+        videoTimeLab.textColor = MGBase.themeTextPrimary
         videoTimeLab.mas_makeConstraints { (make) in
             make?.width.offset()(50)
             make?.height.offset()(30)
@@ -170,6 +190,7 @@ class ViewController: UIViewController {
     //选择音乐风格
     @objc func btnClick(){
         let ac = UIAlertController.init(title: "提示", message: "请选择音乐风格", preferredStyle: .alert)
+        ac.view.tintColor = MGBase.themeAccent
         let cancelAC = UIAlertAction.init(title: "取消", style: .cancel) { (action) in
             
         }
@@ -265,10 +286,12 @@ class ViewController: UIViewController {
     private lazy var exportButton: UIButton = {
         let view = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
         view.setTitle("导出", for: .normal)
-        view.setTitleColor(.white, for: .normal)
+        view.setTitleColor(MGBase.themeTextPrimary, for: .normal)
         view.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
-        view.backgroundColor = UIColor.init(red: 0.2, green: 0.42, blue: 0.54, alpha: 1.0)
+        view.backgroundColor = MGBase.themePanelAlt
         view.layer.cornerRadius = 5
+        view.layer.borderWidth = 1
+        view.layer.borderColor = MGBase.themeAccent.cgColor
         view.addTarget(self, action: #selector(didClickExportButton), for: .touchUpInside)
         return view
     }()
@@ -314,8 +337,10 @@ extension ViewController: UICollectionViewDataSource{
         cell.backgroundColor = .clear
         if indexPath.section == 0 {
             cell.imgV.image = imgArr[indexPath.row]
+            cell.imgV.contentMode = .scaleAspectFill
         }else{
-            cell.imgV.image = UIImage.init(named: "album_add")
+            cell.imgV.image = UIImage.symbol(named: "plus", pointSize: 24, weight: .bold, color: MGBase.themeAccent)
+            cell.imgV.contentMode = .center
         }
         cell.deleteBtn.isHidden = true
         return cell

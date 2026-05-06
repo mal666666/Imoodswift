@@ -17,10 +17,10 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     //4种乐器名字
     let musicalInstrumentsNameArr = ["DRUM","BASS","GUITAR","MIDI"]
     //4种乐器代表的颜色
-    let colorArr = [UIColor.init(red: 0.964, green: 0.419, blue: 0.388, alpha: 1.0)
-        ,UIColor.init(red: 1.0, green: 0.627, blue: 0.219, alpha: 1.0)
-        ,UIColor.init(red: 0.325, green: 0.709, blue: 0.839, alpha: 1.0)
-        ,UIColor.init(red: 0.364, green: 0.8, blue: 0.796, alpha: 1.0)]
+    let colorArr = [UIColor(red: 255/255, green: 95/255, blue: 128/255, alpha: 1.0)
+        ,UIColor(red: 255/255, green: 161/255, blue: 80/255, alpha: 1.0)
+        ,UIColor(red: 90/255, green: 180/255, blue: 255/255, alpha: 1.0)
+        ,UIColor(red: 89/255, green: 231/255, blue: 204/255, alpha: 1.0)]
     //选中第几个乐器
     var musicalInstrumentsIndex = 0
     //音乐类型
@@ -92,7 +92,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.init(red: 0.2, green: 0.42, blue: 0.54, alpha: 1.0)
+        self.view.backgroundColor = MGBase.themeBackground
         //collectionView
         let layout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = .vertical
@@ -103,7 +103,10 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         self.view.addSubview(musicMixCollectionView)
         musicMixCollectionView.delegate = self
         musicMixCollectionView.dataSource = self
-        musicMixCollectionView.backgroundColor = .clear
+        musicMixCollectionView.backgroundColor = MGBase.themePanel
+        musicMixCollectionView.layer.cornerRadius = 14
+        musicMixCollectionView.layer.borderWidth = 1
+        musicMixCollectionView.layer.borderColor = MGBase.themePanelAlt.cgColor
         musicMixCollectionView.register(ComposerCell.self, forCellWithReuseIdentifier: "cellID")
         musicMixCollectionView.mas_makeConstraints { (make) in
             make?.topMargin.offset()(20)
@@ -113,7 +116,9 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         //播放
         let playBtn = UIButton()
         musicMixCollectionView.addSubview(playBtn)
-        playBtn.setImage(UIImage.init(named: "play"), for: .normal)
+        playBtn.setImage(UIImage.symbol(named: "play.fill", pointSize: 46, weight: .semibold, color: MGBase.themeTextPrimary), for: .normal)
+        playBtn.backgroundColor = MGBase.themePanelAlt.withAlphaComponent(0.55)
+        playBtn.layer.cornerRadius = 12
         playBtn.addTarget(self, action: #selector(mixAndPlayBtnClick), for: .touchUpInside)
         playBtn.mas_makeConstraints { (make) in
             make?.width.height()?.offset()(MGDevice.screenWidth/3)
@@ -123,7 +128,11 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         //退出
         let backBtn = UIButton()
         self.view.addSubview(backBtn)
-        backBtn.setImage(UIImage.init(named: "closed"), for: .normal)
+        backBtn.setImage(UIImage.symbol(named: "xmark", pointSize: 18, weight: .bold, color: MGBase.themeTextPrimary), for: .normal)
+        backBtn.backgroundColor = MGBase.themePanelAlt
+        backBtn.layer.cornerRadius = 20
+        backBtn.layer.borderWidth = 1
+        backBtn.layer.borderColor = MGBase.themeAccent.cgColor
         backBtn.addTarget(self, action: #selector(backBtnClick), for: .touchUpInside)
         backBtn.mas_makeConstraints { (make) in
             make?.width.height()?.offset()(40)
@@ -133,7 +142,11 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         //合成音乐
         let mixBtn = UIButton()
         self.view.addSubview(mixBtn)
-        mixBtn.setImage(UIImage.init(named: "fabu"), for: .normal)
+        mixBtn.setImage(UIImage.symbol(named: "square.and.arrow.down.fill", pointSize: 18, weight: .semibold, color: MGBase.themeTextPrimary), for: .normal)
+        mixBtn.backgroundColor = MGBase.themePanelAlt
+        mixBtn.layer.cornerRadius = 20
+        mixBtn.layer.borderWidth = 1
+        mixBtn.layer.borderColor = MGBase.themeAccent.cgColor
         mixBtn.addTarget(self, action: #selector(mixBtnClick), for: .touchUpInside)
         mixBtn.mas_makeConstraints { (make) in
             make?.width.height()?.offset()(40)
@@ -143,8 +156,10 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         //录音
         let recordBtn = UIButton()
         self.view.addSubview(recordBtn)
-        recordBtn.setImage(UIImage.init(named: "record"), for: .normal)
-        recordBtn.layer.borderColor = UIColor.red.cgColor
+        recordBtn.setImage(UIImage.symbol(named: "mic.fill", pointSize: 20, weight: .semibold, color: MGBase.themeTextPrimary), for: .normal)
+        recordBtn.setImage(UIImage.symbol(named: "stop.fill", pointSize: 20, weight: .bold, color: MGBase.themeAccentWarm), for: .selected)
+        recordBtn.backgroundColor = MGBase.themePanelAlt
+        recordBtn.layer.borderColor = MGBase.themeAccentWarm.cgColor
         recordBtn.layer.cornerRadius = 25
         recordBtn.addTarget(self, action: #selector(recordBtnClick(btn:)), for: .touchUpInside)
         recordBtn.mas_makeConstraints { (make) in
@@ -158,6 +173,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         leftProgressLab.font = UIFont.init(name: "Helvetica Neue", size: 16)
         leftProgressLab.textAlignment = .right
         leftProgressLab.adjustsFontSizeToFitWidth = true
+        leftProgressLab.textColor = MGBase.themeTextPrimary
         leftProgressLab.mas_makeConstraints { (make) in
             make?.width.offset()(50)
             make?.height.offset()(20)
@@ -170,6 +186,7 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         rightProgressLab.font = UIFont.init(name: "Helvetica Neue", size: 16)
         rightProgressLab.textAlignment = .left
         rightProgressLab.adjustsFontSizeToFitWidth = true
+        rightProgressLab.textColor = MGBase.themeTextPrimary
         rightProgressLab.mas_makeConstraints { (make) in
             make?.width.offset()(50)
             make?.height.offset()(20)
@@ -178,6 +195,8 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         }
         //进度条
         self.view.addSubview(slider)
+        slider.minimumTrackTintColor = MGBase.themeAccent
+        slider.maximumTrackTintColor = MGBase.themePanelAlt
         slider.mas_makeConstraints { (make) in
             make?.left.offset()(70)
             make?.right.offset()(-70)
@@ -268,12 +287,19 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         let cell:ComposerCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! ComposerCell
         if indexPath.section == 0 {
             cell.backgroundColor = colorArr[indexPath.row]
+            cell.layer.borderColor = UIColor.white.withAlphaComponent(0.14).cgColor
+            cell.layer.borderWidth = 1
             cell.titleLab.text = musicalInstrumentsNameArr[indexPath.row]
+            cell.titleLab.textColor = MGBase.themeTextPrimary
             cell.subTitleLab.isHidden = false
+            cell.subTitleLab.textColor = MGBase.themeTextPrimary.withAlphaComponent(0.85)
             cell.subTitleLab.text = "\(musicIndexArr[indexPath.row])" == "-1" ? "" : "\(musicIndexArr[indexPath.row])"
         }else{
-            cell.backgroundColor = colorArr[musicalInstrumentsIndex]
+            cell.backgroundColor = colorArr[musicalInstrumentsIndex].withAlphaComponent(0.82)
+            cell.layer.borderColor = UIColor.white.withAlphaComponent(0.10).cgColor
+            cell.layer.borderWidth = 1
             cell.titleLab.text = String(indexPath.row)
+            cell.titleLab.textColor = MGBase.themeTextPrimary
             cell.subTitleLab.isHidden = true
         }
         return cell

@@ -63,4 +63,57 @@ extension UIImage{
         UIGraphicsEndImageContext()
         return img!
     }
+    
+    static func symbol(
+        named: String,
+        pointSize: CGFloat,
+        weight: UIImage.SymbolWeight = .regular,
+        color: UIColor
+    ) -> UIImage? {
+        let config = UIImage.SymbolConfiguration(pointSize: pointSize, weight: weight)
+        return UIImage(systemName: named, withConfiguration: config)?
+            .withTintColor(color, renderingMode: .alwaysOriginal)
+    }
+    
+    static func sliderThumbImage(
+        diameter: CGFloat,
+        fillColor: UIColor,
+        strokeColor: UIColor
+    ) -> UIImage {
+        let size = CGSize(width: diameter, height: diameter)
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { context in
+            let rect = CGRect(origin: .zero, size: size).insetBy(dx: 0.5, dy: 0.5)
+            context.cgContext.setShadow(offset: CGSize(width: 0, height: 1), blur: 4, color: UIColor.black.withAlphaComponent(0.35).cgColor)
+            let path = UIBezierPath(ovalIn: rect)
+            fillColor.setFill()
+            path.fill()
+            strokeColor.setStroke()
+            path.lineWidth = 1.5
+            path.stroke()
+        }
+    }
+    
+    static func composeMusicEntryIcon(
+        size: CGFloat = 22,
+        waveformColor: UIColor,
+        badgeColor: UIColor
+    ) -> UIImage? {
+        let canvas = CGSize(width: size, height: size)
+        let renderer = UIGraphicsImageRenderer(size: canvas)
+        return renderer.image { _ in
+            let waveConfig = UIImage.SymbolConfiguration(pointSize: size * 0.82, weight: .semibold)
+            let plusConfig = UIImage.SymbolConfiguration(pointSize: size * 0.44, weight: .bold)
+            
+            let wave = UIImage(systemName: "waveform.path", withConfiguration: waveConfig)?
+                .withTintColor(waveformColor, renderingMode: .alwaysOriginal)
+            let plus = UIImage(systemName: "plus.circle.fill", withConfiguration: plusConfig)?
+                .withTintColor(badgeColor, renderingMode: .alwaysOriginal)
+            
+            let waveRect = CGRect(x: 0, y: size * 0.12, width: size * 0.92, height: size * 0.76)
+            let plusRect = CGRect(x: size * 0.56, y: size * 0.02, width: size * 0.44, height: size * 0.44)
+            wave?.draw(in: waveRect)
+            plus?.draw(in: plusRect)
+        }
+    }
 }

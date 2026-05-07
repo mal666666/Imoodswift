@@ -1,32 +1,28 @@
 PODS:
-  - lottie-ios (4.5.2)
   - Masonry (1.1.0)
   - Toast-Swift (5.1.1)
-  - TZImagePickerController (3.8.9):
-    - TZImagePickerController/Basic (= 3.8.9)
-    - TZImagePickerController/Location (= 3.8.9)
-  - TZImagePickerController/Basic (3.8.9)
-  - TZImagePickerController/Location (3.8.9)
+  - TZImagePickerController (3.8.12):
+    - TZImagePickerController/Basic (= 3.8.12)
+    - TZImagePickerController/Location (= 3.8.12)
+  - TZImagePickerController/Basic (3.8.12)
+  - TZImagePickerController/Location (3.8.12)
 
 DEPENDENCIES:
-  - lottie-ios
   - Masonry
   - Toast-Swift
   - TZImagePickerController
 
 SPEC REPOS:
   trunk:
-    - lottie-ios
     - Masonry
     - Toast-Swift
     - TZImagePickerController
 
 SPEC CHECKSUMS:
-  lottie-ios: 96784afc26ea031d3e2b6cae342a4b8915072489
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   Toast-Swift: 7a03a532afe3a560d4044bc7c237e2864d295173
-  TZImagePickerController: 456f470b5dea97b37226ec7a694994a8663340b2
+  TZImagePickerController: 3751b9b850d00802e9f4f7bd8e1365ee5c4f0990
 
-PODFILE CHECKSUM: e3215236717ab7c4efb014d46d27111beac07ecf
+PODFILE CHECKSUM: 8c261b1195b4eef09e9c2f38a2fbe369228f3f8f
 
 COCOAPODS: 1.16.2

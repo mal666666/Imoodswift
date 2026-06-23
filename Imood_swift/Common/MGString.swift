@@ -93,6 +93,11 @@ enum L10n {
             "zh-Hans": "音乐保存", "zh-Hant": "音樂已儲存", "en": "Music saved", "ja": "音楽を保存しました",
             "ko": "음악이 저장되었습니다", "fr": "Musique enregistree", "de": "Musik gespeichert", "es": "Musica guardada"
         ],
+        "composer_toast_save_failed": [
+            "zh-Hans": "音乐保存失败", "zh-Hant": "音樂儲存失敗", "en": "Failed to save music", "ja": "音楽の保存に失敗しました",
+            "ko": "음악 저장에 실패했습니다", "fr": "Echec de l'enregistrement de la musique",
+            "de": "Musik konnte nicht gespeichert werden", "es": "Error al guardar la musica"
+        ],
         "composer_toast_recorder_init_failed": [
             "zh-Hans": "录音初始化失败", "zh-Hant": "錄音初始化失敗", "en": "Recorder initialization failed",
             "ja": "録音の初期化に失敗しました", "ko": "녹음 초기화에 실패했습니다", "fr": "Echec d'initialisation de l'enregistreur",

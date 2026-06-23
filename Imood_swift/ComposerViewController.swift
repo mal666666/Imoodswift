@@ -13,8 +13,9 @@ import Toast_Swift
 class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
     var musicMixCollectionView: UICollectionView!
-    var player = AVPlayer.init()
+    let player = AVPlayer()
     var timeObserver: Any?
+    var playerItemEndObserver: NSObjectProtocol?
     //4种乐器名字
     let musicalInstrumentsNameArr = ["instrument_drum","instrument_bass","instrument_guitar","instrument_midi"]
     //4种乐器代表的颜色
@@ -54,12 +55,34 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     let rightProgressLab = UILabel()
     //进度条
     let slider = UISlider()
+    private let mainPlayButton = UIButton()
+    private let mainPlayIndicator = UIActivityIndicatorView(style: .large)
+    private let backButton = UIButton()
+    private let saveButton = UIButton()
+    private let recordButton = UIButton()
     //音乐合成
     let compo = Composition()
     //音乐元素数组
     var musicUrlArr: [URL] = [URL.init(fileURLWithPath: ""),URL.init(fileURLWithPath: ""),URL.init(fileURLWithPath: ""),URL.init(fileURLWithPath: "")]
     //音乐元素索引数组
     var musicIndexArr: [Int] = [-1,-1,-1,-1]
+    private var preparedPlaybackKey: String?
+    private var isPlaying = false {
+        didSet {
+            updateMainPlayButtonAppearance()
+        }
+    }
+    private var isMixing = false {
+        didSet {
+            updateMainPlayButtonAppearance()
+            updateInteractionState()
+        }
+    }
+    private var isFinishing = false {
+        didSet {
+            updateInteractionState()
+        }
+    }
     //录音
     lazy var recoder: AVAudioRecorder? = {
         let audioSession: AVAudioSession = AVAudioSession.sharedInstance()
@@ -135,11 +158,13 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     
     deinit {
         clearPlayerObserver()
+        clearPlayerItemEndObserver()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = MGBase.themeBackground
+        ensurePlaybackAudioSession()
         //collectionView
         let layout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = .vertical
@@ -164,55 +189,57 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
             make?.height.offset()(metrics.mixHeight)
         }
         //播放
-        let playBtn = UIButton()
-        musicMixCollectionView.addSubview(playBtn)
-        playBtn.setImage(UIImage.symbol(named: "play.fill", pointSize: 46, weight: .semibold, color: MGBase.themeTextPrimary), for: .normal)
-        playBtn.backgroundColor = MGBase.themePanelAlt.withAlphaComponent(0.55)
-        playBtn.layer.cornerRadius = 12
-        playBtn.addTarget(self, action: #selector(mixAndPlayBtnClick), for: .touchUpInside)
-        playBtn.mas_makeConstraints { (make) in
+        musicMixCollectionView.addSubview(mainPlayButton)
+        mainPlayButton.backgroundColor = MGBase.themePanelAlt.withAlphaComponent(0.55)
+        mainPlayButton.layer.cornerRadius = 12
+        mainPlayButton.addTarget(self, action: #selector(mixAndPlayBtnClick), for: .touchUpInside)
+        mainPlayButton.mas_makeConstraints { (make) in
             make?.width.height()?.offset()(metrics.playButtonSize)
             make?.centerX.equalTo()(musicMixCollectionView)
             make?.top.offset()(metrics.playButtonTop)
         }
+        mainPlayIndicator.hidesWhenStopped = true
+        mainPlayIndicator.color = MGBase.themeTextPrimary
+        mainPlayButton.addSubview(mainPlayIndicator)
+        mainPlayIndicator.mas_makeConstraints { make in
+            make?.centerX.equalTo()(self.mainPlayButton)
+            make?.centerY.equalTo()(self.mainPlayButton)
+        }
         //退出
-        let backBtn = UIButton()
-        self.view.addSubview(backBtn)
-        backBtn.setImage(UIImage.symbol(named: "xmark", pointSize: 18, weight: .bold, color: MGBase.themeTextPrimary), for: .normal)
-        backBtn.backgroundColor = MGBase.themePanelAlt
-        backBtn.layer.cornerRadius = 20
-        backBtn.layer.borderWidth = 1
-        backBtn.layer.borderColor = MGBase.themeAccent.cgColor
-        backBtn.addTarget(self, action: #selector(backBtnClick), for: .touchUpInside)
-        backBtn.mas_makeConstraints { (make) in
+        self.view.addSubview(backButton)
+        backButton.setImage(UIImage.symbol(named: "xmark", pointSize: 18, weight: .bold, color: MGBase.themeTextPrimary), for: .normal)
+        backButton.backgroundColor = MGBase.themePanelAlt
+        backButton.layer.cornerRadius = 20
+        backButton.layer.borderWidth = 1
+        backButton.layer.borderColor = MGBase.themeAccent.cgColor
+        backButton.addTarget(self, action: #selector(backBtnClick), for: .touchUpInside)
+        backButton.mas_makeConstraints { (make) in
             make?.width.height()?.offset()(40)
             make?.left.offset()(self.horizontalInset + (self.isPad ? 24 : 50))
             make?.bottomMargin.offset()(-20)
         }
         //合成音乐
-        let mixBtn = UIButton()
-        self.view.addSubview(mixBtn)
-        mixBtn.setImage(UIImage.symbol(named: "square.and.arrow.down.fill", pointSize: 18, weight: .semibold, color: MGBase.themeTextPrimary), for: .normal)
-        mixBtn.backgroundColor = MGBase.themePanelAlt
-        mixBtn.layer.cornerRadius = 20
-        mixBtn.layer.borderWidth = 1
-        mixBtn.layer.borderColor = MGBase.themeAccent.cgColor
-        mixBtn.addTarget(self, action: #selector(mixBtnClick), for: .touchUpInside)
-        mixBtn.mas_makeConstraints { (make) in
+        self.view.addSubview(saveButton)
+        saveButton.setImage(UIImage.symbol(named: "square.and.arrow.down.fill", pointSize: 18, weight: .semibold, color: MGBase.themeTextPrimary), for: .normal)
+        saveButton.backgroundColor = MGBase.themePanelAlt
+        saveButton.layer.cornerRadius = 20
+        saveButton.layer.borderWidth = 1
+        saveButton.layer.borderColor = MGBase.themeAccent.cgColor
+        saveButton.addTarget(self, action: #selector(mixBtnClick), for: .touchUpInside)
+        saveButton.mas_makeConstraints { (make) in
             make?.width.height()?.offset()(40)
             make?.right.offset()(-(self.horizontalInset + (self.isPad ? 24 : 50)))
             make?.bottomMargin.offset()(-20)
         }
         //录音
-        let recordBtn = UIButton()
-        self.view.addSubview(recordBtn)
-        recordBtn.setImage(UIImage.symbol(named: "mic.fill", pointSize: 20, weight: .semibold, color: MGBase.themeTextPrimary), for: .normal)
-        recordBtn.setImage(UIImage.symbol(named: "stop.fill", pointSize: 20, weight: .bold, color: MGBase.themeAccentWarm), for: .selected)
-        recordBtn.backgroundColor = MGBase.themePanelAlt
-        recordBtn.layer.borderColor = MGBase.themeAccentWarm.cgColor
-        recordBtn.layer.cornerRadius = 25
-        recordBtn.addTarget(self, action: #selector(recordBtnClick(btn:)), for: .touchUpInside)
-        recordBtn.mas_makeConstraints { (make) in
+        self.view.addSubview(recordButton)
+        recordButton.setImage(UIImage.symbol(named: "mic.fill", pointSize: 20, weight: .semibold, color: MGBase.themeTextPrimary), for: .normal)
+        recordButton.setImage(UIImage.symbol(named: "stop.fill", pointSize: 20, weight: .bold, color: MGBase.themeAccentWarm), for: .selected)
+        recordButton.backgroundColor = MGBase.themePanelAlt
+        recordButton.layer.borderColor = MGBase.themeAccentWarm.cgColor
+        recordButton.layer.cornerRadius = 25
+        recordButton.addTarget(self, action: #selector(recordBtnClick(btn:)), for: .touchUpInside)
+        recordButton.mas_makeConstraints { (make) in
             make?.width.height()?.offset()(50)
             make?.centerX.equalTo()(self.view.mas_centerX)
             make?.bottomMargin.offset()(-15)
@@ -247,31 +274,56 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
         self.view.addSubview(slider)
         slider.minimumTrackTintColor = MGBase.themeAccent
         slider.maximumTrackTintColor = MGBase.themePanelAlt
+        slider.isEnabled = false
         slider.mas_makeConstraints { (make) in
             make?.left.offset()(self.horizontalInset + (self.isPad ? 96 : 70))
             make?.right.offset()(-(self.horizontalInset + (self.isPad ? 96 : 70)))
             make?.centerY.equalTo()(leftProgressLab)
         }
+        
+        updateMainPlayButtonAppearance()
+        updateInteractionState()
     }
     
     @objc func mixAndPlayBtnClick(){
-        compo.audioCompositionWithArr(audioUrlArr: musicUrlArr) { [weak self] url in
-            guard let self else { return }
-            guard let url else {
-                self.view.makeToast(L10n.t("composer_toast_select_segments"))
-                return
-            }
-            self.playWithUrl(url: url)
+        if isMixing || isFinishing {
+            return
         }
+        
+        if isPlaying {
+            pausePlayback()
+            return
+        }
+        
+        let assets = selectedAudioURLs()
+        guard !assets.isEmpty else {
+            view.makeToast(L10n.t("composer_toast_select_segments"))
+            return
+        }
+        
+        let playbackKey = self.playbackKey(for: assets)
+        if preparedPlaybackKey == playbackKey {
+            ensurePlaybackAudioSession()
+            if let item = player.currentItem,
+               CMTimeCompare(player.currentTime(), item.duration) >= 0 {
+                player.seek(to: .zero)
+            }
+            startPlayback()
+            return
+        }
+        
+        mixAndPlay(audioURLs: assets, playbackKey: playbackKey)
     }
     
     @objc func backBtnClick(){
-        clearPlayerObserver()
-        if recoder?.isRecording == true {
-            recoder?.stop()
+        if isMixing || isFinishing {
+            return
         }
+        isFinishing = true
+        stopPlaybackAndRecording()
         URL.domainPathClear(url: URL.domainPathWith(name: MGBase.audioName))
         URL.domainPathClear(url: URL.domainPathWith(name: MGBase.recoderName))
+        preparedPlaybackKey = nil
         self.view.makeToast(L10n.t("composer_toast_cancelled"))
         DispatchQueue.main.asyncAfter(deadline: .now()+1) {
             self.dismiss(animated: true)
@@ -279,17 +331,45 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     }
     
     @objc func mixBtnClick(){
-        clearPlayerObserver()
-        if recoder?.isRecording == true {
-            recoder?.stop()
+        if isMixing || isFinishing {
+            return
         }
-        self.view.makeToast(L10n.t("composer_toast_saved"))
-        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-            self.dismiss(animated: true)
+        isFinishing = true
+        stopPlaybackAndRecording()
+        
+        let assets = selectedAudioURLs()
+        guard !assets.isEmpty else {
+            URL.domainPathClear(url: URL.domainPathWith(name: MGBase.audioName))
+            preparedPlaybackKey = nil
+            self.view.makeToast(L10n.t("composer_toast_saved"))
+            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                self.dismiss(animated: true)
+            }
+            return
+        }
+        
+        isMixing = true
+        let playbackKey = self.playbackKey(for: assets)
+        compo.audioCompositionWithArr(audioUrlArr: assets) { [weak self] url in
+            guard let self else { return }
+            self.isMixing = false
+            guard url != nil else {
+                self.isFinishing = false
+                self.view.makeToast(L10n.t("composer_toast_save_failed"))
+                return
+            }
+            self.preparedPlaybackKey = playbackKey
+            self.view.makeToast(L10n.t("composer_toast_saved"))
+            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                self.dismiss(animated: true)
+            }
         }
     }
     
     @objc func recordBtnClick(btn: UIButton){
+        if isMixing || isFinishing {
+            return
+        }
         btn.isSelected = !btn.isSelected
         guard let recoder else {
             btn.isSelected = false
@@ -297,19 +377,23 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
             return
         }
         if btn.isSelected {
+            ensurePlayAndRecordAudioSession()
             btn.layer.borderWidth = 2
             recoder.record()
             MGBase.recoderStartTime = self.player.currentTime()
         }else{
             btn.layer.borderWidth = 0
             recoder.stop()
+            ensurePlaybackAudioSession()
         }
     }
     //播放音乐用url
     @objc func playWithUrl(url:URL){
+        ensurePlaybackAudioSession()
+        clearPlayerItemEndObserver()
+        player.replaceCurrentItem(with: AVPlayerItem(url: url))
         clearPlayerObserver()
-        player = AVPlayer.init(url: url)
-        player.play()
+        registerPlayerItemEndObserver()
         timeObserver = player.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 10), queue: DispatchQueue.main) { [weak self] time in
             guard let self else { return }
             let loadTime = CMTimeGetSeconds(time)
@@ -325,12 +409,152 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
             self.leftProgressLab.text = String.customTimeWithSecond(sec: Float(loadTime))
             self.rightProgressLab.text = String.customTimeWithSecond(sec: Float(totalTime))
         }
+        startPlayback()
     }
     
     private func clearPlayerObserver() {
         if let observer = timeObserver {
             player.removeTimeObserver(observer)
             timeObserver = nil
+        }
+    }
+    
+    private func clearPlayerItemEndObserver() {
+        if let observer = playerItemEndObserver {
+            NotificationCenter.default.removeObserver(observer)
+            playerItemEndObserver = nil
+        }
+    }
+    
+    private func registerPlayerItemEndObserver() {
+        guard let currentItem = player.currentItem else { return }
+        playerItemEndObserver = NotificationCenter.default.addObserver(
+            forName: .AVPlayerItemDidPlayToEndTime,
+            object: currentItem,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self else { return }
+            self.player.seek(to: .zero)
+            self.slider.value = 0
+            self.leftProgressLab.text = "00:00"
+            self.isPlaying = false
+        }
+    }
+    
+    private func startPlayback() {
+        player.play()
+        isPlaying = true
+    }
+    
+    private func pausePlayback() {
+        player.pause()
+        isPlaying = false
+    }
+    
+    private func stopPlaybackAndRecording() {
+        pausePlayback()
+        player.seek(to: .zero)
+        slider.value = 0
+        leftProgressLab.text = "00:00"
+        if let item = player.currentItem {
+            let totalTime = CMTimeGetSeconds(item.duration)
+            rightProgressLab.text = totalTime.isFinite && totalTime > 0
+                ? String.customTimeWithSecond(sec: Float(totalTime))
+                : "00:00"
+        } else {
+            rightProgressLab.text = "00:00"
+        }
+        if recoder?.isRecording == true {
+            recoder?.stop()
+            recordButton.isSelected = false
+            recordButton.layer.borderWidth = 0
+            ensurePlaybackAudioSession()
+        }
+    }
+    
+    private func selectedAudioURLs() -> [URL] {
+        musicUrlArr.filter { $0.path != "/" && URL.fileSize(url: $0) > 0 }
+    }
+    
+    private func playbackKey(for urls: [URL]) -> String {
+        urls.map { $0.lastPathComponent }.joined(separator: "\n")
+    }
+    
+    private func mixAndPlay(audioURLs: [URL], playbackKey: String) {
+        let shouldShowLoading = audioURLs.count > 1
+        if shouldShowLoading {
+            isMixing = true
+        }
+        preparedPlaybackKey = nil
+        
+        if audioURLs.count == 1, let url = audioURLs.first {
+            playWithUrl(url: url)
+            preparedPlaybackKey = playbackKey
+            return
+        }
+        
+        compo.audioCompositionWithArr(audioUrlArr: audioURLs) { [weak self] url in
+            guard let self else { return }
+            if shouldShowLoading {
+                self.isMixing = false
+            }
+            guard let url else {
+                self.view.makeToast(L10n.t("composer_toast_select_segments"))
+                return
+            }
+            self.playWithUrl(url: url)
+            self.preparedPlaybackKey = playbackKey
+        }
+    }
+    
+    private func updateMainPlayButtonAppearance() {
+        if isMixing {
+            mainPlayButton.setImage(nil, for: .normal)
+            mainPlayIndicator.startAnimating()
+            return
+        }
+        
+        mainPlayIndicator.stopAnimating()
+        let symbolName = isPlaying ? "pause.fill" : "play.fill"
+        let pointSize: CGFloat = isPlaying ? 42 : 46
+        let icon = UIImage.symbol(
+            named: symbolName,
+            pointSize: pointSize,
+            weight: .semibold,
+            color: MGBase.themeTextPrimary
+        )
+        mainPlayButton.setImage(icon, for: .normal)
+    }
+    
+    private func updateInteractionState() {
+        let isBusy = isMixing || isFinishing
+        mainPlayButton.isEnabled = !isBusy
+        backButton.isEnabled = !isBusy
+        saveButton.isEnabled = !isBusy
+        recordButton.isEnabled = !isBusy
+        backButton.alpha = isBusy ? 0.55 : 1
+        saveButton.alpha = isBusy ? 0.55 : 1
+        recordButton.alpha = isBusy ? 0.55 : 1
+    }
+    
+    private func ensurePlaybackAudioSession() {
+        do {
+            let session = AVAudioSession.sharedInstance()
+            try session.setCategory(.playback)
+            try session.setActive(true)
+        } catch {
+            print("音频播放会话初始化失败: \(error.localizedDescription)")
+        }
+    }
+    
+    private func ensurePlayAndRecordAudioSession() {
+        do {
+            let session = AVAudioSession.sharedInstance()
+            try session.setCategory(.playAndRecord)
+            try session.overrideOutputAudioPort(.speaker)
+            try session.setActive(true)
+        } catch {
+            print("录音会话初始化失败: \(error.localizedDescription)")
         }
     }
     
@@ -397,6 +621,9 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if isMixing || isFinishing {
+            return
+        }
         if indexPath.section == 0 {
             musicalInstrumentsIndex = indexPath.row
             musicMixCollectionView.reloadData()
@@ -421,11 +648,13 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
             if musicIndexArr[musicalInstrumentsIndex] != indexPath.row {
                 musicIndexArr[musicalInstrumentsIndex] = indexPath.row
                 musicUrlArr[musicalInstrumentsIndex] = url
+                preparedPlaybackKey = nil
                 self.playWithUrl(url: url)
             }else{
                 musicIndexArr[musicalInstrumentsIndex] = -1
                 musicUrlArr[musicalInstrumentsIndex] = URL.init(fileURLWithPath: "")
-                self.player.pause()
+                preparedPlaybackKey = nil
+                self.pausePlayback()
             }
             musicMixCollectionView.reloadData()
         }

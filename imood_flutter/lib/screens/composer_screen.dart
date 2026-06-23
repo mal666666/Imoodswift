@@ -398,7 +398,7 @@ class _ComposerScreenState extends State<ComposerScreen> {
           child: ComposerCell(
             title: L10n.t(MusicCatalog.instrumentKeys[index]),
             subtitle: _selectedPatterns[index] >= 0
-                ? '${_selectedPatterns[index]}'
+                ? '${_selectedPatterns[index] + 1}'
                 : null,
             backgroundColor: AppTheme.instrumentColors[index],
             largeTitle: true,
@@ -423,7 +423,7 @@ class _ComposerScreenState extends State<ComposerScreen> {
           borderRadius: BorderRadius.circular(5),
           onTap: () => _togglePattern(index),
           child: ComposerCell(
-            title: '$index',
+            title: '${index + 1}',
             backgroundColor: color,
             selected: selected,
           ),

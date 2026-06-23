@@ -608,12 +608,12 @@ class ComposerViewController: UIViewController,UICollectionViewDelegate,UICollec
             cell.titleLab.textColor = MGBase.themeTextPrimary
             cell.subTitleLab.isHidden = false
             cell.subTitleLab.textColor = MGBase.themeTextPrimary.withAlphaComponent(0.85)
-            cell.subTitleLab.text = "\(musicIndexArr[indexPath.row])" == "-1" ? "" : "\(musicIndexArr[indexPath.row])"
+            cell.subTitleLab.text = musicIndexArr[indexPath.row] == -1 ? "" : "\(musicIndexArr[indexPath.row] + 1)"
         }else{
             cell.backgroundColor = colorArr[musicalInstrumentsIndex].withAlphaComponent(0.82)
             cell.layer.borderColor = UIColor.white.withAlphaComponent(0.10).cgColor
             cell.layer.borderWidth = 1
-            cell.titleLab.text = String(indexPath.row)
+            cell.titleLab.text = String(indexPath.row + 1)
             cell.titleLab.textColor = MGBase.themeTextPrimary
             cell.subTitleLab.isHidden = true
         }

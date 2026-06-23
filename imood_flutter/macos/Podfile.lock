@@ -1,0 +1,25 @@
+PODS:
+  - ffmpeg_kit_flutter_new (1.0.0):
+    - ffmpeg_kit_flutter_new/full-gpl (= 1.0.0)
+    - FlutterMacOS
+  - ffmpeg_kit_flutter_new/full-gpl (1.0.0):
+    - FlutterMacOS
+  - FlutterMacOS (1.0.0)
+
+DEPENDENCIES:
+  - ffmpeg_kit_flutter_new (from `Flutter/ephemeral/.symlinks/plugins/ffmpeg_kit_flutter_new/macos`)
+  - FlutterMacOS (from `Flutter/ephemeral`)
+
+EXTERNAL SOURCES:
+  ffmpeg_kit_flutter_new:
+    :path: Flutter/ephemeral/.symlinks/plugins/ffmpeg_kit_flutter_new/macos
+  FlutterMacOS:
+    :path: Flutter/ephemeral
+
+SPEC CHECKSUMS:
+  ffmpeg_kit_flutter_new: 4eb1908463948e877ff5c4f2c7bb28f2a5dfd11b
+  FlutterMacOS: d0db08ddef1a9af05a5ec4b724367152bb0500b1
+
+PODFILE CHECKSUM: 346bfb2deb41d4a6ebd6f6799f92188bde2d246f
+
+COCOAPODS: 1.16.2

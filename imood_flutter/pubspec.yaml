@@ -1,0 +1,35 @@
+name: imood_flutter
+description: Imood - 照片幻灯片与音乐合成应用（Flutter 版）
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  image_picker: ^1.2.2
+  video_player: ^2.11.1
+  just_audio: ^0.10.5
+  record: ^6.2.1
+  path_provider: ^2.1.5
+  permission_handler: ^12.0.1
+  gal: ^2.3.2
+  ffmpeg_kit_flutter_new: 4.1.0
+  path: ^1.9.1
+  audio_session: ^0.2.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/audio/pop/
+    - assets/audio/metal/
+    - assets/audio/nostalgia/
+    - assets/audio/electronic/

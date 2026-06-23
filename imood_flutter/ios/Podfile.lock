@@ -1,0 +1,25 @@
+PODS:
+  - ffmpeg_kit_flutter_new (1.0.0):
+    - ffmpeg_kit_flutter_new/full-gpl (= 1.0.0)
+    - Flutter
+  - ffmpeg_kit_flutter_new/full-gpl (1.0.0):
+    - Flutter
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - ffmpeg_kit_flutter_new (from `.symlinks/plugins/ffmpeg_kit_flutter_new/ios`)
+  - Flutter (from `Flutter`)
+
+EXTERNAL SOURCES:
+  ffmpeg_kit_flutter_new:
+    :path: ".symlinks/plugins/ffmpeg_kit_flutter_new/ios"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  ffmpeg_kit_flutter_new: 12426a19f10ac81186c67c6ebc4717f8f4364b7f
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+
+PODFILE CHECKSUM: 352fcf90f17e1862e31388c51809cf5060099073
+
+COCOAPODS: 1.16.2

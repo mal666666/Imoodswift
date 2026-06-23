@@ -1,0 +1,35 @@
+---
+description: Imood Flutter 项目架构、分层职责与维护约定
+globs: imood_flutter/**/*
+alwaysApply: false
+---
+
+# Imood Flutter 架构约定
+
+## 分层（单向依赖）
+- `screens/` + `widgets/` → 表现层，可持有 State，禁止写 FFmpeg/文件路径硬编码
+- `services/` → 音视频合成与会话，无 BuildContext/Widget
+- `models/` + `config/` + `l10n/` → 纯数据/常量，无平台插件
+- `utils/` → 无状态工具函数
+
+## 关键文件职责
+- `HomeScreen`: 选图、时长、合成触发、视频预览、导出
+- `ComposerScreen`: 4×5 选曲、混音试听、录音；保存写 `audio.m4a`
+- `CompositionService`: `writeImagesToVideo` → `mixAudioTracks` → `composeFinalVideo`
+- `MusicCatalog.assetPath(style, instrument, pattern)`: 唯一曲目路径来源
+- `AppConfig`: 视频尺寸、时长、沙盒文件名
+
+## 状态标记
+- `_needMix` (Home): 照片/时长/音乐变更后需重新合成
+- `_selectedPatterns` / `_selectedAssets` (Composer): 4 轨选中，-1 未选
+
+## 维护规则
+- 新 MP3: 放入 `assets/audio/{pop|metal|nostalgia|electronic}/`，更新 `MusicCatalog`，全量重启
+- 改 UI 布局: 优先改 `composer_screen._layoutMetrics` 与 widgets，不动 service
+- Stream/Controller: `dispose` 里 cancel/dispose
+- 播放/录音前: 调用 `AudioService.ensurePlayback()` 或 `ensurePlayAndRecord()`
+
+## Swift 对照
+ViewController→HomeScreen, ComposerViewController→ComposerScreen, Composition→CompositionService, MGBase→AppConfig+AppTheme
+
+详细说明见 `imood_flutter/ARCHITECTURE.md`
